@@ -20,6 +20,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("login"));
         stage.setTitle("Scheduling App");
         stage.setScene(scene);
+        
         stage.show();
     }
 

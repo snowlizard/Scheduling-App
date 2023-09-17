@@ -5,8 +5,8 @@
 package c195.schedulingapp;
 
 import java.io.InputStream;
-import java.util.Locale;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -16,9 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.text.Text;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
 /**
  * FXML Controller class
  *
@@ -26,14 +30,17 @@ import javafx.scene.control.Label;
  */
 public class LoginController implements Initializable {
     
+    @FXML private Text loginError;
     @FXML private Label userLabel;
     @FXML private Label passLabel;
     @FXML private Text zoneLabel;
     @FXML private TextField username;
-    @FXML private TextField password;
+    @FXML private PasswordField password;
     @FXML private Button login;
     @FXML private ChoiceBox<String> language;
     @FXML private Text timeZone;
+    
+    private Connection connect;
     
     private Properties prop = new Properties();
     private String user;
@@ -54,18 +61,19 @@ public class LoginController implements Initializable {
         
         Locale locale = Locale.getDefault();
         
-        if(locale.toString().contains("en")){
-            lang = "english.properties";
-            language.setValue("English");
-        } else {
+        if(locale.toString().contains("fr")){
             lang = "french.properties";
             language.setValue("français");
+        } else {
+            lang = "english.properties";
+            language.setValue("English");
         }
         
+        connect = new Connector().connect();
         setLocale(lang);
     }
     
-    public void changeLocale(ActionEvent e){
+    public void changeLocale(){
         String currentLanguage = language.getValue();
 
         if(currentLanguage.equalsIgnoreCase("English")){
@@ -75,6 +83,33 @@ public class LoginController implements Initializable {
         }
         
         setLocale(lang);
+    }
+    
+    public void login(){
+        Boolean found = false;
+        String uname = username.getText();
+        String pword = password.getText();
+        
+        String query = "SELECT * FROM Users WHERE User_Name = '" +
+                uname + "' AND Password = '" + pword + "';";
+        try{
+            ResultSet set = connect.prepareStatement(query).executeQuery();
+            while(set.next()){
+                if(uname.equals(set.getString("User_Name")) 
+                        && pword.equals(set.getString("Password"))){
+                    found = true;
+                    break;
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        if(found){
+            loginError.setVisible(false);
+        } else{
+            loginError.setVisible(true);
+        }
     }
     
     private void setLocale (String propertyFile){
