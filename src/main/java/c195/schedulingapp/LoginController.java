@@ -35,6 +35,13 @@ public class LoginController implements Initializable {
     @FXML private ChoiceBox<String> language;
     @FXML private Text timeZone;
     
+    private Properties prop = new Properties();
+    private String user;
+    private String pass;
+    private String log;
+    private String zone;
+    private String lang;
+    
     private static ObservableList<String> languages = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
@@ -42,33 +49,46 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         languages.add("English");
-        languages.add("French");
+        languages.add("français");
         language.setItems(languages);
-        language.setValue("English");
+        
+        Locale locale = Locale.getDefault();
+        
+        if(locale.toString().contains("en")){
+            lang = "english.properties";
+            language.setValue("English");
+        } else {
+            lang = "french.properties";
+            language.setValue("français");
+        }
+        
+        setLocale(lang);
     }
     
     public void changeLocale(ActionEvent e){
         String currentLanguage = language.getValue();
-        Properties prop = new Properties();
-        InputStream stream;
-        String locale;
-        
+
         if(currentLanguage.equalsIgnoreCase("English")){
-            locale = "english.properties";
-        } else{
-            locale = "french.properties";
+            lang = "english.properties";
+        } else {
+            lang = "french.properties";
         }
         
+        setLocale(lang);
+    }
+    
+    private void setLocale (String propertyFile){
+        InputStream stream;
+        
         try{
-            System.out.println(locale);
-            stream = getClass().getResourceAsStream(locale);
+            stream = getClass().getResourceAsStream(propertyFile);
             
             prop.load(stream);
             
-            String user   = prop.getProperty("username");
-            String pass   = prop.getProperty("password");
-            String log    = prop.getProperty("login");
-            String zone   = prop.getProperty("timezone");
+            user   = prop.getProperty("username");
+            pass   = prop.getProperty("password");
+            log    = prop.getProperty("login");
+            zone   = prop.getProperty("timezone");
             
             userLabel.setText(user);
             passLabel.setText(pass);
@@ -79,5 +99,4 @@ public class LoginController implements Initializable {
             System.out.println(error);
         }
     }
-    
 }
