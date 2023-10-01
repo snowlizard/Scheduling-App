@@ -5,6 +5,10 @@
 package c195.schedulingapp;
 
 import java.io.InputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.sql.Timestamp;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Properties;
@@ -43,10 +47,6 @@ public class LoginController implements Initializable {
     private Connection connect;
     
     private Properties prop = new Properties();
-    private String user;
-    private String pass;
-    private String log;
-    private String zone;
     private String lang;
     
     private static ObservableList<String> languages = FXCollections.observableArrayList();
@@ -85,7 +85,7 @@ public class LoginController implements Initializable {
         setLocale(lang);
     }
     
-    public void login(){
+    public void login(){       
         Boolean found = false;
         String uname = username.getText();
         String pword = password.getText();
@@ -93,6 +93,11 @@ public class LoginController implements Initializable {
         String query = "SELECT * FROM Users WHERE User_Name = '" +
                 uname + "' AND Password = '" + pword + "';";
         try{
+            File file = new File("activities.txt");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+   
             ResultSet set = connect.prepareStatement(query).executeQuery();
             while(set.next()){
                 if(uname.equals(set.getString("User_Name")) 
@@ -101,6 +106,14 @@ public class LoginController implements Initializable {
                     break;
                 }
             }
+            
+            // Write to activities file
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            FileWriter fwriter = new FileWriter(file, true);
+            fwriter.write("Username: " + uname + " Date: " + timestamp 
+                    + " Attempt successful: " + found.toString() + "\n");
+            fwriter.close();
+            
         }catch(Exception e){
             System.out.println(e);
         }
@@ -120,15 +133,17 @@ public class LoginController implements Initializable {
             
             prop.load(stream);
             
-            user   = prop.getProperty("username");
-            pass   = prop.getProperty("password");
-            log    = prop.getProperty("login");
-            zone   = prop.getProperty("timezone");
+            String user   = prop.getProperty("username");
+            String pass   = prop.getProperty("password");
+            String log    = prop.getProperty("login");
+            String zone   = prop.getProperty("timezone");
+            String errorM = prop.getProperty("incorrect");
             
             userLabel.setText(user);
             passLabel.setText(pass);
             login.setText(log);
             zoneLabel.setText(zone);
+            loginError.setText(errorM);
             
         } catch (Exception error){
             System.out.println(error);
