@@ -4,10 +4,12 @@
  */
 package c195.schedulingapp;
 
+import c195.schedulingapp.HelperFunctions;
+
 import java.io.InputStream;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.net.URL;
 import java.util.Locale;
@@ -85,7 +87,7 @@ public class LoginController implements Initializable {
         setLocale(lang);
     }
     
-    public void login(){       
+    public void login(ActionEvent event) throws IOException {
         Boolean found = false;
         String uname = username.getText();
         String pword = password.getText();
@@ -120,6 +122,7 @@ public class LoginController implements Initializable {
         
         if(found){
             loginError.setVisible(false);
+            new HelperFunctions().setScene(event, "/fxml/home");
         } else{
             loginError.setVisible(true);
         }

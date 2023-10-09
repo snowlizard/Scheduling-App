@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="879.0" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="appointments" layoutX="15.0" layoutY="65.0" prefHeight="453.0" prefWidth="846.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <RadioButton fx:id="all" layoutX="24.0" layoutY="39.0" mnemonicParsing="false" text="All" />
+      <RadioButton fx:id="month" layoutX="78.0" layoutY="39.0" mnemonicParsing="false" text="Month" />
+      <RadioButton fx:id="week" layoutX="149.0" layoutY="39.0" mnemonicParsing="false" text="Week" />
+      <Button fx:id="add" layoutX="817.0" layoutY="36.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="modify" layoutX="748.0" layoutY="36.0" mnemonicParsing="false" text="Modify" />
+      <Button fx:id="delete" layoutX="680.0" layoutY="36.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="back" layoutX="622.0" layoutY="36.0" mnemonicParsing="false" text="Back" />
+   </children>
+</AnchorPane>
