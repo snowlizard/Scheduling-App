@@ -16,11 +16,12 @@ import javafx.scene.Parent;
  * @author mrjack
  */
 public class HelperFunctions {
-    public void setScene(ActionEvent event, String nextScene) throws IOException {
+    public void setScene(ActionEvent event, String nextScene, String title) throws IOException {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         Scene scene = new Scene(loadFXML(nextScene));
         
+        stage.setTitle(title);
         stage.setScene(scene);
     }
 

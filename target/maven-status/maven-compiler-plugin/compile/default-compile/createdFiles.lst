@@ -1,6 +1,7 @@
 c195/schedulingapp/HomeController.class
 c195/schedulingapp/Connector.class
+c195/schedulingapp/App.class
+c195/schedulingapp/CustomersController.class
 module-info.class
 c195/schedulingapp/HelperFunctions.class
 c195/schedulingapp/LoginController.class
-c195/schedulingapp/App.class

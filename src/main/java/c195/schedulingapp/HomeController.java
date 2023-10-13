@@ -26,6 +26,10 @@ public class HomeController implements Initializable {
     }
     
     public void logout(ActionEvent event) throws IOException {
-        new HelperFunctions().setScene(event, "/fxml/login");
+        new HelperFunctions().setScene(event, "/fxml/login", "Scheduling App");
+    }
+    
+    public void customers(ActionEvent event) throws IOException {
+        new HelperFunctions().setScene(event, "/fxml/customers", "Customers");
     }
 }

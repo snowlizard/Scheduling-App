@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="879.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="c195.schedulingapp.CustomersController">
+    <children>
+       <TableView fx:id="customers" layoutX="10.0" layoutY="55.0" prefHeight="470.0" prefWidth="861.0">
+         <columns>
+           <TableColumn prefWidth="75.0" text="C1" />
+           <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+       </TableView>
+       <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />
+       <Button fx:id="add" layoutX="827.0" layoutY="25.0" mnemonicParsing="false" text="Add" />
+       <Button fx:id="modify" layoutX="758.0" layoutY="25.0" mnemonicParsing="false" text="Modify" />
+       <Button fx:id="delete" layoutX="690.0" layoutY="25.0" mnemonicParsing="false" text="Delete" />
+    </children>
+</AnchorPane>

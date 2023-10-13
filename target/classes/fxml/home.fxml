@@ -15,7 +15,7 @@
           </font>
        </Label>
        <Button fx:id="appointments" layoutX="110.0" layoutY="183.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Appointments" />
-       <Button fx:id="customers" layoutX="110.0" layoutY="234.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Customers" />
+       <Button fx:id="customers" onAction="#customers" layoutX="110.0" layoutY="234.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Customers" />
        <Button fx:id="reports" layoutX="110.0" layoutY="288.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Reports" />
        <Button fx:id="logout" onAction="#logout" layoutX="110.0" layoutY="502.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Logout" />
        <Label fx:id="appt_msg" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0" layoutY="341.0" prefHeight="65.0" prefWidth="237.0" text="You have no scheduled appointments in the next 15 minutes" textAlignment="CENTER" wrapText="true" />

@@ -122,7 +122,7 @@ public class LoginController implements Initializable {
         
         if(found){
             loginError.setVisible(false);
-            new HelperFunctions().setScene(event, "/fxml/home");
+            new HelperFunctions().setScene(event, "/fxml/home", "Home");
         } else{
             loginError.setVisible(true);
         }
