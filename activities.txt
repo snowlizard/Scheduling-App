@@ -17,3 +17,15 @@ Username: cday Date: 2023-10-12 20:05:31.045 Attempt successful: true
 Username: cday Date: 2023-10-12 20:06:24.112 Attempt successful: false
 Username: cday Date: 2023-10-12 20:06:32.748 Attempt successful: true
 Username: cday Date: 2023-10-12 21:00:45.439 Attempt successful: true
+Username: cday Date: 2023-10-14 14:04:20.27 Attempt successful: true
+Username: cday Date: 2023-10-14 14:08:44.875 Attempt successful: true
+Username: cday Date: 2023-10-14 14:12:38.134 Attempt successful: true
+Username: cday Date: 2023-10-14 14:14:16.254 Attempt successful: true
+Username: cday Date: 2023-10-14 14:26:19.781 Attempt successful: true
+Username: cday Date: 2023-10-14 14:28:09.501 Attempt successful: true
+Username: cday Date: 2023-10-14 14:28:20.458 Attempt successful: false
+Username: idi Date: 2023-10-14 14:29:29.018 Attempt successful: false
+Username: idi Date: 2023-10-14 14:29:29.778 Attempt successful: false
+Username: idi Date: 2023-10-14 14:29:30.207 Attempt successful: false
+Username: cday Date: 2023-10-14 14:29:39.152 Attempt successful: false
+Username: cday Date: 2023-10-14 14:29:43.82 Attempt successful: true

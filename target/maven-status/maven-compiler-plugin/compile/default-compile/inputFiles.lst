@@ -1,7 +1,7 @@
-/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/HomeController.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/HelperFunctions.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/HomeController.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/Connector.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/LoginController.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/CustomersController.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/module-info.java
-/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/CustomersController.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/App.java
-/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/HelperFunctions.java
-/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/LoginController.java
-/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Connector.java

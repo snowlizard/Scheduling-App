@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package c195.schedulingapp;
+package c195.schedulingapp.Controllers;
 
+import c195.schedulingapp.Models.HelperFunctions;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
