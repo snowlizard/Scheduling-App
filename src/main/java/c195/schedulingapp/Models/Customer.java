@@ -72,7 +72,7 @@ public class Customer {
         return this.last_updated_by;
     }
     
-    public int getDivision(){
+    public int getDivisionId(){
         return this.division_id;
     }
     
@@ -113,7 +113,7 @@ public class Customer {
         this.last_updated_by = lastUpdatedBy;
     }
     
-    public void setDivision(int division_id){
+    public void setDivisionId(int division_id){
         this.division_id = division_id;
     }
 }

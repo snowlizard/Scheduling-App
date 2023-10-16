@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
-import javafx.collections.ObservableList;
 
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -45,20 +44,23 @@ public class CustomersController implements Initializable {
         Connector connector = new Connector();
         customers.setItems(connector.getCustomers());
         
-        id.setCellValueFactory(new PropertyValueFactory<Customer, Integer> ("id"));
-        name.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
-        address.setCellValueFactory(new PropertyValueFactory<Customer, String>("address"));
-        postal_code.setCellValueFactory(new PropertyValueFactory<Customer, String>("postal_code"));
-        phone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
-        create_date.setCellValueFactory(new PropertyValueFactory<Customer, String>("create_date"));
-        created_by.setCellValueFactory(new PropertyValueFactory<Customer, String>("created_by"));
-        last_update.setCellValueFactory(new PropertyValueFactory<Customer, String>("last_update"));
-        last_updated_by.setCellValueFactory(new PropertyValueFactory<Customer, String>("last_updated_by"));
-        division_id.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("division_id"));
-        
+        id.setCellValueFactory(new PropertyValueFactory<> ("id"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postal_code.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        create_date.setCellValueFactory(new PropertyValueFactory<>("createDate"));
+        created_by.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        last_update.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
+        last_updated_by.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
+        division_id.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }    
     
     public void previousScene (ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/home", "Home");
+    }
+    
+    public void editCustomer(ActionEvent event) throws IOException {
+        new HelperFunctions().setModal(event, "/fxml/customerForm");
     }
 }

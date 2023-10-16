@@ -5,7 +5,6 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.HelperFunctions;
-import c195.schedulingapp.Models.HelperFunctions;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,11 +18,10 @@ import javafx.event.ActionEvent;
  * @author mrjack
  */
 public class HomeController implements Initializable {
-    private Scene scene;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        System.out.println("Hi home.");
+        // Do stuff here
     }
     
     public void logout(ActionEvent event) throws IOException {

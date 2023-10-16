@@ -8,5 +8,6 @@ module-info.class
 c195/schedulingapp/Models/HelperFunctions.class
 c195/schedulingapp/Controllers/LoginController.class
 c195/schedulingapp/Models/Customer.class
+c195/schedulingapp/Controllers/CustomerFormController.class
 c195/schedulingapp/Models/FirstLevelDivision.class
 c195/schedulingapp/Controllers/CustomersController.class

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.stage.Modality;
 /**
  *
  * @author mrjack
@@ -24,6 +25,16 @@ public class HelperFunctions {
         
         stage.setTitle(title);
         stage.setScene(scene);
+    }
+    
+    
+    public void setModal(ActionEvent event, String modal) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(loadFXML(modal));
+        
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
         String pword = password.getText();
         
         try{
-            File file = new File("activities.txt");
+            File file = new File("login_activity.txt");
             if(!file.exists()){
                 file.createNewFile();
             }
