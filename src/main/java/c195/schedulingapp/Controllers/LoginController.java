@@ -27,9 +27,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.text.Text;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
 /**
  * FXML Controller class
  *
@@ -47,7 +44,7 @@ public class LoginController implements Initializable {
     @FXML private ChoiceBox<String> language;
     @FXML private Text timeZone;
     
-    private Connection connect;
+    private Connector connect;
     
     private Properties prop = new Properties();
     private String lang;
@@ -72,7 +69,7 @@ public class LoginController implements Initializable {
             language.setValue("English");
         }
         
-        connect = new Connector().connect();
+        connect = new Connector();
         setLocale(lang);
     }
     
@@ -93,22 +90,13 @@ public class LoginController implements Initializable {
         String uname = username.getText();
         String pword = password.getText();
         
-        String query = "SELECT * FROM Users WHERE User_Name = '" +
-                uname + "' AND Password = '" + pword + "';";
         try{
             File file = new File("activities.txt");
             if(!file.exists()){
                 file.createNewFile();
             }
-   
-            ResultSet set = connect.prepareStatement(query).executeQuery();
-            while(set.next()){
-                if(uname.equals(set.getString("User_Name")) 
-                        && pword.equals(set.getString("Password"))){
-                    found = true;
-                    break;
-                }
-            }
+            
+            found = connect.validLogin(uname, pword);
             
             // Write to activities file
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
