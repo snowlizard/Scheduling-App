@@ -10,8 +10,16 @@
     <children>
         <TableView fx:id="customers" layoutX="10.0" layoutY="55.0" prefHeight="470.0" prefWidth="861.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn prefWidth="75.0" fx:id="id" text="ID" />
+                <TableColumn prefWidth="75.0" fx:id="name" text="Name" />
+                <TableColumn prefWidth="75.0" fx:id="address" text="Address" />
+                <TableColumn prefWidth="75.0" fx:id="postal_code" text="Postal Code" />
+                <TableColumn prefWidth="75.0" fx:id="phone" text="Phone" />
+                <TableColumn prefWidth="75.0" fx:id="create_date" text="Create Date" />
+                <TableColumn prefWidth="75.0" fx:id="created_by" text="Created By" />
+                <TableColumn prefWidth="75.0" fx:id="last_update" text="Last Update" />
+                <TableColumn prefWidth="75.0" fx:id="last_updated_by" text="Last Updated By" />
+                <TableColumn prefWidth="75.0" fx:id="division_id" text="Division ID" />
             </columns>
         </TableView>
         <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />

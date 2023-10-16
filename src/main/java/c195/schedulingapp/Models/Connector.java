@@ -4,8 +4,6 @@
  */
 package c195.schedulingapp.Models;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -76,6 +74,11 @@ public class Connector {
     }
     
     public ObservableList<Customer> getCustomers(){
+        try{
+            return this.customers;
+        }catch(Exception e){
+            System.out.print(e);
+        }
         return this.customers;
     }
 }
