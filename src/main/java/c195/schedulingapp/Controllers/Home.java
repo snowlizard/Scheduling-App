@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 
 /**
@@ -17,7 +16,7 @@ import javafx.event.ActionEvent;
  *
  * @author mrjack
  */
-public class HomeController implements Initializable {
+public class Home implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb){

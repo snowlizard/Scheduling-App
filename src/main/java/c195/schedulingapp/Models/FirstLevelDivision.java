@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package c195.schedulingapp.Models;
-
-import java.time.LocalDateTime;
-
 /**
  *
  * @author mrjack
@@ -13,14 +10,14 @@ import java.time.LocalDateTime;
 public class FirstLevelDivision {
     private int id;
     private String division;
-    private LocalDateTime create_date;
+    private String create_date;
     private String created_by;
-    private LocalDateTime last_update;
+    private String last_update;
     private String last_updated_by;
     private int country_id;
     
-    public FirstLevelDivision(int id, String division, LocalDateTime create_date,
-        String created_by, LocalDateTime last_update, String last_updated_by,int country_id){
+    public FirstLevelDivision(int id, String division, String create_date,
+        String created_by, String last_update, String last_updated_by,int country_id){
         this.id             = id;
         this.division         = division;
         this.create_date     = create_date;
@@ -43,7 +40,7 @@ public class FirstLevelDivision {
         return this.country_id;
     }
     
-    public LocalDateTime getCreateDate(){
+    public String getCreateDate(){
         return this.create_date;
     }
     
@@ -51,7 +48,7 @@ public class FirstLevelDivision {
         return this.created_by;
     }
     
-    public LocalDateTime getLastUpdate(){
+    public String getLastUpdate(){
         return this.last_update;
     }
     
@@ -72,7 +69,7 @@ public class FirstLevelDivision {
         this.country_id = countryId;
     }
     
-    public void setCreateDate(LocalDateTime createDate){
+    public void setCreateDate(String createDate){
         this.create_date = createDate;
     }
     
@@ -80,7 +77,7 @@ public class FirstLevelDivision {
         this.created_by = createdBy;
     }
     
-    public void setLastUpdate(LocalDateTime lastUpdate){
+    public void setLastUpdate(String lastUpdate){
         this.last_update = lastUpdate;
     }
     

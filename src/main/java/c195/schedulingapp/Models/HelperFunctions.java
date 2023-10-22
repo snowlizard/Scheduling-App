@@ -28,16 +28,16 @@ public class HelperFunctions {
     }
     
     
-    public void setModal(ActionEvent event, String modal) throws IOException {
+    public void setModal(String modal) throws IOException {
         Stage stage = new Stage();
-        Scene scene = new Scene(loadFXML(modal));
+        Scene scene = new Scene(loadFXML("/fxml/customerForm"));
         
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
     }
-
-    private static Parent loadFXML(String fxml) throws IOException {
+    
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }

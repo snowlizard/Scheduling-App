@@ -8,15 +8,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import c195.schedulingapp.Singletons.CustomersList;
+import c195.schedulingapp.Singletons.DivisionsList;
+
 /**
  *
  * @author mrjack
  */
 public class Connector {
     private Connection connector;
-    private ObservableList<Customer> customers = FXCollections.observableArrayList();
+    CustomersList customers = CustomersList.getInstance();
+    DivisionsList divisions = DivisionsList.getInstance();
     
     public Connector(){
         try{
@@ -25,6 +27,7 @@ public class Connector {
                     "jdbc:mysql://localhost:3306/WGU",
                     "jgon", "Password@1");
             this.initCustomers();
+            this.initDivisons();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -57,7 +60,7 @@ public class Connector {
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
             while(set.next()){
-                customers.add(new Customer(set.getInt("Customer_ID"), 
+                customers.addCustomer(new Customer(set.getInt("Customer_ID"), 
                         set.getString("Customer_name"),
                         set.getString("Address"), 
                         set.getString("Postal_Code"),
@@ -73,12 +76,22 @@ public class Connector {
         }
     }
     
-    public ObservableList<Customer> getCustomers(){
+    private void initDivisons(){
+        String query = "SELECT * FROM `First-Level Divisions`";
+        
         try{
-            return this.customers;
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                divisions.addDivision(new FirstLevelDivision(set.getInt("Division_ID"), 
+                        set.getString("Division"),
+                        set.getString("Create_Date"),
+                        set.getString("Created_By"), 
+                        set.getString("Last_Update"),
+                        set.getString("Last_Updated_By"), 
+                        set.getInt("Country_ID")));
+            }
         }catch(Exception e){
-            System.out.print(e);
+            System.out.println(e + " Error");
         }
-        return this.customers;
     }
 }

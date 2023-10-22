@@ -32,7 +32,7 @@ import javafx.scene.text.Text;
  *
  * @author mrjack
  */
-public class LoginController implements Initializable {
+public class Login implements Initializable {
     
     @FXML private Text loginError;
     @FXML private Label userLabel;
