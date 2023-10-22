@@ -6,7 +6,6 @@ package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
-import c195.schedulingapp.Singletons.CurrentCustomer;
 import c195.schedulingapp.Singletons.CustomersList;
 import java.io.IOException;
 import java.net.URL;
@@ -38,8 +37,9 @@ public class Customers implements Initializable {
     @FXML private TableColumn<Customer, String> last_updated_by;
     @FXML private TableColumn<Customer, Integer> division_id;
 
-    CurrentCustomer currentCustomer = CurrentCustomer.getInstance();
-    ObservableList<Customer> customersList = CustomersList.getInstance().getCustomers();
+    CustomersList customerInstance = CustomersList.getInstance();
+    ObservableList<Customer> customersList = customerInstance.getCustomers();
+    Customer currentCustomer = customerInstance.getCurrentCustomer();
     /**
      * Initializes the controller class.
      */
@@ -66,13 +66,20 @@ public class Customers implements Initializable {
     public void editCustomer() throws IOException {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
-            currentCustomer.setCustomer(customer);
+            customerInstance.setCurrentCustomer(customer);
             new HelperFunctions().setModal("/fxml/customerForm");
         }
     }
     
     public void addCustomer() throws IOException{
-        currentCustomer.setCustomer(null);
+        customerInstance.setCurrentCustomer(null);
         new HelperFunctions().setModal("/fxml/customerForm");
+    }
+    
+    public void deleteCustomer() {
+        Customer customer = customers.getSelectionModel().getSelectedItem();
+        if(customer != null){
+            customerInstance.removeCustomer(customer);
+        }
     }
 }

@@ -1,7 +1,6 @@
 c195/schedulingapp/Models/Appointment.class
 c195/schedulingapp/Models/Connector.class
 c195/schedulingapp/App.class
-c195/schedulingapp/Singletons/CurrentCustomer.class
 c195/schedulingapp/Controllers/Login.class
 c195/schedulingapp/Singletons/DivisionsList.class
 c195/schedulingapp/Models/User.class

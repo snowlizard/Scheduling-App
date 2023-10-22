@@ -25,6 +25,6 @@
         <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />
         <Button onAction="#addCustomer"  fx:id="add" layoutX="827.0" layoutY="25.0" mnemonicParsing="false" text="Add" />
         <Button onAction="#editCustomer" fx:id="modify" layoutX="758.0" layoutY="25.0" mnemonicParsing="false" text="Modify" />
-        <Button fx:id="delete" layoutX="690.0" layoutY="25.0" mnemonicParsing="false" text="Delete" />
+        <Button onAction="#deleteCustomer" fx:id="delete" layoutX="690.0" layoutY="25.0" mnemonicParsing="false" text="Delete" />
     </children>
 </AnchorPane>

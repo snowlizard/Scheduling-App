@@ -44,6 +44,7 @@ public class Connector {
                 if(userName.equals(set.getString("User_Name")) 
                         && password.equals(set.getString("Password"))){
                     found = true;
+                    customers.setLoggedInUser(userName);
                     break;
                 }
             }
@@ -55,6 +56,7 @@ public class Connector {
     }
     
     private void initCustomers(){
+        customers.resetCustomers();
         String query = "SELECT * FROM Customers";
         
         try{
@@ -77,6 +79,7 @@ public class Connector {
     }
     
     private void initDivisons(){
+        divisions.resetDivisions();
         String query = "SELECT * FROM `First-Level Divisions`";
         
         try{

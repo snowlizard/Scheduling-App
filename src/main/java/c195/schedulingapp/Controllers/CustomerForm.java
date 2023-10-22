@@ -6,8 +6,11 @@ package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.FirstLevelDivision;
-import c195.schedulingapp.Singletons.CurrentCustomer;
+import c195.schedulingapp.Singletons.CustomersList;
 import c195.schedulingapp.Singletons.DivisionsList;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -33,12 +36,14 @@ public class CustomerForm implements Initializable{
     @FXML private TextField phone;
     @FXML private ChoiceBox<String> divisionId;
     
-    CurrentCustomer currentCustomer = CurrentCustomer.getInstance();
+    CustomersList custInstance = CustomersList.getInstance();
+    ObservableList<Customer> customerList = custInstance.getCustomers();
+    Customer customer = custInstance.getCurrentCustomer();
+    
     DivisionsList divisionList = DivisionsList.getInstance();
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        Customer customer = currentCustomer.getCustomer();
         ObservableList<String> choices = FXCollections.observableArrayList();
         ObservableList<FirstLevelDivision> divisions = divisionList.getDivisions();
         
@@ -51,18 +56,53 @@ public class CustomerForm implements Initializable{
         
         if(customer != null){
             id.setText(Integer.toString(customer.getId()));
-            id.setDisable(true);
             name.setText(customer.getName());
             address.setText(customer.getAddress());
             postalCode.setText(customer.getPostalCode());
             phone.setText(customer.getPhone());
-            divisionId.setValue(divisionList.getDivisionById(customer.getDivisionId()));
+            divisionId.setValue(divisionList.getDivisionById(customer.getDivisionId()).getDivision());
         }
+        id.setDisable(true);
     }
     
     public void onCancel(ActionEvent event){ 
         Node source = (Node) event.getSource();
         Stage win = (Stage) source.getScene().getWindow();
+        
+        win.close();
+    }
+    
+    public void onSave(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage win = (Stage) source.getScene().getWindow();
+        
+        if(customer != null){
+            int index = customerList.indexOf(customer);
+
+            customer.setName(name.getText());
+            customer.setAddress(address.getText());
+            customer.setPostalCode(postalCode.getText());
+            customer.setPhone(phone.getText());
+            customer.setDivisionId(index);
+
+            customerList.set(index, customer);
+        } else {
+            int customerId = customerList.size();
+            int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
+            
+            Customer newCustomer = new Customer(customerId,
+                       name.getText(), 
+                    address.getText(), 
+                 postalCode.getText(),
+                      phone.getText(), 
+                 Instant.now().toString(), 
+                  custInstance.getLoggedInUser(),
+                 Instant.now().toString(), 
+              custInstance.getLoggedInUser(), 
+                 divId);
+            
+            customerList.add(newCustomer);
+        }
         
         win.close();
     }

@@ -15,6 +15,8 @@ public class CustomersList {
     private static final CustomersList instance = new CustomersList();
     
     private ObservableList<Customer> customers = FXCollections.observableArrayList();
+    private Customer currentCustomer;
+    private String loggedInUser;
     
     private CustomersList(){}
     
@@ -26,7 +28,42 @@ public class CustomersList {
         return customers;
     }
     
+    public void resetCustomers(){
+        this.customers = FXCollections.observableArrayList();
+    }
+    
     public void addCustomer(Customer cust){
         this.customers.add(cust);
+    }
+    
+    public void removeCustomer(Customer cust){
+        this.customers.remove(cust);
+    }
+    
+    public Customer getCustomer(int id){
+        Customer p = null;
+        for(Customer cust: customers){
+            if(cust.getId() == id){
+                p = cust;
+            }
+        }
+        
+        return p;
+    }
+    
+    public Customer getCurrentCustomer(){
+        return this.currentCustomer;
+    }
+    
+    public void setCurrentCustomer(Customer cust){
+        currentCustomer = cust;
+    }
+    
+    public String getLoggedInUser(){
+        return this.loggedInUser;
+    }
+    
+    public void setLoggedInUser(String user){
+        loggedInUser = user;
     }
 }

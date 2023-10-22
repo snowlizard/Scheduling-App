@@ -18,7 +18,7 @@ public class DivisionsList {
     private ObservableList<FirstLevelDivision> divisions = FXCollections.observableArrayList();
     
     private DivisionsList(){}
-    private String divisionName;
+    private FirstLevelDivision division;
     
     public static DivisionsList getInstance(){
         return instance;
@@ -28,17 +28,31 @@ public class DivisionsList {
         return divisions;
     }
     
+    public void resetDivisions(){
+        this.divisions = FXCollections.observableArrayList();
+    }
+    
     public void addDivision(FirstLevelDivision division){
         this.divisions.add(division);
     }
     
-    public String getDivisionById(int id){
+    public FirstLevelDivision getDivisionById(int id){
         divisions.forEach((div)->{
             if(div.getId() == id){
-                divisionName = div.getDivision();
+                division = div;
             }
         });
         
-        return divisionName;
+        return division;
+    }
+
+    public FirstLevelDivision getDivisionByName(String name){
+        divisions.forEach((div)->{
+            if(div.getDivision().equals(name)){
+                division = div;
+            }
+        });
+        
+        return division;
     }
 }

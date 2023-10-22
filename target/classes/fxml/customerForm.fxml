@@ -17,7 +17,7 @@
       <TextField fx:id="phone" layoutX="210.0" layoutY="306.0" prefHeight="24.0" prefWidth="149.0" />
       <ChoiceBox fx:id="divisionId" layoutX="209.0" layoutY="353.0" prefWidth="150.0" />
       <Button onAction="#onCancel" layoutX="79.0" layoutY="397.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="122.0" text="Cancel" />
-      <Button layoutX="217.0" layoutY="397.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="122.0" text="Save" />
+      <Button onAction="#onSave" layoutX="217.0" layoutY="397.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="122.0" text="Save" />
       <Label layoutX="84.0" layoutY="124.0" prefHeight="16.0" prefWidth="106.0" text="ID" />
       <Label layoutX="79.0" layoutY="171.0" prefHeight="16.0" prefWidth="106.0" text="Name" />
       <Label layoutX="79.0" layoutY="211.0" prefHeight="16.0" prefWidth="106.0" text="Address" />
