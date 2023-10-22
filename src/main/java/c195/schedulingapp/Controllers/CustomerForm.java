@@ -9,13 +9,14 @@ import c195.schedulingapp.Models.FirstLevelDivision;
 import c195.schedulingapp.Singletons.CustomersList;
 import c195.schedulingapp.Singletons.DivisionsList;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.Instant;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -60,7 +61,8 @@ public class CustomerForm implements Initializable{
             address.setText(customer.getAddress());
             postalCode.setText(customer.getPostalCode());
             phone.setText(customer.getPhone());
-            divisionId.setValue(divisionList.getDivisionById(customer.getDivisionId()).getDivision());
+            divisionId.setValue(divisionList.getDivisionById(
+                    customer.getDivisionId()).getDivision());
         }
         id.setDisable(true);
     }
@@ -75,6 +77,8 @@ public class CustomerForm implements Initializable{
     public void onSave(ActionEvent event){
         Node source = (Node) event.getSource();
         Stage win = (Stage) source.getScene().getWindow();
+        String now = LocalDateTime.now().format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         
         if(customer != null){
             int index = customerList.indexOf(customer);
@@ -83,6 +87,8 @@ public class CustomerForm implements Initializable{
             customer.setAddress(address.getText());
             customer.setPostalCode(postalCode.getText());
             customer.setPhone(phone.getText());
+            customer.setLastUpdate(now);
+            customer.setLastUpdatedBy(custInstance.getLoggedInUser());
             customer.setDivisionId(index);
 
             customerList.set(index, customer);
@@ -95,9 +101,9 @@ public class CustomerForm implements Initializable{
                     address.getText(), 
                  postalCode.getText(),
                       phone.getText(), 
-                 Instant.now().toString(), 
+                 now, 
                   custInstance.getLoggedInUser(),
-                 Instant.now().toString(), 
+                 now, 
               custInstance.getLoggedInUser(), 
                  divId);
             

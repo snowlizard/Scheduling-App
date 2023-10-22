@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.collections.ObservableList;
 
 import javafx.scene.control.TableView;
@@ -68,6 +71,11 @@ public class Customers implements Initializable {
         if(customer != null){
             customerInstance.setCurrentCustomer(customer);
             new HelperFunctions().setModal("/fxml/customerForm");
+        }else{
+            Alert dialog = new Alert(AlertType.ERROR, 
+                "Select a column to edit a customer.",
+                ButtonType.OK);
+            dialog.showAndWait();
         }
     }
     
@@ -79,7 +87,19 @@ public class Customers implements Initializable {
     public void deleteCustomer() {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
-            customerInstance.removeCustomer(customer);
+            Alert confirm = new Alert(AlertType.CONFIRMATION,
+                "Are you sure you want to delete this customer?",
+                   ButtonType.YES, ButtonType.NO);
+            confirm.showAndWait();
+            
+            if(confirm.getResult() == ButtonType.YES){
+                customerInstance.removeCustomer(customer);
+            }
+        }else{
+            Alert dialog = new Alert(AlertType.ERROR, 
+                "Select a column to delete a customer.",
+                ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 }
