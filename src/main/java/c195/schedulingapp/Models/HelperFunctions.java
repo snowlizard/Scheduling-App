@@ -5,7 +5,7 @@
 package c195.schedulingapp.Models;
 
 import c195.schedulingapp.App;
-import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -13,11 +13,21 @@ import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Modality;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author mrjack
  */
 public class HelperFunctions {
+    private ZoneId utc = ZoneId.of("UTC");
+    private ZoneId local = ZoneId.systemDefault();
+    private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    
     public void setScene(ActionEvent event, String nextScene, String title) throws IOException {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -37,8 +47,26 @@ public class HelperFunctions {
         stage.show();
     }
     
+    public ZonedDateTime getDateTimeLocal(String dateTime){
+        LocalDateTime utcTime = LocalDateTime.parse(dateTime, format);
+        return ZonedDateTime.of(utcTime, local);
+    }
+    
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 }
+
+/**
+        ZonedDateTime z = ZonedDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        ZoneId zoneId = ZoneId.of("UTC");
+        ZoneId pst    = ZoneId.of("America/Los_Angeles");
+        
+        String date = "2023-10-30 19:30";
+        LocalDateTime np = LocalDateTime.parse(date, format);
+        ZonedDateTime nz = ZonedDateTime.of(np, zoneId);
+        
+        System.out.println(nz.withZoneSameInstant(pst).format(format));
+ */
