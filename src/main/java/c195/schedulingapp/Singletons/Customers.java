@@ -11,16 +11,16 @@ import javafx.collections.ObservableList;
  *
  * @author mrjack
  */
-public class CustomersList {
-    private static final CustomersList instance = new CustomersList();
+public class Customers {
+    private static final Customers instance = new Customers();
     
     private ObservableList<Customer> customers = FXCollections.observableArrayList();
     private Customer currentCustomer;
     private String loggedInUser;
     
-    private CustomersList(){}
+    private Customers(){}
     
-    public static CustomersList getInstance(){
+    public static Customers getInstance(){
         return instance;
     }
     

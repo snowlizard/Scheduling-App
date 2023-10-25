@@ -8,8 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-import c195.schedulingapp.Singletons.CustomersList;
-import c195.schedulingapp.Singletons.DivisionsList;
+import c195.schedulingapp.Singletons.Customers;
+import c195.schedulingapp.Singletons.Divisions;
+import c195.schedulingapp.Singletons.Countries;
 
 /**
  *
@@ -17,8 +18,9 @@ import c195.schedulingapp.Singletons.DivisionsList;
  */
 public class Connector {
     private Connection connector;
-    CustomersList customers = CustomersList.getInstance();
-    DivisionsList divisions = DivisionsList.getInstance();
+    Customers customers = Customers.getInstance();
+    Divisions divisions = Divisions.getInstance();
+    Countries countries = Countries.getInstance();
     
     public Connector(){
         try{
@@ -28,6 +30,7 @@ public class Connector {
                     "jgon", "Password@1");
             this.initCustomers();
             this.initDivisons();
+            this.initCountries();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -92,6 +95,25 @@ public class Connector {
                         set.getString("Last_Update"),
                         set.getString("Last_Updated_By"), 
                         set.getInt("Country_ID")));
+            }
+        }catch(Exception e){
+            System.out.println(e + " Error");
+        }
+    }
+
+    private void initCountries(){
+        countries.resetCountries();
+        String query = "SELECT * FROM Countries";
+        
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                countries.addCountry(new Country(set.getInt("Country_ID"), 
+                        set.getString("Country"),
+                        set.getString("Create_Date"),
+                        set.getString("Created_By"), 
+                        set.getString("Last_Update"),
+                        set.getString("Last_Updated_By")));
             }
         }catch(Exception e){
             System.out.println(e + " Error");

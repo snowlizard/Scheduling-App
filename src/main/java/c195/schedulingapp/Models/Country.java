@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 public class Country {
     private int id;
     private String country;
-    private LocalDateTime create_date;
+    private String create_date;
     private String created_by;
-    private LocalDateTime last_update;
+    private String last_update;
     private String last_updated_by;
     
-    public Country(int id, String country, LocalDateTime create_date,
-            String created_by, LocalDateTime last_update, String last_updated_by){
+    public Country(int id, String country, String create_date,
+            String created_by, String last_update, String last_updated_by){
         this.id             = id;
         this.country         = country;
         this.create_date     = create_date;
@@ -36,7 +36,7 @@ public class Country {
         return this.country;
     }
     
-    public LocalDateTime getCreateDate(){
+    public String getCreateDate(){
         return this.create_date;
     }
     
@@ -44,7 +44,7 @@ public class Country {
         return this.created_by;
     }
     
-    public LocalDateTime getLastUpdate(){
+    public String getLastUpdate(){
         return this.last_update;
     }
     
@@ -61,7 +61,7 @@ public class Country {
         this.country = country;
     }
     
-    public void setCreateDate(LocalDateTime createDate){
+    public void setCreateDate(String createDate){
         this.create_date = createDate;
     }
     
@@ -69,7 +69,7 @@ public class Country {
         this.created_by = createdBy;
     }
     
-    public void setLastUpdate(LocalDateTime lastUpdate){
+    public void setLastUpdate(String lastUpdate){
         this.last_update = lastUpdate;
     }
     

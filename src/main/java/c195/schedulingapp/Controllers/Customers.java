@@ -6,7 +6,6 @@ package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
-import c195.schedulingapp.Singletons.CustomersList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +39,7 @@ public class Customers implements Initializable {
     @FXML private TableColumn<Customer, String> last_updated_by;
     @FXML private TableColumn<Customer, Integer> division_id;
 
-    CustomersList customerInstance = CustomersList.getInstance();
+    c195.schedulingapp.Singletons.Customers customerInstance = c195.schedulingapp.Singletons.Customers.getInstance();
     ObservableList<Customer> customersList = customerInstance.getCustomers();
     Customer currentCustomer = customerInstance.getCurrentCustomer();
     /**

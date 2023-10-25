@@ -12,15 +12,15 @@ import javafx.collections.ObservableList;
  *
  * @author mrjack
  */
-public class DivisionsList {
-    private static final DivisionsList instance = new DivisionsList();
+public class Divisions {
+    private static final Divisions instance = new Divisions();
     
     private ObservableList<FirstLevelDivision> divisions = FXCollections.observableArrayList();
     
-    private DivisionsList(){}
+    private Divisions(){}
     private FirstLevelDivision division;
     
-    public static DivisionsList getInstance(){
+    public static Divisions getInstance(){
         return instance;
     }
     

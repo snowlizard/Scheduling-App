@@ -5,12 +5,13 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Customer;
+import c195.schedulingapp.Models.Country;
 import c195.schedulingapp.Models.FirstLevelDivision;
-import c195.schedulingapp.Singletons.CustomersList;
-import c195.schedulingapp.Singletons.DivisionsList;
+import c195.schedulingapp.Singletons.Customers;
+import c195.schedulingapp.Singletons.Divisions;
+import c195.schedulingapp.Singletons.Countries;
 
 import java.time.LocalDateTime;
-import java.time.Instant;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -36,33 +37,43 @@ public class CustomerForm implements Initializable{
     @FXML private TextField postalCode;
     @FXML private TextField phone;
     @FXML private ChoiceBox<String> divisionId;
+    @FXML private ChoiceBox<String> country;
     
-    CustomersList custInstance = CustomersList.getInstance();
-    ObservableList<Customer> customerList = custInstance.getCustomers();
-    Customer customer = custInstance.getCurrentCustomer();
+    private Customers custInstance = Customers.getInstance();
+    private ObservableList<Customer> customerList = custInstance.getCustomers();
+    private Customer customer = custInstance.getCurrentCustomer();
     
-    DivisionsList divisionList = DivisionsList.getInstance();
+    private Divisions divisionList = Divisions.getInstance();
+    private Countries countryInstance = Countries.getInstance();
+    
+    private ObservableList<Country> countries = countryInstance.getCountries();
+    private ObservableList<FirstLevelDivision> divisions = divisionList.getDivisions();
+    
+    private ObservableList<String> estados = FXCollections.observableArrayList();
+    int customerId = customerList.size();
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        ObservableList<String> choices = FXCollections.observableArrayList();
-        ObservableList<FirstLevelDivision> divisions = divisionList.getDivisions();
-        
-        // lambda function
-        divisions.forEach((division) -> {
-            choices.add(division.getDivision());
+        countries.forEach((estado) -> {
+            estados.add(estado.getCountry());
         });
         
-        divisionId.setItems(choices);
+        country.setItems(estados);
         
         if(customer != null){
+            int division_id = customer.getDivisionId();
+            FirstLevelDivision div = divisionList.getDivisionById(division_id);
+            Country currCountry = countryInstance.getCountryById(div.getCountryId());
+            
             id.setText(Integer.toString(customer.getId()));
             name.setText(customer.getName());
             address.setText(customer.getAddress());
             postalCode.setText(customer.getPostalCode());
             phone.setText(customer.getPhone());
-            divisionId.setValue(divisionList.getDivisionById(
-                    customer.getDivisionId()).getDivision());
+            
+            country.setValue(currCountry.getCountry());
+            this.setDivisionChoices();
+            divisionId.setValue(div.getDivision());
         }
         id.setDisable(true);
     }
@@ -79,6 +90,7 @@ public class CustomerForm implements Initializable{
         Stage win = (Stage) source.getScene().getWindow();
         String now = LocalDateTime.now().format(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
         
         if(customer != null){
             int index = customerList.indexOf(customer);
@@ -89,12 +101,16 @@ public class CustomerForm implements Initializable{
             customer.setPhone(phone.getText());
             customer.setLastUpdate(now);
             customer.setLastUpdatedBy(custInstance.getLoggedInUser());
-            customer.setDivisionId(index);
+            customer.setDivisionId(divId);
 
             customerList.set(index, customer);
         } else {
-            int customerId = customerList.size();
-            int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
+            customerList.forEach((cust)-> {
+                // Check customer id is unique
+                if(cust.getId() == customerId){
+                    customerId = customerList.size() + 1;
+                }
+            });
             
             Customer newCustomer = new Customer(customerId,
                        name.getText(), 
@@ -111,5 +127,21 @@ public class CustomerForm implements Initializable{
         }
         
         win.close();
+    }
+    
+    public void setDivisionChoices(){
+        String choiceValue = country.getValue();
+        ObservableList<String> choices = FXCollections.observableArrayList();
+        
+        if(choiceValue != null){
+            Country selCountry= countryInstance.getCountryByName(choiceValue);
+            // lambda function
+            divisions.forEach((division) -> {
+                if(division.getCountryId() == selCountry.getId()){
+                    choices.add(division.getDivision());
+                }
+            });
+            divisionId.setItems(choices);
+        }
     }
 }
