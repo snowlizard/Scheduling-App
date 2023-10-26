@@ -9,6 +9,7 @@ import c195.schedulingapp.Models.HelperFunctions;
 
 import java.io.InputStream;
 import java.io.File;
+import java.time.ZoneId;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -42,11 +43,12 @@ public class Login implements Initializable {
     @FXML private PasswordField password;
     @FXML private Button login;
     @FXML private ChoiceBox<String> language;
-    @FXML private Text timeZone;
+    @FXML private Label timeZone;
     
     private Connector connect;
     
     private Properties prop = new Properties();
+    private ZoneId local = ZoneId.systemDefault();
     private String lang;
     
     private static ObservableList<String> languages = FXCollections.observableArrayList();
@@ -71,6 +73,7 @@ public class Login implements Initializable {
         
         connect = new Connector();
         setLocale(lang);
+        timeZone.setText(local.toString());
     }
     
     public void changeLocale(){

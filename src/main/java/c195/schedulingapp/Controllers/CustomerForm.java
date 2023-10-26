@@ -105,14 +105,12 @@ public class CustomerForm implements Initializable{
 
             customerList.set(index, customer);
         } else {
-            customerList.forEach((cust)-> {
-                // Check customer id is unique
-                if(cust.getId() == customerId){
-                    customerId = customerList.size() + 1;
-                }
-            });
+            int newId = customerList.size();
+            while(custInstance.getCustomer(newId) != null){
+                ++newId;
+            }
             
-            Customer newCustomer = new Customer(customerId,
+            Customer newCustomer = new Customer(newId,
                        name.getText(), 
                     address.getText(), 
                  postalCode.getText(),
