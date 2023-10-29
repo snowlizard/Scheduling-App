@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.util.Random;
 import java.time.format.DateTimeFormatter;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
@@ -105,9 +106,10 @@ public class CustomerForm implements Initializable{
 
             customerList.set(index, customer);
         } else {
-            int newId = customerList.size();
+            Random rand = new Random();
+            int newId = rand.nextInt(1000);
             while(custInstance.getCustomer(newId) != null){
-                ++newId;
+                newId = rand.nextInt(1000);
             }
             
             Customer newCustomer = new Customer(newId,
