@@ -6,8 +6,14 @@ package c195.schedulingapp.Controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
@@ -15,17 +21,32 @@ import javafx.fxml.Initializable;
  */
 public class AppointmentForm implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML private TextField aptId;
+    @FXML private TextField title;
+    @FXML private TextField desc;
+    @FXML private TextField location;
+    @FXML private TextField type;
+    @FXML private ChoiceBox<?> customer;
+    @FXML private ChoiceBox<?> contact;
+    @FXML private ChoiceBox<?> user;
+    @FXML private DatePicker sDate;
+    @FXML private DatePicker eDate;
+    @FXML private Spinner<?> sHour;
+    @FXML private Spinner<?> sMin;
+    @FXML private Spinner<?> eHour;
+    @FXML private Spinner<?> eMin;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
     
-    public void onSave(){
+    @FXML
+    private void onCancel(ActionEvent event) {
     }
-    
-    public void onCancel(){
+
+    @FXML
+    private void onSave(ActionEvent event) {
     }
+
 }
