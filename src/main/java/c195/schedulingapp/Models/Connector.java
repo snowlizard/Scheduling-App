@@ -8,9 +8,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
+import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
-import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Countries;
+import c195.schedulingapp.Singletons.Divisions;
 
 /**
  *
@@ -18,9 +19,11 @@ import c195.schedulingapp.Singletons.Countries;
  */
 public class Connector {
     private Connection connector;
+    Contacts  contacts  = Contacts.getInstance();
     Customers customers = Customers.getInstance();
-    Divisions divisions = Divisions.getInstance();
     Countries countries = Countries.getInstance();
+    Divisions divisions = Divisions.getInstance();
+    
     
     public Connector(){
         try{
@@ -28,9 +31,10 @@ public class Connector {
             connector = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/WGU",
                     "jgon", "Password@1");
+            this.initContacts();
             this.initCustomers();
-            this.initDivisons();
             this.initCountries();
+            this.initDivisons();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -117,6 +121,23 @@ public class Connector {
             }
         }catch(Exception e){
             System.out.println(e + " Error");
+        }
+    }
+    
+    private void initContacts(){
+        contacts.resetContacts();
+        String query = "SELECT * FROM Contacts";
+        
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                contacts.addContact(new Contact(
+                         set.getInt("Contact_ID"),
+                        set.getString("Contact_Name"),
+                       set.getString("Email")));
+            }
+        }catch(Exception e){
+            System.out.println(e );
         }
     }
 }

@@ -1,6 +1,8 @@
 c195/schedulingapp/Singletons/Customers.class
+c195/schedulingapp/Singletons/Contacts.class
 c195/schedulingapp/Models/Appointment.class
 c195/schedulingapp/Models/Connector.class
+c195/schedulingapp/Models/Contact.class
 c195/schedulingapp/Models/User.class
 c195/schedulingapp/Models/Country.class
 module-info.class
