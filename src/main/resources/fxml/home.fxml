@@ -14,7 +14,7 @@
              <Font name="System Bold" size="18.0" />
           </font>
        </Label>
-       <Button fx:id="appointments" layoutX="110.0" layoutY="183.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Appointments" />
+       <Button fx:id="appointments" onAction="#appointments" layoutX="110.0" layoutY="183.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Appointments" />
        <Button fx:id="customers" onAction="#customers" layoutX="110.0" layoutY="234.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Customers" />
        <Button fx:id="reports" layoutX="110.0" layoutY="288.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Reports" />
        <Button fx:id="logout" onAction="#logout" layoutX="110.0" layoutY="502.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" text="Logout" />

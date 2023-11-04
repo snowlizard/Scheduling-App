@@ -27,6 +27,10 @@ public class Home implements Initializable {
         new HelperFunctions().setScene(event, "/fxml/login", "Scheduling App");
     }
     
+    public void appointments(ActionEvent event) throws IOException {
+        new HelperFunctions().setScene(event, "/fxml/appointments", "Appointments");
+    }
+    
     public void customers(ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/customers", "Customers");
     }

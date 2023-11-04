@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="879.0" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="879.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="c195.schedulingapp.Controllers.Appointments">
    <children>
       <TableView fx:id="appointments" layoutX="15.0" layoutY="65.0" prefHeight="453.0" prefWidth="846.0">
         <columns>
@@ -20,6 +20,6 @@
       <Button fx:id="add" layoutX="817.0" layoutY="36.0" mnemonicParsing="false" text="Add" />
       <Button fx:id="modify" layoutX="748.0" layoutY="36.0" mnemonicParsing="false" text="Modify" />
       <Button fx:id="delete" layoutX="680.0" layoutY="36.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="back" layoutX="622.0" layoutY="36.0" mnemonicParsing="false" text="Back" />
+      <Button onAction="#previousScene" layoutX="622.0" layoutY="36.0" mnemonicParsing="false" text="Back" />
    </children>
 </AnchorPane>
