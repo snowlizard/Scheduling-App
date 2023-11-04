@@ -4,17 +4,22 @@
  */
 package c195.schedulingapp.Controllers;
 
+import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.HelperFunctions;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.collections.ObservableList;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
@@ -23,19 +28,43 @@ import javafx.scene.control.TableView;
 public class Appointments implements Initializable {
 
 
-    @FXML
-    private TableView<?> appointments;
+    @FXML private TableView<Appointment> appointments;
+    @FXML private TableColumn<Appointment, Integer> cId;
+    @FXML private TableColumn<Appointment, String> cTitle;
+    @FXML private TableColumn<Appointment, String> cDesc;
+    @FXML private TableColumn<Appointment, String> cLocation;
+    @FXML private TableColumn<Appointment, String> cType;
+    @FXML private TableColumn<Appointment, String> cStart;
+    @FXML private TableColumn<Appointment, String> cEnd;
+    @FXML private TableColumn<Appointment, Integer> cCustId;
+    @FXML private TableColumn<Appointment, Integer> cUserId;
+    @FXML private TableColumn<Appointment, Integer> cContactId;
     @FXML private RadioButton all;
     @FXML private RadioButton month;
     @FXML private RadioButton week;
     @FXML private Button add;
     @FXML private Button modify;
     @FXML private Button delete;
+    
+    c195.schedulingapp.Singletons.Appointments aptsInstance = c195.schedulingapp.Singletons.Appointments.getInstance();
+    ObservableList<Appointment> allApts = aptsInstance.getAppointments();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        appointments.setItems(allApts);
+        
+        cId.setCellValueFactory(new PropertyValueFactory<> ("id"));
+        cTitle.setCellValueFactory(new PropertyValueFactory<> ("title"));
+        cDesc.setCellValueFactory(new PropertyValueFactory<> ("description"));
+        cLocation.setCellValueFactory(new PropertyValueFactory<> ("location"));
+        cType.setCellValueFactory(new PropertyValueFactory<> ("type"));
+        cStart.setCellValueFactory(new PropertyValueFactory<> ("start"));
+        cEnd.setCellValueFactory(new PropertyValueFactory<> ("end"));
+        cCustId.setCellValueFactory(new PropertyValueFactory<> ("customerId"));
+        cUserId.setCellValueFactory(new PropertyValueFactory<> ("userId"));
+        cContactId.setCellValueFactory(new PropertyValueFactory<> ("contactId"));
         
     }
     

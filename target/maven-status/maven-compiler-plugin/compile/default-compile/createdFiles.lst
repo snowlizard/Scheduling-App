@@ -18,3 +18,4 @@ c195/schedulingapp/Controllers/Login.class
 c195/schedulingapp/Controllers/CustomerForm.class
 c195/schedulingapp/Controllers/Home.class
 c195/schedulingapp/Controllers/Customers.class
+c195/schedulingapp/Singletons/Appointments.class

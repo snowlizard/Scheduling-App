@@ -25,8 +25,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class HelperFunctions {
     private ZoneId utc = ZoneId.of("UTC");
-    private ZoneId local = ZoneId.systemDefault();
-    private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private ZoneId localZone = ZoneId.systemDefault();
+    private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     public void setScene(ActionEvent event, String nextScene, String title) throws IOException {
         Node source = (Node) event.getSource();
@@ -46,15 +46,15 @@ public class HelperFunctions {
         stage.setScene(scene);
         stage.show();
     }
-    
-    public ZonedDateTime getDateTimeLocal(String dateTime){
-        LocalDateTime utcTime = LocalDateTime.parse(dateTime, format);
-        return ZonedDateTime.of(utcTime, local);
-    }
-    
+
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+    
+    public ZonedDateTime getZDT(String dateTime){
+        LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
+        return ZonedDateTime.of(tempDT, utc);
     }
 }
 

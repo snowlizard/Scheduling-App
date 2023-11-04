@@ -14,6 +14,7 @@
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Singletons/Countries.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/CustomerForm.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Singletons/Divisions.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Singletons/Appointments.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/AppointmentForm.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/module-info.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/FirstLevelDivision.java

@@ -10,8 +10,16 @@
    <children>
       <TableView fx:id="appointments" layoutX="15.0" layoutY="65.0" prefHeight="453.0" prefWidth="846.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="50.0" fx:id="cId" text="ID" />
+            <TableColumn prefWidth="90.0" fx:id="cTitle" text="Title" />
+            <TableColumn prefWidth="50.0" fx:id="cDesc" text="Description" />
+            <TableColumn prefWidth="90.0" fx:id="cLocation" text="Location" />
+            <TableColumn prefWidth="50.0" fx:id="cType" text="Type" />
+            <TableColumn prefWidth="90.0" fx:id="cStart" text="Start" />
+            <TableColumn prefWidth="50.0" fx:id="cEnd" text="End" />
+            <TableColumn prefWidth="90.0" fx:id="cCustId" text="Customer ID" />
+            <TableColumn prefWidth="50.0" fx:id="cUserId" text="User ID" />
+            <TableColumn prefWidth="90.0" fx:id="cContactId" text="Contact ID" />
         </columns>
       </TableView>
       <RadioButton fx:id="all" layoutX="24.0" layoutY="39.0" mnemonicParsing="false" text="All" />

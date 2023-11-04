@@ -8,10 +8,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
+import c195.schedulingapp.Singletons.Appointments;
 import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
 import c195.schedulingapp.Singletons.Countries;
 import c195.schedulingapp.Singletons.Divisions;
+
+import c195.schedulingapp.Models.HelperFunctions;
 
 /**
  *
@@ -19,11 +22,13 @@ import c195.schedulingapp.Singletons.Divisions;
  */
 public class Connector {
     private Connection connector;
+    Appointments appointments = Appointments.getInstance();
     Contacts  contacts  = Contacts.getInstance();
     Customers customers = Customers.getInstance();
     Countries countries = Countries.getInstance();
     Divisions divisions = Divisions.getInstance();
     
+    HelperFunctions helper = new HelperFunctions();
     
     public Connector(){
         try{
@@ -31,10 +36,13 @@ public class Connector {
             connector = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/WGU",
                     "jgon", "Password@1");
+            
+            this.initAppointments();
             this.initContacts();
             this.initCustomers();
             this.initCountries();
             this.initDivisons();
+            
         }catch(Exception e){
             System.out.println(e);
         }
@@ -138,6 +146,38 @@ public class Connector {
             }
         }catch(Exception e){
             System.out.println(e );
+        }
+    }
+    
+    private void initAppointments(){
+        appointments.resetAppointments();
+        String query = "SELECT * FROM Appointments";
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                String startStr = set.getString("Start");
+                String endStr   = set.getString("End");
+                String createStr= set.getString("Create_Date");
+                String lastUpStr= set.getString("Last_Update");
+                
+                appointments.addAppointment(new Appointment(
+                                set.getInt("Appointment_ID"),
+                                set.getString("Title"),
+                                set.getString("Description"),
+                                set.getString("Location"),
+                                set.getString("Type"),
+                                helper.getZDT(startStr),
+                                helper.getZDT(endStr),
+                                helper.getZDT(createStr),
+                                set.getString("Create_By"),
+                                helper.getZDT(lastUpStr),
+                                set.getString("Last_Updated_By"),
+                                set.getInt("Customer_ID"),
+                                set.getInt("User_ID"),
+                                set.getInt("Contact_ID")));
+            }
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 }
