@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class HelperFunctions {
     private ZoneId utc = ZoneId.of("UTC");
+    private ZoneId est = ZoneId.of("America/New_York");
     private ZoneId localZone = ZoneId.systemDefault();
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
@@ -40,7 +41,7 @@ public class HelperFunctions {
     
     public void setModal(String modal) throws IOException {
         Stage stage = new Stage();
-        Scene scene = new Scene(loadFXML("/fxml/customerForm"));
+        Scene scene = new Scene(loadFXML(modal));
         
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
@@ -54,7 +55,7 @@ public class HelperFunctions {
     
     public ZonedDateTime getZDT(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
-        return ZonedDateTime.of(tempDT, utc);
+        return ZonedDateTime.of(tempDT, localZone);
     }
 }
 

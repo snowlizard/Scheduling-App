@@ -9,11 +9,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -42,7 +44,11 @@ public class AppointmentForm implements Initializable {
     }    
     
     @FXML
-    private void onCancel(ActionEvent event) {
+    private void onCancel(ActionEvent event){ 
+        Node source = (Node) event.getSource();
+        Stage win = (Stage) source.getScene().getWindow();
+        
+        win.close();
     }
 
     @FXML

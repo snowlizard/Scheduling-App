@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +40,7 @@ public class Appointments implements Initializable {
     @FXML private TableColumn<Appointment, Integer> cCustId;
     @FXML private TableColumn<Appointment, Integer> cUserId;
     @FXML private TableColumn<Appointment, Integer> cContactId;
+    @FXML private ToggleGroup AptFilter = new ToggleGroup();
     @FXML private RadioButton all;
     @FXML private RadioButton month;
     @FXML private RadioButton week;
@@ -53,8 +55,10 @@ public class Appointments implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set tablecolumn items
         appointments.setItems(allApts);
         
+        // populate column values
         cId.setCellValueFactory(new PropertyValueFactory<> ("id"));
         cTitle.setCellValueFactory(new PropertyValueFactory<> ("title"));
         cDesc.setCellValueFactory(new PropertyValueFactory<> ("description"));
@@ -66,10 +70,34 @@ public class Appointments implements Initializable {
         cUserId.setCellValueFactory(new PropertyValueFactory<> ("userId"));
         cContactId.setCellValueFactory(new PropertyValueFactory<> ("contactId"));
         
+        // add to toggle group
+        all.setToggleGroup(AptFilter);
+        month.setToggleGroup(AptFilter);
+        week.setToggleGroup(AptFilter);
     }
     
     public void previousScene (ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/home", "Home");
     }
     
+    @FXML
+    private void modifyAppointment() throws IOException {
+        Appointment apt = appointments.getSelectionModel().getSelectedItem();
+        
+        if(apt != null){
+            aptsInstance.setCurrentAppointment(apt);
+            new HelperFunctions().setModal("/fxml/appointmentForm");
+        }
+    }
+    
+    @FXML
+    private void newAppointment() throws IOException {
+        aptsInstance.setCurrentAppointment(null);
+        new HelperFunctions().setModal("/fxml/appointmentForm");
+    }
+    
+    @FXML
+    private void toggleFilter(){
+        System.out.print(AptFilter.getSelectedToggle());
+    }
 }

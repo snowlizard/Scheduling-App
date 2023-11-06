@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 public class Appointments {
     private static final Appointments instance = new Appointments();
     private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+    private Appointment appointment;
     
     public Appointments(){}
     
@@ -31,5 +32,13 @@ public class Appointments {
     
     public ObservableList<Appointment> getAppointments(){
         return appointments;
+    }
+    
+    public Appointment getCurrentAppointment(){
+        return this.appointment;
+    }
+    
+    public void setCurrentAppointment(Appointment apt){
+        this.appointment = apt;
     }
 }

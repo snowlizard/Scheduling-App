@@ -12,21 +12,21 @@
         <columns>
             <TableColumn prefWidth="50.0" fx:id="cId" text="ID" />
             <TableColumn prefWidth="90.0" fx:id="cTitle" text="Title" />
-            <TableColumn prefWidth="50.0" fx:id="cDesc" text="Description" />
+            <TableColumn prefWidth="170.0" fx:id="cDesc" text="Description" />
             <TableColumn prefWidth="90.0" fx:id="cLocation" text="Location" />
-            <TableColumn prefWidth="50.0" fx:id="cType" text="Type" />
-            <TableColumn prefWidth="90.0" fx:id="cStart" text="Start" />
-            <TableColumn prefWidth="50.0" fx:id="cEnd" text="End" />
-            <TableColumn prefWidth="90.0" fx:id="cCustId" text="Customer ID" />
+            <TableColumn prefWidth="90.0" fx:id="cType" text="Type" />
+            <TableColumn prefWidth="110.0" fx:id="cStart" text="Start" />
+            <TableColumn prefWidth="110.0" fx:id="cEnd" text="End" />
+            <TableColumn prefWidth="50.0" fx:id="cCustId" text="Customer ID" />
             <TableColumn prefWidth="50.0" fx:id="cUserId" text="User ID" />
-            <TableColumn prefWidth="90.0" fx:id="cContactId" text="Contact ID" />
+            <TableColumn prefWidth="50.0" fx:id="cContactId" text="Contact ID" />
         </columns>
       </TableView>
-      <RadioButton fx:id="all" layoutX="24.0" layoutY="39.0" mnemonicParsing="false" text="All" />
-      <RadioButton fx:id="month" layoutX="78.0" layoutY="39.0" mnemonicParsing="false" text="Month" />
-      <RadioButton fx:id="week" layoutX="149.0" layoutY="39.0" mnemonicParsing="false" text="Week" />
-      <Button fx:id="add" layoutX="817.0" layoutY="36.0" mnemonicParsing="false" text="Add" />
-      <Button fx:id="modify" layoutX="748.0" layoutY="36.0" mnemonicParsing="false" text="Modify" />
+      <RadioButton onAction="#toggleFilter" fx:id="all" layoutX="24.0" layoutY="39.0" mnemonicParsing="false" text="All" />
+      <RadioButton onAction="#toggleFilter" fx:id="month" layoutX="78.0" layoutY="39.0" mnemonicParsing="false" text="Month" />
+      <RadioButton onAction="#toggleFilter" fx:id="week" layoutX="149.0" layoutY="39.0" mnemonicParsing="false" text="Week" />
+      <Button onAction="#newAppointment" fx:id="add" layoutX="817.0" layoutY="36.0" mnemonicParsing="false" text="Add" />
+      <Button onAction="#modifyAppointment" layoutX="748.0" layoutY="36.0" mnemonicParsing="false" text="Modify" />
       <Button fx:id="delete" layoutX="680.0" layoutY="36.0" mnemonicParsing="false" text="Delete" />
       <Button onAction="#previousScene" layoutX="622.0" layoutY="36.0" mnemonicParsing="false" text="Back" />
    </children>
