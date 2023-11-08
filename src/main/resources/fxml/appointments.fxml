@@ -27,7 +27,7 @@
       <RadioButton onAction="#toggleFilter" fx:id="week" layoutX="149.0" layoutY="39.0" mnemonicParsing="false" text="Week" />
       <Button onAction="#newAppointment" fx:id="add" layoutX="817.0" layoutY="36.0" mnemonicParsing="false" text="Add" />
       <Button onAction="#modifyAppointment" layoutX="748.0" layoutY="36.0" mnemonicParsing="false" text="Modify" />
-      <Button fx:id="delete" layoutX="680.0" layoutY="36.0" mnemonicParsing="false" text="Delete" />
+      <Button onAction="#deleteAppointment" fx:id="delete" layoutX="680.0" layoutY="36.0" mnemonicParsing="false" text="Delete" />
       <Button onAction="#previousScene" layoutX="622.0" layoutY="36.0" mnemonicParsing="false" text="Back" />
    </children>
 </AnchorPane>

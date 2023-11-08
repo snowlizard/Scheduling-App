@@ -14,8 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TableColumn;
@@ -107,6 +109,26 @@ public class Appointments implements Initializable {
             appointments.setItems(aptsInstance.getAppointmentsMonth());
         } else if (toggleValue.equals("Week")){
             appointments.setItems(aptsInstance.getAppointmentsWeek());
+        }
+    }
+    
+    @FXML
+    private void deleteAppointment() {
+        Appointment apt = appointments.getSelectionModel().getSelectedItem();
+        if(apt != null){
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this appointment?",
+                   ButtonType.YES, ButtonType.NO);
+            confirm.showAndWait();
+            
+            if(confirm.getResult() == ButtonType.YES){
+                allApts.remove(apt);
+            }
+        }else{
+            Alert dialog = new Alert(Alert.AlertType.ERROR, 
+                "Select a column to delete a customer.",
+                ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 }
