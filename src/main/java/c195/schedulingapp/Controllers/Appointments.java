@@ -98,6 +98,15 @@ public class Appointments implements Initializable {
     
     @FXML
     private void toggleFilter(){
-        System.out.print(AptFilter.getSelectedToggle());
+        RadioButton toggle = (RadioButton) AptFilter.getSelectedToggle();
+        String toggleValue = toggle.getText();
+        
+        if(toggleValue.equals("All")){
+            appointments.setItems(allApts);
+        } else if (toggleValue.equals("Month")){
+            appointments.setItems(aptsInstance.getAppointmentsMonth());
+        } else if (toggleValue.equals("Week")){
+            appointments.setItems(aptsInstance.getAppointmentsWeek());
+        }
     }
 }

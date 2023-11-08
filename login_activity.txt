@@ -243,3 +243,10 @@ Username: jgon Date: 2023-11-05 00:45:42.284 Attempt successful: true
 Username: jgon Date: 2023-11-05 19:45:55.592 Attempt successful: true
 Username: cday Date: 2023-11-05 19:50:11.911 Attempt successful: true
 Username: jgon Date: 2023-11-05 19:56:43.971 Attempt successful: true
+Username: jgon Date: 2023-11-07 17:06:24.018 Attempt successful: true
+Username: cday Date: 2023-11-07 17:19:36.315 Attempt successful: true
+Username: cday Date: 2023-11-07 17:20:11.982 Attempt successful: true
+Username: cday Date: 2023-11-07 17:24:00.208 Attempt successful: true
+Username: cday Date: 2023-11-07 17:25:47.713 Attempt successful: true
+Username: jgon Date: 2023-11-07 17:32:41.91 Attempt successful: true
+Username: jgon Date: 2023-11-07 18:10:41.226 Attempt successful: true
