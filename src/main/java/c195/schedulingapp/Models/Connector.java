@@ -13,6 +13,7 @@ import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
 import c195.schedulingapp.Singletons.Countries;
 import c195.schedulingapp.Singletons.Divisions;
+import c195.schedulingapp.Singletons.Users;
 
 import c195.schedulingapp.Models.HelperFunctions;
 
@@ -27,6 +28,7 @@ public class Connector {
     Customers customers = Customers.getInstance();
     Countries countries = Countries.getInstance();
     Divisions divisions = Divisions.getInstance();
+    Users users = Users.getInstance();
     
     HelperFunctions helper = new HelperFunctions();
     
@@ -42,6 +44,7 @@ public class Connector {
             this.initCustomers();
             this.initCountries();
             this.initDivisons();
+            this.initUsers();
             
         }catch(Exception e){
             System.out.println(e);
@@ -178,6 +181,22 @@ public class Connector {
             }
         }catch(Exception e){
             System.out.println(e);
+        }
+    }
+    
+    private void initUsers(){
+        users.resetUsers();
+        String query = "SELECT * FROM Users";
+        
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                users.addUser(new User(
+                         set.getInt("User_ID"),
+                        set.getString("User_Name")));
+            }
+        }catch(Exception e){
+            System.out.println(e );
         }
     }
 }

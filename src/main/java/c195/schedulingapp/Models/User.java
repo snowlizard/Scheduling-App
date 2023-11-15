@@ -18,15 +18,9 @@ public class User {
     private LocalDateTime last_update;
     private String last_updated_by;
     
-    public User(int id, String user_name, String password, LocalDateTime create_date,
-            String created_by, LocalDateTime last_update, String last_updated_by){
+    public User(int id, String user_name){
         this.id              = id;
         this.user_name       = user_name;
-        this.password        = password;
-        this.create_date     = create_date;
-        this.created_by      = created_by;
-        this.last_update     = last_update;
-        this.last_updated_by = last_updated_by;
     }
     
     // Getters

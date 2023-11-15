@@ -126,7 +126,7 @@ public class Appointments implements Initializable {
             }
         }else{
             Alert dialog = new Alert(Alert.AlertType.ERROR, 
-                "Select a column to delete a customer.",
+                "Select a column to delete an appointment.",
                 ButtonType.OK);
             dialog.showAndWait();
         }

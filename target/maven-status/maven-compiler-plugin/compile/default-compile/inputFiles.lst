@@ -8,6 +8,7 @@
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/Customer.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/User.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/Home.java
+/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Singletons/Users.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Singletons/Contacts.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Models/HelperFunctions.java
 /home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java/c195/schedulingapp/Controllers/Login.java

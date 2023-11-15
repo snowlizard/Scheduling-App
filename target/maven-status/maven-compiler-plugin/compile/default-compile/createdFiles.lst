@@ -11,6 +11,7 @@ c195/schedulingapp/Models/HelperFunctions.class
 c195/schedulingapp/Models/Customer.class
 c195/schedulingapp/Models/FirstLevelDivision.class
 c195/schedulingapp/Singletons/Divisions.class
+c195/schedulingapp/Singletons/Users.class
 c195/schedulingapp/Controllers/Appointments.class
 c195/schedulingapp/Singletons/Countries.class
 c195/schedulingapp/App.class

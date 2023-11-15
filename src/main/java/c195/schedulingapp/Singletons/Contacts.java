@@ -32,4 +32,13 @@ public class Contacts {
     public void addContact(Contact contact){
         contacts.add(contact);
     }
+    
+    public Contact getContact(int id){
+        Contact c = null;
+        for(Contact contact: contacts){
+            if(contact.getId() == id)
+                c = contact;
+        }
+        return c;
+    }
 }
