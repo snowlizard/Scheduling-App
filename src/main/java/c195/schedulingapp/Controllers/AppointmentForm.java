@@ -7,6 +7,7 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Contact;
+import c195.schedulingapp.Models.User;
 
 import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
@@ -85,6 +86,7 @@ public class AppointmentForm implements Initializable {
         if(currentApt != null){
             Customer cust = customerInstance.getCustomer(currentApt.getCustomerId());
             Contact cont = contactInstance.getContact(currentApt.getContactId());
+            User usr = userInstance.getUser(currentApt.getUserId());
             
             aptId.setText(Integer.toString(currentApt.getId()));
             title.setText(currentApt.getTitle());
@@ -94,6 +96,7 @@ public class AppointmentForm implements Initializable {
             
             customer.setValue(cust.getName());
             contact.setValue(cont.getName());
+            user.setValue(usr.getUserName());
             
             sDate.setValue(currentApt.getStart().toLocalDate());
             

@@ -33,4 +33,13 @@ public class Users {
     public void addUser(User newUser){
         users.add(newUser);
     }
+    
+    public User getUser(int id){
+        User usr = null;
+        for(User u: users){
+            if(u.getId() == id)
+                usr = u;
+        }
+        return usr;
+    }
 }
