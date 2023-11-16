@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -45,10 +46,10 @@ public class AppointmentForm implements Initializable {
     @FXML private ChoiceBox<String> user;
     @FXML private DatePicker sDate;
     @FXML private DatePicker eDate;
-    @FXML private Spinner<?> sHour;
-    @FXML private Spinner<?> sMin;
-    @FXML private Spinner<?> eHour;
-    @FXML private Spinner<?> eMin;
+    @FXML private Spinner<Integer> sHour;
+    @FXML private Spinner<Integer> sMin;
+    @FXML private Spinner<Integer> eHour;
+    @FXML private Spinner<Integer> eMin;
     
     c195.schedulingapp.Singletons.Appointments aptsInstance = c195.schedulingapp.Singletons.Appointments.getInstance();
     Contacts contactInstance = Contacts.getInstance();
@@ -83,6 +84,12 @@ public class AppointmentForm implements Initializable {
         });
         user.setItems(users);
         
+        // Set Spinners
+        sHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 17));
+        sMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        eHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 17));
+        eMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        
         if(currentApt != null){
             Customer cust = customerInstance.getCustomer(currentApt.getCustomerId());
             Contact cont = contactInstance.getContact(currentApt.getContactId());
@@ -94,12 +101,19 @@ public class AppointmentForm implements Initializable {
             location.setText(currentApt.getLocation());
             type.setText(currentApt.getType());
             
+            // preload choice values
             customer.setValue(cust.getName());
             contact.setValue(cont.getName());
             user.setValue(usr.getUserName());
             
-            sDate.setValue(currentApt.getStart().toLocalDate());
+            // preload spinner values
+            sHour.getValueFactory().setValue(currentApt.getStart().getHour());
+            sMin.getValueFactory().setValue(currentApt.getStart().getMinute());
+            eHour.getValueFactory().setValue(currentApt.getEnd().getHour());
+            eMin.getValueFactory().setValue(currentApt.getEnd().getMinute());
             
+            // preload date values
+            sDate.setValue(currentApt.getStart().toLocalDate());
             eDate.setValue(currentApt.getEnd().toLocalDate());
         }
     }    
