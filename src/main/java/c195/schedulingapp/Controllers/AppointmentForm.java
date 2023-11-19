@@ -13,6 +13,8 @@ import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
 import c195.schedulingapp.Singletons.Users;
 
+import c195.schedulingapp.Models.HelperFunctions;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -26,6 +28,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -56,6 +61,8 @@ public class AppointmentForm implements Initializable {
     Customers customerInstance = Customers.getInstance();
     Users userInstance = Users.getInstance();
     
+    HelperFunctions helper = new HelperFunctions();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aptId.setDisable(true);
@@ -85,10 +92,10 @@ public class AppointmentForm implements Initializable {
         user.setItems(users);
         
         // Set Spinners
-        sHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 17));
-        sMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
-        eHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 17));
-        eMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59));
+        sHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
+        sMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59));
+        eHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
+        eMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59));
         
         if(currentApt != null){
             Customer cust = customerInstance.getCustomer(currentApt.getCustomerId());
@@ -128,6 +135,74 @@ public class AppointmentForm implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
+        String validDates = this.validateDates();
+        if(!validDates.isEmpty())
+            this.invalidDatesAlert(validDates);
+        else if(title.getText().isEmpty()){
+            this.emptyTitleAlert();
+        }
+
     }
+    
+    private String validateDates(){
+        String errorMsg = "";
+        
+        if(sDate.getValue() == null || eDate.getValue() == null){
+            errorMsg = "Empty date field/s";
+        }
+        if(!sDate.getValue().equals(eDate.getValue())){
+            errorMsg = "Start date and end date not the same";
+        }
+        
+        String sDoW = sDate.getValue().getDayOfWeek().toString();
+        
+        if(sDoW.equals("SATURDAY") || sDoW.equals("SUNDAY")){
+            errorMsg = "Weekend selected";
+        }
+        
+        // Prep Hours
+        String newSHour = sHour.getValue() < 10 ? "0" + sHour.getValue().toString() 
+                : sHour.getValue().toString();
+        String newEHour = eHour.getValue() < 10 ? "0" + eHour.getValue().toString() 
+                : eHour.getValue().toString();
+        // Prep Minutes
+        String newSMin = sMin.getValue() < 10 ? "0" + sMin.getValue().toString() 
+                : sMin.getValue().toString();
+        String newEMin = eMin.getValue() < 10 ? "0" + eMin.getValue().toString()
+                : eMin.getValue().toString();
+        String newStart = sDate.getValue().toString() + " " + newSHour +
+                ":" + newSMin + ":00";
+        String newEnd = eDate.getValue().toString() + " " + newEHour +
+                ":" + newEMin + ":00";
+        
+        if(sHour.getValue() > eHour.getValue()){
+            errorMsg = "Start hour after end hour";
+        } else if(sHour.getValue().equals(eHour.getValue()) &&
+                sMin.getValue() > eMin.getValue()){
+            errorMsg = "Start minutes after end minutes";
+        } else if(!helper.checkInTime(newStart)){
+            errorMsg = "Selected time out of business hours";
+        } else if(!helper.checkInTime(newEnd)){
+            errorMsg = "Selected time out of business hours";
+        }
+        return errorMsg;
+    }
+    
+    private void invalidDatesAlert(String errorMsg){
+        Alert dialog = new Alert(AlertType.ERROR, 
+            "Invalid start/end date time. Please check to make sure the" +
+                    " information provided is within our operating hours " +
+                    "9AM - 5PM Eastern Standard Time.\n" +
+                    errorMsg,
+            ButtonType.OK);
+        dialog.showAndWait();
+    }
+    
+    private void emptyTitleAlert(){
+        Alert dialog = new Alert(AlertType.ERROR, 
+            "Title must be filled in to submit appointment.",
+            ButtonType.OK);
+        dialog.showAndWait();
+    }  
 
 }

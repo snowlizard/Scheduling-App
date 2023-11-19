@@ -29,6 +29,8 @@ public class HelperFunctions {
     private ZoneId localZone = ZoneId.systemDefault();
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
+    public HelperFunctions(){}
+    
     public void setScene(ActionEvent event, String nextScene, String title) throws IOException {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -56,6 +58,20 @@ public class HelperFunctions {
     public ZonedDateTime getZDT(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
         return ZonedDateTime.of(tempDT, localZone);
+    }
+    
+    public Boolean checkInTime(String dateTime){
+        LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
+        ZonedDateTime localDate = ZonedDateTime.of(tempDT, localZone);
+        ZonedDateTime estCheck = localDate.withZoneSameInstant(est);
+
+        if(estCheck.getHour() == 17 && estCheck.getMinute() > 0){
+            return false;
+        } else if(estCheck.getHour() < 17 && estCheck.getHour() >= 8){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
