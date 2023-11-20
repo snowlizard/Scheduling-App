@@ -135,29 +135,49 @@ public class AppointmentForm implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
-        String validDates = this.validateDates();
-        if(!validDates.isEmpty())
-            this.invalidDatesAlert(validDates);
-        else if(title.getText().isEmpty()){
-            this.emptyTitleAlert();
+        Boolean validForm = this.validateForm();
+        if(validForm){
+            System.out.println("Save the form");
         }
 
     }
     
+    private Boolean validateForm(){
+        Boolean valid = true;
+        String validDates = this.validateDates();
+        if(!validDates.isEmpty()){
+            this.invalidDatesAlert(validDates);
+            valid = false;
+        }
+        else if(title.getText().isEmpty()){
+            this.emptyValueAlert("Title must be filled in to submit appointment.");
+            valid = false;
+        } else if(customer.getValue() == null){
+            this.emptyValueAlert("Customer must be filled in to submit appointment.");
+            valid = false;
+        } else if(contact.getValue() == null){
+            this.emptyValueAlert("Contact must be filled in to submit appointment.");
+            valid = false;
+        } else if(user.getValue() == null){
+            this.emptyValueAlert("User must be filled in to submit appointment.");
+            valid = false;
+        }
+        return valid;
+    }
+    
     private String validateDates(){
-        String errorMsg = "";
         
         if(sDate.getValue() == null || eDate.getValue() == null){
-            errorMsg = "Empty date field/s";
+            return "Empty date field/s";
         }
         if(!sDate.getValue().equals(eDate.getValue())){
-            errorMsg = "Start date and end date not the same";
+            return "Start date and end date not the same";
         }
         
         String sDoW = sDate.getValue().getDayOfWeek().toString();
         
         if(sDoW.equals("SATURDAY") || sDoW.equals("SUNDAY")){
-            errorMsg = "Weekend selected";
+            return "Weekend selected";
         }
         
         // Prep Hours
@@ -176,16 +196,16 @@ public class AppointmentForm implements Initializable {
                 ":" + newEMin + ":00";
         
         if(sHour.getValue() > eHour.getValue()){
-            errorMsg = "Start hour after end hour";
+            return "Start hour after end hour";
         } else if(sHour.getValue().equals(eHour.getValue()) &&
                 sMin.getValue() > eMin.getValue()){
-            errorMsg = "Start minutes after end minutes";
+            return "Start minutes after end minutes";
         } else if(!helper.checkInTime(newStart)){
-            errorMsg = "Selected time out of business hours";
+            return "Selected time out of business hours";
         } else if(!helper.checkInTime(newEnd)){
-            errorMsg = "Selected time out of business hours";
+            return "Selected time out of business hours";
         }
-        return errorMsg;
+        return "";
     }
     
     private void invalidDatesAlert(String errorMsg){
@@ -198,9 +218,9 @@ public class AppointmentForm implements Initializable {
         dialog.showAndWait();
     }
     
-    private void emptyTitleAlert(){
+    private void emptyValueAlert(String msg){
         Alert dialog = new Alert(AlertType.ERROR, 
-            "Title must be filled in to submit appointment.",
+            msg,
             ButtonType.OK);
         dialog.showAndWait();
     }  
