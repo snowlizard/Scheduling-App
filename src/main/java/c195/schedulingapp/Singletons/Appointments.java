@@ -81,4 +81,14 @@ public class Appointments {
         
         return temp;
     }
+    
+    public Appointment getAptById(int aptId){
+        Appointment foundApt = null;
+        for(Appointment apt: appointments){
+            if(apt.getId() == aptId){
+                foundApt = apt;
+            }
+        }
+        return foundApt;
+    }
 }

@@ -17,6 +17,9 @@ import c195.schedulingapp.Models.HelperFunctions;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.time.ZonedDateTime;
+import java.util.Random;
+import java.time.ZoneId;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,13 +63,14 @@ public class AppointmentForm implements Initializable {
     Contacts contactInstance = Contacts.getInstance();
     Customers customerInstance = Customers.getInstance();
     Users userInstance = Users.getInstance();
+    Appointment currentApt = aptsInstance.getCurrentAppointment();
     
     HelperFunctions helper = new HelperFunctions();
+    private ZoneId localZone = ZoneId.systemDefault();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aptId.setDisable(true);
-        Appointment currentApt = aptsInstance.getCurrentAppointment();
         
         // Set Contact choices
         ObservableList<String> contacts = FXCollections.observableArrayList();
@@ -97,6 +101,7 @@ public class AppointmentForm implements Initializable {
         eHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23));
         eMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59));
         
+        // Appointment form was loaded with pre-existing appointment
         if(currentApt != null){
             Customer cust = customerInstance.getCustomer(currentApt.getCustomerId());
             Contact cont = contactInstance.getContact(currentApt.getContactId());
@@ -135,11 +140,42 @@ public class AppointmentForm implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage win = (Stage) source.getScene().getWindow();
+        
         Boolean validForm = this.validateForm();
         if(validForm){
-            System.out.println("Save the form");
+            ZonedDateTime newStartTime = helper.getZDT(this.getStartStr());
+            ZonedDateTime newEndTime = helper.getZDT(this.getEndStr());
+            ZonedDateTime createdDate = ZonedDateTime.now(localZone);
+            String createdBy = customerInstance.getLoggedInUser();
+            String updatedBy = customerInstance.getLoggedInUser();
+            ZonedDateTime lastUpdate = ZonedDateTime.now(localZone);
+            int customerId = customerInstance.getIdByName(customer.getValue());
+            int contactId = contactInstance.getIdByName(contact.getValue());
+            int userId = userInstance.getIdByName(user.getValue());
+            
+            if(currentApt != null){
+                createdDate = currentApt.getCreateDate();
+                createdBy = currentApt.getCreatedBy();
+                
+            }else{
+                Random rand = new Random();
+                int newId = rand.nextInt(1000);
+                while(aptsInstance.getAptById(newId) != null){
+                    newId = rand.nextInt(1000);
+                }
+                
+                Appointment newApt = new Appointment(newId, title.getText(),
+                    desc.getText(), location.getText(), type.getText(),
+                    newStartTime, newEndTime, createdDate, createdBy,
+                    lastUpdate, updatedBy, customerId, userId,
+                    contactId);
+                aptsInstance.addAppointment(newApt);
+            }
         }
-
+        
+        win.close();
     }
     
     private Boolean validateForm(){
@@ -180,20 +216,8 @@ public class AppointmentForm implements Initializable {
             return "Weekend selected";
         }
         
-        // Prep Hours
-        String newSHour = sHour.getValue() < 10 ? "0" + sHour.getValue().toString() 
-                : sHour.getValue().toString();
-        String newEHour = eHour.getValue() < 10 ? "0" + eHour.getValue().toString() 
-                : eHour.getValue().toString();
-        // Prep Minutes
-        String newSMin = sMin.getValue() < 10 ? "0" + sMin.getValue().toString() 
-                : sMin.getValue().toString();
-        String newEMin = eMin.getValue() < 10 ? "0" + eMin.getValue().toString()
-                : eMin.getValue().toString();
-        String newStart = sDate.getValue().toString() + " " + newSHour +
-                ":" + newSMin + ":00";
-        String newEnd = eDate.getValue().toString() + " " + newEHour +
-                ":" + newEMin + ":00";
+        String newStart = this.getStartStr();
+        String newEnd = this.getEndStr();
         
         if(sHour.getValue() > eHour.getValue()){
             return "Start hour after end hour";
@@ -223,6 +247,27 @@ public class AppointmentForm implements Initializable {
             msg,
             ButtonType.OK);
         dialog.showAndWait();
-    }  
+    }
+    
+    private String getStartStr(){
+        String newSHour = sHour.getValue() < 10 ? "0" + sHour.getValue().toString() 
+                : sHour.getValue().toString();
+        String newSMin = sMin.getValue() < 10 ? "0" + sMin.getValue().toString() 
+                : sMin.getValue().toString();
+
+        String newStart = sDate.getValue().toString() + " " + newSHour +
+                ":" + newSMin + ":00";
+        return newStart;
+    }
+    
+    private String getEndStr(){
+        String newEHour = eHour.getValue() < 10 ? "0" + eHour.getValue().toString() 
+                : eHour.getValue().toString();
+        String newEMin = eMin.getValue() < 10 ? "0" + eMin.getValue().toString()
+                : eMin.getValue().toString();
+        String newEnd = eDate.getValue().toString() + " " + newEHour +
+                ":" + newEMin + ":00";
+        return newEnd;
+    }
 
 }

@@ -42,4 +42,14 @@ public class Users {
         }
         return usr;
     }
+    
+    public int getIdByName(String name){
+        int id = -1;
+        for(User usr: users){
+            if(usr.getUserName().equals(name)){
+                id = usr.getId();
+            }
+        }
+        return id;
+    }
 }

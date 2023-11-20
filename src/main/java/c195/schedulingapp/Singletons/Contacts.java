@@ -41,4 +41,14 @@ public class Contacts {
         }
         return c;
     }
+    
+    public int getIdByName(String name){
+        int id = -1;
+        for(Contact contact: contacts){
+            if(contact.getName().equals(name)){
+                id = contact.getId();
+            }
+        }
+        return id;
+    }
 }

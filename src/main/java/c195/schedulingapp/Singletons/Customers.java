@@ -66,4 +66,14 @@ public class Customers {
     public void setLoggedInUser(String user){
         loggedInUser = user;
     }
+    
+    public int getIdByName(String name){
+        int id = -1;
+        for(Customer customr: customers){
+            if(customr.getName().equals(name)){
+                id = customr.getId();
+            }
+        }
+        return id;
+    }
 }
