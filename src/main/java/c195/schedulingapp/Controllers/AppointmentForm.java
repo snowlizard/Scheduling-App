@@ -156,9 +156,20 @@ public class AppointmentForm implements Initializable {
             int userId = userInstance.getIdByName(user.getValue());
             
             if(currentApt != null){
-                createdDate = currentApt.getCreateDate();
-                createdBy = currentApt.getCreatedBy();
+                currentApt.setTitle(title.getText());
+                currentApt.setDescription(desc.getText());
+                currentApt.setLocation(location.getText());
+                currentApt.setType(type.getText());
+                currentApt.setStart(newStartTime);
+                currentApt.setEnd(newEndTime);
+                currentApt.setLastUpdate(lastUpdate);
+                currentApt.setLastUpdatedBy(updatedBy);
+                currentApt.setCustomerId(customerId);
+                currentApt.setUserId(userId);
+                currentApt.setContactId(contactId);
                 
+                int index = aptsInstance.getAppointments().indexOf(currentApt);
+                aptsInstance.getAppointments().set(index, currentApt);
             }else{
                 Random rand = new Random();
                 int newId = rand.nextInt(1000);
@@ -173,9 +184,8 @@ public class AppointmentForm implements Initializable {
                     contactId);
                 aptsInstance.addAppointment(newApt);
             }
+            win.close();
         }
-        
-        win.close();
     }
     
     private Boolean validateForm(){

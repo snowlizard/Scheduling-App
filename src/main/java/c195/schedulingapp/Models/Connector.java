@@ -15,8 +15,6 @@ import c195.schedulingapp.Singletons.Countries;
 import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Users;
 
-import c195.schedulingapp.Models.HelperFunctions;
-
 /**
  *
  * @author mrjack
@@ -169,8 +167,8 @@ public class Connector {
                                 set.getString("Description"),
                                 set.getString("Location"),
                                 set.getString("Type"),
-                                helper.getZDT(startStr),
-                                helper.getZDT(endStr),
+                                helper.getZDTFromUTC(startStr),
+                                helper.getZDTFromUTC(endStr),
                                 helper.getZDT(createStr),
                                 set.getString("Create_By"),
                                 helper.getZDT(lastUpStr),

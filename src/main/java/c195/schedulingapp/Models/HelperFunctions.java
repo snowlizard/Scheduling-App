@@ -59,6 +59,12 @@ public class HelperFunctions {
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
         return ZonedDateTime.of(tempDT, localZone);
     }
+
+    public ZonedDateTime getZDTFromUTC(String dateTime){
+        LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
+        ZonedDateTime zdt = ZonedDateTime.of(tempDT, utc);
+        return zdt.withZoneSameInstant(localZone);
+    }
     
     public Boolean checkInTime(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
