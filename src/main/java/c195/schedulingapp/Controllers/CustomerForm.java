@@ -29,7 +29,7 @@ import javafx.collections.FXCollections;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class CustomerForm implements Initializable{
     @FXML private TextField id;
@@ -79,6 +79,10 @@ public class CustomerForm implements Initializable{
         id.setDisable(true);
     }
     
+    /**
+     * Cancels the current customer changes and sends back to the customers view
+     * @param event 
+     */
     public void onCancel(ActionEvent event){ 
         Node source = (Node) event.getSource();
         Stage win = (Stage) source.getScene().getWindow();
@@ -86,6 +90,10 @@ public class CustomerForm implements Initializable{
         win.close();
     }
     
+    /**
+     * Processes the current customer form and save/create new customer
+     * @param event 
+     */
     public void onSave(ActionEvent event){
         Node source = (Node) event.getSource();
         Stage win = (Stage) source.getScene().getWindow();
@@ -129,6 +137,9 @@ public class CustomerForm implements Initializable{
         win.close();
     }
     
+    /**
+     * Fills the division choice box with the name of each division
+     */
     public void setDivisionChoices(){
         String choiceValue = country.getValue();
         ObservableList<String> choices = FXCollections.observableArrayList();

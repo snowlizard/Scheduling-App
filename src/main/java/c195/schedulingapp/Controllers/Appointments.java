@@ -26,7 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class Appointments implements Initializable {
 
@@ -78,10 +78,19 @@ public class Appointments implements Initializable {
         week.setToggleGroup(AptFilter);
     }
     
+    /**
+     * Sends the user back to the previous screen without saving any changes made
+     * @param event
+     * @throws IOException 
+     */
     public void previousScene (ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/home", "Home");
     }
     
+    /**
+     * Opens the appointment form with the current selected appointment
+     * @throws IOException 
+     */
     @FXML
     private void modifyAppointment() throws IOException {
         Appointment apt = appointments.getSelectionModel().getSelectedItem();
@@ -92,12 +101,19 @@ public class Appointments implements Initializable {
         }
     }
     
+    /**
+     * Opens the appointment form for a new appointment
+     * @throws IOException 
+     */
     @FXML
     private void newAppointment() throws IOException {
         aptsInstance.setCurrentAppointment(null);
         new HelperFunctions().setModal("/fxml/appointmentForm");
     }
     
+    /**
+     * Controls the filter between all, month, and week
+     */
     @FXML
     private void toggleFilter(){
         RadioButton toggle = (RadioButton) AptFilter.getSelectedToggle();
@@ -112,6 +128,9 @@ public class Appointments implements Initializable {
         }
     }
     
+    /**
+     * Deletes the currently selected appointment on confirmation
+     */
     @FXML
     private void deleteAppointment() {
         Appointment apt = appointments.getSelectionModel().getSelectedItem();

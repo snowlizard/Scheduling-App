@@ -31,7 +31,7 @@ import javafx.scene.text.Text;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class Login implements Initializable {
     
@@ -76,6 +76,9 @@ public class Login implements Initializable {
         timeZone.setText(local.toString());
     }
     
+    /**
+     * Changes the language from english to french and vice versa
+     */
     public void changeLocale(){
         String currentLanguage = language.getValue();
 
@@ -88,6 +91,12 @@ public class Login implements Initializable {
         setLocale(lang);
     }
     
+    /**
+     * Logs in the entered user if they
+     * enter the correct credentials. Logs successful and unsuccessful login attempts
+     * @param event
+     * @throws IOException 
+     */
     public void login(ActionEvent event) throws IOException {
         Boolean found = false;
         String uname = username.getText();
@@ -120,6 +129,10 @@ public class Login implements Initializable {
         }
     }
     
+    /**
+     * Sets the language based on the given property file
+     * @param propertyFile name of the language properties file
+     */
     private void setLocale (String propertyFile){
         InputStream stream;
         

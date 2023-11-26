@@ -40,7 +40,7 @@ import javafx.collections.FXCollections;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class AppointmentForm implements Initializable {
 
@@ -130,6 +130,10 @@ public class AppointmentForm implements Initializable {
         }
     }    
     
+    /**
+     * Closes the current screen without saving and changes made to the form
+     * @param event 
+     */
     @FXML
     private void onCancel(ActionEvent event){ 
         Node source = (Node) event.getSource();
@@ -138,6 +142,10 @@ public class AppointmentForm implements Initializable {
         win.close();
     }
 
+    /**
+     * Saves the current fields into an existing/new appointment
+     * @param event 
+     */
     @FXML
     private void onSave(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -188,6 +196,10 @@ public class AppointmentForm implements Initializable {
         }
     }
     
+    /**
+     * Validates the form on submission
+     * @return true if valid false if invalid
+     */
     private Boolean validateForm(){
         Boolean valid = true;
         String validDates = this.validateDates();
@@ -211,8 +223,12 @@ public class AppointmentForm implements Initializable {
         return valid;
     }
     
+    /**
+     * Checks the start and end dates on the form to ensure
+     * they are valid dates
+     * @return 
+     */
     private String validateDates(){
-        
         if(sDate.getValue() == null || eDate.getValue() == null){
             return "Empty date field/s";
         }
@@ -242,6 +258,10 @@ public class AppointmentForm implements Initializable {
         return "";
     }
     
+    /**
+     * Alerts the user of invalid dates
+     * @param errorMsg string based on specific error
+     */
     private void invalidDatesAlert(String errorMsg){
         Alert dialog = new Alert(AlertType.ERROR, 
             "Invalid start/end date time. Please check to make sure the" +
@@ -252,6 +272,10 @@ public class AppointmentForm implements Initializable {
         dialog.showAndWait();
     }
     
+    /**
+     * Alerts the user of empty value
+     * @param msg error message
+     */
     private void emptyValueAlert(String msg){
         Alert dialog = new Alert(AlertType.ERROR, 
             msg,
@@ -259,6 +283,10 @@ public class AppointmentForm implements Initializable {
         dialog.showAndWait();
     }
     
+    /**
+     * Composes the start date based on the date picker and spinner hour and minutes
+     * @return format ready date time string
+     */
     private String getStartStr(){
         String newSHour = sHour.getValue() < 10 ? "0" + sHour.getValue().toString() 
                 : sHour.getValue().toString();
@@ -270,6 +298,10 @@ public class AppointmentForm implements Initializable {
         return newStart;
     }
     
+    /**
+     * Composes the end date based on the date picker and spinner hour and minutes
+     * @return format ready date time string
+     */
     private String getEndStr(){
         String newEHour = eHour.getValue() < 10 ? "0" + eHour.getValue().toString() 
                 : eHour.getValue().toString();
@@ -279,5 +311,4 @@ public class AppointmentForm implements Initializable {
                 ":" + newEMin + ":00";
         return newEnd;
     }
-
 }

@@ -21,7 +21,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class Home implements Initializable {
     @FXML private Label appt_msg;
@@ -40,14 +40,29 @@ public class Home implements Initializable {
         });
     }
     
+    /**
+     * Sends the user back to the login screen
+     * @param event
+     * @throws IOException 
+     */
     public void logout(ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/login", "Scheduling App");
     }
     
+    /**
+     * Sends the user to the login screen
+     * @param event
+     * @throws IOException 
+     */
     public void appointments(ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/appointments", "Appointments");
     }
     
+    /**
+     * Sends users to the customers screen
+     * @param event
+     * @throws IOException 
+     */
     public void customers(ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/customers", "Customers");
     }

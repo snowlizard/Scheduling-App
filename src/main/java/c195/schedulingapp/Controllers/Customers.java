@@ -24,7 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author mrjack
+ * @author Julian
  */
 public class Customers implements Initializable {
     @FXML private TableView<Customer> customers;
@@ -61,10 +61,20 @@ public class Customers implements Initializable {
         division_id.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }    
     
+    /**
+     * Sends the user to the home screen
+     * @param event
+     * @throws IOException 
+     */
     public void previousScene (ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/home", "Home");
     }
     
+    /**
+     * Sets the current customer to the current selected row if selection is not empty
+     * and redirects to the customer form
+     * @throws IOException 
+     */
     public void editCustomer() throws IOException {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
@@ -78,11 +88,18 @@ public class Customers implements Initializable {
         }
     }
     
+    /**
+     * Sets the current customer to null and opens the customer form
+     * @throws IOException 
+     */
     public void addCustomer() throws IOException{
         customerInstance.setCurrentCustomer(null);
         new HelperFunctions().setModal("/fxml/customerForm");
     }
     
+    /**
+     * deletes the currently selected model upon confirmation
+     */
     public void deleteCustomer() {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){

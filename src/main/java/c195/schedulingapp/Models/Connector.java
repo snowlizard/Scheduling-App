@@ -17,7 +17,7 @@ import c195.schedulingapp.Singletons.Users;
 
 /**
  *
- * @author mrjack
+ * @author Julian
  */
 public class Connector {
     private Connection connector;
@@ -49,6 +49,12 @@ public class Connector {
         }
     }
     
+    /**
+     * Checks for valid login
+     * @param userName String
+     * @param password String
+     * @return true if valid
+     */
     public Boolean validLogin(String userName, String password){
         Boolean found = false;
         String query = "SELECT * FROM Users WHERE User_Name = '" +
@@ -71,6 +77,10 @@ public class Connector {
         return found;
     }
     
+    /**
+     * Queries the SQL data base for customers and populates the data for
+     * use in the application
+     */
     private void initCustomers(){
         customers.resetCustomers();
         String query = "SELECT * FROM Customers";
@@ -94,6 +104,10 @@ public class Connector {
         }
     }
     
+    /**
+     * Queries the SQL data base for Divisions and populates the data for
+     * use in the application
+     */
     private void initDivisons(){
         divisions.resetDivisions();
         String query = "SELECT * FROM `First-Level Divisions`";
@@ -113,7 +127,11 @@ public class Connector {
             System.out.println(e + " Error");
         }
     }
-
+    
+    /**
+     * Queries the SQL data base for Countries and populates the data for
+     * use in the application
+     */
     private void initCountries(){
         countries.resetCountries();
         String query = "SELECT * FROM Countries";
@@ -133,6 +151,10 @@ public class Connector {
         }
     }
     
+    /**
+     * Queries the SQL data base for Contacts and populates the data for
+     * use in the application
+     */
     private void initContacts(){
         contacts.resetContacts();
         String query = "SELECT * FROM Contacts";
@@ -150,6 +172,10 @@ public class Connector {
         }
     }
     
+    /**
+     * Queries the SQL data base for Appointments and populates the data for
+     * use in the application
+     */
     private void initAppointments(){
         appointments.resetAppointments();
         String query = "SELECT * FROM Appointments";
@@ -182,6 +208,10 @@ public class Connector {
         }
     }
     
+    /**
+     * Queries the SQL data base for Users and populates the data for
+     * use in the application
+     */
     private void initUsers(){
         users.resetUsers();
         String query = "SELECT * FROM Users";
