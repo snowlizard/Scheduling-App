@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * Main used for launching app
+ * @author Julian
  */
 public class App extends Application {
 
@@ -29,6 +30,10 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    /**
+     * Launch Scheduling App
+     * @param args default arguments
+     */
     public static void main(String[] args) {
         launch();
     }

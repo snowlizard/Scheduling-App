@@ -18,9 +18,9 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+
 /**
- * FXML Controller class
- *
+ * Home controller; application main menu
  * @author Julian
  */
 public class Home implements Initializable {

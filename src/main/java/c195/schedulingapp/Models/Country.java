@@ -4,10 +4,9 @@
  */
 package c195.schedulingapp.Models;
 
-import java.time.LocalDateTime;
 /**
- *
- * @author mrjack
+ * Country Model
+ * @author Julian
  */
 public class Country {
     private int id;
@@ -27,52 +26,98 @@ public class Country {
         this.last_updated_by = last_updated_by;
     }
     
-    // Getters
+    /**
+     * get country id
+     * @return id 
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * get country name
+     * @return name of country 
+     */
     public String getCountry(){
         return this.country;
     }
     
+    /**
+     * get created date time
+     * @return create date
+     */
     public String getCreateDate(){
         return this.create_date;
     }
     
+    /**
+     * get created by user
+     * @return created by user 
+     */
     public String getCreatedBy(){
         return this.created_by;
     }
     
+    /**
+     * get last update date time
+     * @return last update 
+     */
     public String getLastUpdate(){
         return this.last_update;
     }
     
+    /**
+     * get last updated by user
+     * @return last updated by 
+     */
     public String getLastUpdatedBy(){
         return this.last_updated_by;
     }
     
-    // Setters
+    /**
+     * sets the country id
+     * @param id 
+     */
     public void setId(int id){
         this.id = id;
     }
     
+    /**
+     * sets the country name
+     * @param country 
+     */
     public void setCountry(String country){
         this.country = country;
     }
     
+    /**
+     * sets the create date time
+     * @param createDate 
+     */
     public void setCreateDate(String createDate){
         this.create_date = createDate;
     }
     
+    /**
+     * sets created by
+     * @param createdBy 
+     */
     public void setCreatedBy(String createdBy){
         this.created_by = createdBy;
     }
     
+    /**
+     * sets last update
+     * @param lastUpdate 
+     */
     public void setLastUpdate(String lastUpdate){
         this.last_update = lastUpdate;
     }
     
+    /**
+     * sets last updated by
+     * @param lastUpdatedBy 
+     */
     public void setLastUpdatedBy(String lastUpdatedBy){
         this.last_updated_by = lastUpdatedBy;
     }

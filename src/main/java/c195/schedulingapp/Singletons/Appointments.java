@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Locale;
 /**
- *
- * @author mrjack
+ * Appointment Singleton
+ * @author Julian
  */
 public class Appointments {
     private static final Appointments instance = new Appointments();
@@ -22,30 +22,57 @@ public class Appointments {
     
     public Appointments(){}
     
+    /**
+     * Gets the instance
+     * @return Appointments instance
+     */
     public static Appointments getInstance(){
         return instance;
     }
     
+    /**
+     * Add an appointment to the list of appointments
+     * @param apt Appointment
+     */
     public void addAppointment(Appointment apt){
         appointments.add(apt);
     }
     
+    /**
+     * Sets appointments to en empty list
+     */
     public void resetAppointments(){
         this.appointments = FXCollections.observableArrayList();
     }
     
+    /**
+     * Get all appointments
+     * @return ObservableList of appointments
+     */
     public ObservableList<Appointment> getAppointments(){
         return appointments;
     }
     
+    /**
+     * get the selected appointment
+     * @return Appointment
+     */
     public Appointment getCurrentAppointment(){
         return this.appointment;
     }
     
+    /**
+     * sets the current selected appointment
+     * @param apt Appointment
+     */
     public void setCurrentAppointment(Appointment apt){
         this.appointment = apt;
     }
     
+    /**
+     * Get appointments starting in the current month
+     * @return List of appointments
+     */
     public ObservableList<Appointment> getAppointmentsMonth(){
         LocalDateTime today = LocalDateTime.now();
         ObservableList<Appointment> temp = FXCollections.observableArrayList();
@@ -59,6 +86,10 @@ public class Appointments {
         return temp;
     }
     
+    /**
+     * Get appointments starting in the current week
+     * @return List of appointments
+     */
     public ObservableList<Appointment> getAppointmentsWeek(){
         Locale locale = Locale.getDefault();
         Calendar calendar = Calendar.getInstance(locale);
@@ -82,6 +113,11 @@ public class Appointments {
         return temp;
     }
     
+    /**
+     * Get an appointment by its ID
+     * @param aptId Integer
+     * @return Appointment if found
+     */
     public Appointment getAptById(int aptId){
         Appointment foundApt = null;
         for(Appointment apt: appointments){

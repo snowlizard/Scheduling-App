@@ -4,10 +4,9 @@
  */
 package c195.schedulingapp.Models;
 
-import java.time.LocalDateTime;
 /**
- *
- * @author mrjack
+ * Customer Model
+ * @author Julian
  */
 public class Customer {
     private int id;
@@ -35,84 +34,162 @@ public class Customer {
         this.last_updated_by = last_updated_by;
         this.division_id     = division_id;
     }
-    // Getters
+    /**
+     * Customer id
+     * @return id 
+     */
     public int getId(){
         return id;
     }
     
+    /**
+     * Customer name
+     * @return name
+     */
     public String getName(){
         return this.name;
     }
     
+    /**
+     * Customer address
+     * @return address
+     */
     public String getAddress(){
         return this.address;
     }
     
+    /**
+     * Customer postal/zip code
+     * @return postal code
+     */
     public String getPostalCode(){
         return this.postal_code;
     }
     
+    /**
+     * Customer phone number
+     * @return phone
+     */
     public String getPhone(){
         return this.phone;
     }
     
+    /**
+     * Customer create date
+     * @return create date
+     */
     public String getCreateDate(){
         return this.create_date;
     }
     
+    /**
+     * Customer created by
+     * @return created by
+     */
     public String getCreatedBy(){
         return this.created_by;
     }
     
+    /**
+     * Last update
+     * @return last update
+     */
     public String getLastUpdate(){
         return this.last_update;
     }
     
+    /**
+     * Customer last updated by
+     * @return last updated by
+     */
     public String getLastUpdatedBy(){
         return this.last_updated_by;
     }
     
+    /**
+     * Division id
+     * @return integer
+     */
     public int getDivisionId(){
         return this.division_id;
     }
     
-    // Setters
+    /**
+     * sets the customer id
+     * @param id integer
+     */
     public void setId(int id){
         this.id = id;
     }
     
+    /**
+     * sets the customer name
+     * @param name string
+     */
     public void setName(String name){
         this.name = name;
     }
     
+    /**
+     * sets the customer address
+     * @param address string
+     */
     public void setAddress(String address){
         this.address = address;
     }
     
+    /**
+     * sets the customer postal code
+     * @param postal_code string
+     */
     public void setPostalCode(String postal_code){
         this.postal_code = postal_code;
     }
     
+    /**
+     * sets the customer phone number
+     * @param phone string
+     */
     public void setPhone(String phone){
         this.phone = phone;
     }
     
+    /**
+     * sets the create date time
+     * @param createDate string
+     */
     public void setCreateDate(String createDate){
         this.create_date = createDate;
     }
     
+    /**
+     * sets the created by
+     * @param createdBy string 
+     */
     public void setCreatedBy(String createdBy){
         this.created_by = createdBy;
     }
     
+    /**
+     * sets the last update
+     * @param lastUpdate string 
+     */
     public void setLastUpdate(String lastUpdate){
         this.last_update = lastUpdate;
     }
     
+    /**
+     * sets customer last updated by
+     * @param lastUpdatedBy string
+     */
     public void setLastUpdatedBy(String lastUpdatedBy){
         this.last_updated_by = lastUpdatedBy;
     }
     
+    /**
+     * sets the division id
+     * @param division_id integer
+     */
     public void setDivisionId(int division_id){
         this.division_id = division_id;
     }

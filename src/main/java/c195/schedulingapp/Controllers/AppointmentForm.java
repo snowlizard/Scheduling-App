@@ -37,9 +37,9 @@ import javafx.scene.control.ButtonType;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+
 /**
- * FXML Controller class
- *
+ * Appointment form controller used for updating or creating appointments
  * @author Julian
  */
 public class AppointmentForm implements Initializable {
@@ -68,6 +68,11 @@ public class AppointmentForm implements Initializable {
     HelperFunctions helper = new HelperFunctions();
     private ZoneId localZone = ZoneId.systemDefault();
     
+    /**
+     * Initialize Appointment form
+     * @param url URL
+     * @param rb ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aptId.setDisable(true);
@@ -132,7 +137,7 @@ public class AppointmentForm implements Initializable {
     
     /**
      * Closes the current screen without saving and changes made to the form
-     * @param event 
+     * @param event ActionEvent
      */
     @FXML
     private void onCancel(ActionEvent event){ 
@@ -144,7 +149,7 @@ public class AppointmentForm implements Initializable {
 
     /**
      * Saves the current fields into an existing/new appointment
-     * @param event 
+     * @param event ActionEvent
      */
     @FXML
     private void onSave(ActionEvent event) {
@@ -226,7 +231,7 @@ public class AppointmentForm implements Initializable {
     /**
      * Checks the start and end dates on the form to ensure
      * they are valid dates
-     * @return 
+     * @return String
      */
     private String validateDates(){
         if(sDate.getValue() == null || eDate.getValue() == null){

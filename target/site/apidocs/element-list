@@ -1,0 +1,5 @@
+module:c195.schedulingapp
+c195.schedulingapp
+c195.schedulingapp.Controllers
+c195.schedulingapp.Models
+c195.schedulingapp.Singletons

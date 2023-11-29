@@ -20,8 +20,8 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 /**
- *
- * @author mrjack
+ * Helper functions used for setting date time, modals, scene switching
+ * @author Julian
  */
 public class HelperFunctions {
     private ZoneId utc = ZoneId.of("UTC");
@@ -31,6 +31,13 @@ public class HelperFunctions {
     
     public HelperFunctions(){}
     
+    /**
+     * sets the scene
+     * @param event ActionEvent
+     * @param nextScene String name of next scene
+     * @param title String page title
+     * @throws IOException 
+     */
     public void setScene(ActionEvent event, String nextScene, String title) throws IOException {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -40,7 +47,11 @@ public class HelperFunctions {
         stage.setScene(scene);
     }
     
-    
+    /**
+     * Opens a model with the given scene
+     * @param modal FXML file
+     * @throws IOException 
+     */
     public void setModal(String modal) throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(loadFXML(modal));
@@ -49,23 +60,44 @@ public class HelperFunctions {
         stage.setScene(scene);
         stage.show();
     }
-
+    
+    /**
+     * Loads an FXML file
+     * @param fxml
+     * @return FXML object
+     * @throws IOException 
+     */
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
     
+    /**
+     * converts the given string into a ZonedDateTime object
+     * @param dateTime string date time
+     * @return new ZonedDateTime object in local time
+     */
     public ZonedDateTime getZDT(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
         return ZonedDateTime.of(tempDT, localZone);
     }
-
+    
+    /**
+     * converts the given string into a ZonedDateTime object
+     * @param dateTime string date time
+     * @return new ZonedDateTime object in local time from UTC
+     */
     public ZonedDateTime getZDTFromUTC(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
         ZonedDateTime zdt = ZonedDateTime.of(tempDT, utc);
         return zdt.withZoneSameInstant(localZone);
     }
     
+    /**
+     * Checks the given date time to ensure they are within operating hours
+     * @param dateTime string date time
+     * @return true if within operating hours
+     */
     public Boolean checkInTime(String dateTime){
         LocalDateTime tempDT = LocalDateTime.parse(dateTime, format);
         ZonedDateTime localDate = ZonedDateTime.of(tempDT, localZone);
@@ -80,16 +112,3 @@ public class HelperFunctions {
         }
     }
 }
-
-/**
-        ZonedDateTime z = ZonedDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        ZoneId zoneId = ZoneId.of("UTC");
-        ZoneId pst    = ZoneId.of("America/Los_Angeles");
-        
-        String date = "2023-10-30 19:30";
-        LocalDateTime np = LocalDateTime.parse(date, format);
-        ZonedDateTime nz = ZonedDateTime.of(np, zoneId);
-        
-        System.out.println(nz.withZoneSameInstant(pst).format(format));
- */

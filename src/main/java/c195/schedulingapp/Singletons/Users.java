@@ -9,8 +9,8 @@ import c195.schedulingapp.Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**
- *
- * @author mrjack
+ * Users Singleton
+ * @author Julian
  */
 public class Users {
     private static final Users instance = new Users();
@@ -18,22 +18,42 @@ public class Users {
     
     private Users(){}
     
+    /**
+     * Users instance
+     * @return Users instance
+     */
     public static Users getInstance(){
         return instance;
     }
     
+    /**
+     * List of all users
+     * @return ObservableList<User>
+     */
     public ObservableList<User> getUsers(){
         return this.users;
     }
     
+    /**
+     * Empties the list of users
+     */
     public void resetUsers(){
         users = FXCollections.observableArrayList();
     }
     
+    /**
+     * Adds a user to list of users
+     * @param newUser User 
+     */
     public void addUser(User newUser){
         users.add(newUser);
     }
     
+    /**
+     * Find user by their id
+     * @param id integer
+     * @return User
+     */
     public User getUser(int id){
         User usr = null;
         for(User u: users){
@@ -43,6 +63,11 @@ public class Users {
         return usr;
     }
     
+    /**
+     * get user id by their name
+     * @param name String
+     * @return id
+     */
     public int getIdByName(String name){
         int id = -1;
         for(User usr: users){

@@ -6,7 +6,7 @@ package c195.schedulingapp.Models;
 
 import java.time.ZonedDateTime;
 /**
- *
+ * Appointment Model
  * @author Julian
  */
 public class Appointment {
@@ -25,6 +25,23 @@ public class Appointment {
     private int user_id;
     private int contact_id;
     
+    /**
+     * Initialize Appointment object
+     * @param id integer
+     * @param title String
+     * @param description String
+     * @param location String
+     * @param type String
+     * @param start ZonedDateTime
+     * @param end ZonedDateTime
+     * @param create_date ZonedDateTime
+     * @param created_by String
+     * @param last_update ZonedDateTime
+     * @param last_updated_by String
+     * @param cust_id integer
+     * @param u_id integer
+     * @param cont_id integer
+     */
     public Appointment(int id, String title, String description, String location,
             String type, ZonedDateTime start, ZonedDateTime end,
             ZonedDateTime create_date, String created_by, ZonedDateTime last_update,
@@ -54,7 +71,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get title
      * @return appointment title
      */
     public String getTitle(){
@@ -62,7 +79,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get description
      * @return appointment description 
      */
     public String getDescription(){
@@ -70,7 +87,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get location
      * @return appointment location 
      */
     public String getLocation(){
@@ -78,7 +95,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get appointment type
      * @return appointment type 
      */
     public String getType(){
@@ -86,7 +103,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get start date time
      * @return appointment start date time 
      */
     public ZonedDateTime getStart(){
@@ -94,7 +111,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get end date time
      * @return appointment end date time 
      */
     public ZonedDateTime getEnd(){
@@ -102,7 +119,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get create date
      * @return date appointment created date 
      */
     public ZonedDateTime getCreateDate(){
@@ -110,7 +127,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get create by
      * @return created by user name 
      */
     public String getCreatedBy(){
@@ -118,7 +135,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get last update
      * @return date time of last update 
      */
     public ZonedDateTime getLastUpdate(){
@@ -126,7 +143,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get last update by
      * @return name of last person who updated appointment
      */
     public String getLastUpdatedBy(){
@@ -134,7 +151,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get customer id
      * @return customer id 
      */
     public int getCustomerId(){
@@ -142,7 +159,7 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get user id
      * @return user id 
      */
     public int getUserId(){
@@ -150,17 +167,15 @@ public class Appointment {
     }
     
     /**
-     * 
+     * get contact id
      * @return contact id 
      */
     public int getContactId(){
         return this.contact_id;
     }
-
-    // Setters
     
     /**
-     * 
+     * sets the appointment id
      * @param id unique appointment id
      */
     public void setId(int id){
@@ -169,7 +184,7 @@ public class Appointment {
     
     /**
      * sets the title
-     * @param title 
+     * @param title String
      */
     public void setTitle(String title){
         this.title = title;
@@ -177,7 +192,7 @@ public class Appointment {
     
     /**
      * sets the description
-     * @param desc 
+     * @param desc String
      */
     public void setDescription(String desc){
         this.description = desc;
@@ -185,7 +200,7 @@ public class Appointment {
     
     /**
      * sets the location
-     * @param location 
+     * @param location String
      */
     public void setLocation(String location){
         this.location = location;
@@ -193,7 +208,7 @@ public class Appointment {
     
     /**
      * sets the type
-     * @param type 
+     * @param type String
      */
     public void setType(String type){
         this.type = type;
@@ -201,7 +216,7 @@ public class Appointment {
     
     /**
      * sets the start
-     * @param start 
+     * @param start ZonedDateTime
      */
     public void setStart(ZonedDateTime start){
         this.start = start;
@@ -209,7 +224,7 @@ public class Appointment {
     
     /**
      * sets the end
-     * @param end 
+     * @param end ZonedDateTime
      */
     public void setEnd(ZonedDateTime end){
         this.end = end;
@@ -217,7 +232,7 @@ public class Appointment {
     
     /**
      * sets the create date
-     * @param createDate 
+     * @param createDate ZonedDateTime
      */
     public void setCreateDate(ZonedDateTime createDate){
         this.create_date = createDate;
@@ -225,7 +240,7 @@ public class Appointment {
     
     /**
      * sets created by
-     * @param createdBy 
+     * @param createdBy String
      */
     public void setCreatedBy(String createdBy){
         this.created_by = createdBy;
@@ -233,7 +248,7 @@ public class Appointment {
     
     /**
      * sets the last update
-     * @param lastUpdate 
+     * @param lastUpdate ZonedDateTime
      */
     public void setLastUpdate(ZonedDateTime lastUpdate){
         this.last_update = lastUpdate;
@@ -241,7 +256,7 @@ public class Appointment {
     
     /**
      * sets last updated by
-     * @param lastUpdatedBy 
+     * @param lastUpdatedBy String
      */
     public void setLastUpdatedBy(String lastUpdatedBy){
         this.last_updated_by = lastUpdatedBy;
@@ -249,7 +264,7 @@ public class Appointment {
     
     /**
      * sets the customer id
-     * @param cId 
+     * @param cId integer
      */
     public void setCustomerId(int cId){
         this.customer_id = cId;
@@ -257,7 +272,7 @@ public class Appointment {
     
     /**
      * sets the user id
-     * @param uId 
+     * @param uId integer
      */
     public void setUserId(int uId){
         this.user_id = uId;
@@ -265,7 +280,7 @@ public class Appointment {
     
     /**
      * sets the contact id
-     * @param cId 
+     * @param cId integer
      */
     public void setContactId(int cId){
         this.contact_id = cId;

@@ -16,7 +16,7 @@ import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Users;
 
 /**
- *
+ * Used for SQL connection
  * @author Julian
  */
 public class Connector {

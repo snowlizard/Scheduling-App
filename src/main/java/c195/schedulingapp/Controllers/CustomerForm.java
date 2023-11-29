@@ -26,9 +26,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+
 /**
- * FXML Controller class
- *
+ * Form for updating and creating customer records
  * @author Julian
  */
 public class CustomerForm implements Initializable{

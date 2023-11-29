@@ -23,9 +23,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 /**
- * FXML Controller class
- *
+ * Appointment controller, displays all appointments
  * @author Julian
  */
 public class Appointments implements Initializable {
