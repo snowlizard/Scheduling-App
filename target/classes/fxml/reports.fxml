@@ -25,7 +25,7 @@
         </columns>
       </TableView>
       <Label layoutX="24.0" layoutY="230.0" prefHeight="16.0" prefWidth="281.0" text="Contact schedule" />
-      <ChoiceBox fx:id="contactBox" layoutX="24.0" layoutY="256.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="contactBox" onAction="#setAppointmentsReport" layoutX="24.0" layoutY="256.0" prefWidth="150.0" />
       <TableView fx:id="contactTable" layoutX="24.0" layoutY="288.0" prefHeight="229.0" prefWidth="781.0">
         <columns>
           <TableColumn fx:id="aptId" prefWidth="60.0" text="Appointment ID" />
