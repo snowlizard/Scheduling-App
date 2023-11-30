@@ -4,14 +4,6 @@
  */
 package c195.schedulingapp.Models;
 
-/*
-select Country, Division, 
-SUM(CASE WHEN Customers.Division_ID = `First-Level Divisions`.Division_ID THEN 1 
-WHEN `First-Level Divisions`.Country_ID = Countries.Country_ID THEN 1 END) AS  Total 
-from Customers 
-LEFT JOIN `First-Level Divisions` ON Customers.Division_ID = `First-Level Divisions`.Division_ID 
-LEFT JOIN Countries ON `First-Level Divisions`.Country_ID = Countries.Country_ID GROUP BY Customers.Division_ID;
-*/
 /**
  * Grabs report of all customers by country and division
  * @author Julian

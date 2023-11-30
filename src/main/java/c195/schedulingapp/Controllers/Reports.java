@@ -6,6 +6,7 @@ package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.HelperFunctions;
 import c195.schedulingapp.Models.CountryReport;
+import c195.schedulingapp.Models.TMReport;
 import c195.schedulingapp.Models.Connector;
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +28,10 @@ public class Reports implements Initializable {
     
     private Connector connector = new Connector();
 
-    @FXML private TableView<?> tmTable;
-    @FXML private TableColumn<?, ?> tmMonth;
-    @FXML private TableColumn<?, ?> tmType;
-    @FXML private TableColumn<?, ?> tmTotal;
+    @FXML private TableView<TMReport> tmTable;
+    @FXML private TableColumn<TMReport, String> tmMonth;
+    @FXML private TableColumn<TMReport, String> tmType;
+    @FXML private TableColumn<TMReport, Integer> tmTotal;
     @FXML private TableView<CountryReport> ccTable;
     @FXML private TableColumn<CountryReport, String> ccName;
     @FXML private TableColumn<CountryReport, String> ccCountry;
@@ -55,6 +56,11 @@ public class Reports implements Initializable {
         ccName.setCellValueFactory(new PropertyValueFactory<> ("Country"));
         ccCountry.setCellValueFactory(new PropertyValueFactory<> ("Division"));
         ccTotal.setCellValueFactory(new PropertyValueFactory<> ("countryDivTotal"));
+        
+        tmTable.setItems(connector.getTMReport());
+        tmMonth.setCellValueFactory(new PropertyValueFactory<> ("Month"));
+        tmType.setCellValueFactory(new PropertyValueFactory<> ("Type"));
+        tmTotal.setCellValueFactory(new PropertyValueFactory<> ("Total"));
     }    
     
     /**

@@ -258,4 +258,25 @@ public class Connector {
         
         return countryReport;
     }
+    
+    public ObservableList<TMReport> getTMReport(){
+        ObservableList<TMReport> tmReport = FXCollections.observableArrayList();
+        
+        String query = "SELECT MONTHNAME(Start) AS Month, Type, SUM(CASE WHEN Appointments.Customer_ID = Customers.Customer_ID THEN 1 END) AS Total FROM Appointments LEFT JOIN Customers on Appointments.Customer_ID = Customers.Customer_ID GROUP BY MONTHNAME(Start), Type;";
+        
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                tmReport.add(new TMReport(
+                        set.getString("Month"),
+                        set.getString("Type"),
+                        set.getInt("Total")
+                ));
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return tmReport;
+    }
 }
