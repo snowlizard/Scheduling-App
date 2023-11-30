@@ -51,7 +51,6 @@ public class Reports implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        connector.initAll();
         ccTable.setItems(connector.getCountriesReport());
         ccName.setCellValueFactory(new PropertyValueFactory<> ("Country"));
         ccCountry.setCellValueFactory(new PropertyValueFactory<> ("Division"));

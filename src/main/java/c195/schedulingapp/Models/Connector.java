@@ -33,25 +33,24 @@ public class Connector {
     
     HelperFunctions helper = new HelperFunctions();
     
-    public Connector(){}
-    
-    public void initAll(){
+    public Connector(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connector = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/WGU",
                     "jgon", "Password@1");
-            
-            this.initAppointments();
-            this.initContacts();
-            this.initCustomers();
-            this.initCountries();
-            this.initDivisons();
-            this.initUsers();
-            
         }catch(Exception e){
             System.out.println(e);
         }
+    }
+    
+    public void initAll(){
+        this.initAppointments();
+        this.initContacts();
+        this.initCustomers();
+        this.initCountries();
+        this.initDivisons();
+        this.initUsers();
     }
     
     /**

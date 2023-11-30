@@ -71,8 +71,7 @@ public class Login implements Initializable {
             lang = "english.properties";
             language.setValue("English");
         }
-        
-        //connect = new Connector();
+
         setLocale(lang);
         timeZone.setText(local.toString());
     }
