@@ -1,4 +1,5 @@
 c195/schedulingapp/Singletons/Customers.class
+c195/schedulingapp/Models/CountryReport.class
 c195/schedulingapp/Singletons/Contacts.class
 c195/schedulingapp/Models/Appointment.class
 c195/schedulingapp/Models/Connector.class
@@ -18,5 +19,6 @@ c195/schedulingapp/App.class
 c195/schedulingapp/Controllers/Login.class
 c195/schedulingapp/Controllers/CustomerForm.class
 c195/schedulingapp/Controllers/Home.class
+c195/schedulingapp/Controllers/Reports.class
 c195/schedulingapp/Controllers/Customers.class
 c195/schedulingapp/Singletons/Appointments.class

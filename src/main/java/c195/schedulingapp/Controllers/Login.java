@@ -45,7 +45,7 @@ public class Login implements Initializable {
     @FXML private ChoiceBox<String> language;
     @FXML private Label timeZone;
     
-    private Connector connect;
+    private Connector connect = new Connector();
     
     private Properties prop = new Properties();
     private ZoneId local = ZoneId.systemDefault();
@@ -57,6 +57,7 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        connect.initAll();
         languages.add("English");
         languages.add("français");
         language.setItems(languages);
@@ -71,7 +72,7 @@ public class Login implements Initializable {
             language.setValue("English");
         }
         
-        connect = new Connector();
+        //connect = new Connector();
         setLocale(lang);
         timeZone.setText(local.toString());
     }

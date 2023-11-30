@@ -15,6 +15,9 @@ import c195.schedulingapp.Singletons.Countries;
 import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Users;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * Used for SQL connection
  * @author Julian
@@ -30,7 +33,9 @@ public class Connector {
     
     HelperFunctions helper = new HelperFunctions();
     
-    public Connector(){
+    public Connector(){}
+    
+    public void initAll(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connector = DriverManager.getConnection(
@@ -226,5 +231,32 @@ public class Connector {
         }catch(Exception e){
             System.out.println(e );
         }
+    }
+    
+    public ObservableList<CountryReport> getCountriesReport(){
+        ObservableList<CountryReport> countryReport = FXCollections.observableArrayList();
+        
+        String query = "select Country, Division, " +
+        "SUM(CASE WHEN Customers.Division_ID = `First-Level Divisions`.Division_ID THEN 1 " +
+        "WHEN `First-Level Divisions`.Country_ID = Countries.Country_ID THEN 1 END) AS  Total " +
+        "from Customers " +
+        "LEFT JOIN `First-Level Divisions` ON Customers.Division_ID = `First-Level Divisions`.Division_ID " +
+        "LEFT JOIN Countries ON `First-Level Divisions`.Country_ID = Countries.Country_ID GROUP BY Customers.Division_ID;";
+        
+        try{
+            ResultSet set = this.connector.prepareStatement(query).executeQuery();
+            while(set.next()){
+                countryReport.add(new CountryReport(
+                        set.getString("Country"),
+                        set.getString("Division"),
+                        set.getInt("Total")
+                ));
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return countryReport;
     }
 }

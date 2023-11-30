@@ -27,6 +27,12 @@ public class Home implements Initializable {
     @FXML private Label appt_msg;
     private Appointments aptsInstance = Appointments.getInstance();
     
+    /**
+     * Upon opening the home page look for appointments within the next 15 minutes
+     * and update the banner
+     * @param url URL
+     * @param rb ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
@@ -42,7 +48,7 @@ public class Home implements Initializable {
     
     /**
      * Sends the user back to the login screen
-     * @param event
+     * @param event ActionEvent
      * @throws IOException 
      */
     public void logout(ActionEvent event) throws IOException {
@@ -51,7 +57,7 @@ public class Home implements Initializable {
     
     /**
      * Sends the user to the login screen
-     * @param event
+     * @param event ActionEvent
      * @throws IOException 
      */
     public void appointments(ActionEvent event) throws IOException {
@@ -60,10 +66,19 @@ public class Home implements Initializable {
     
     /**
      * Sends users to the customers screen
-     * @param event
+     * @param event ActionEvent
      * @throws IOException 
      */
     public void customers(ActionEvent event) throws IOException {
         new HelperFunctions().setScene(event, "/fxml/customers", "Customers");
+    }
+    
+    /**
+     * Sends user to the reports screen
+     * @param event ActionEvent
+     * @throws IOException 
+     */
+    public void reports(ActionEvent event) throws IOException{
+        new HelperFunctions().setScene(event, "/fxml/reports", "Reports");
     }
 }
