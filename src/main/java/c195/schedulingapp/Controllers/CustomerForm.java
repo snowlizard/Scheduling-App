@@ -55,9 +55,9 @@ public class CustomerForm implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        countries.forEach((estado) -> {
-            estados.add(estado.getCountry());
-        });
+
+        // Use lambda function easily add each Country name to the estados list
+        countries.forEach((estado) -> estados.add(estado.getCountry()));
         
         country.setItems(estados);
         
@@ -146,7 +146,8 @@ public class CustomerForm implements Initializable{
         
         if(choiceValue != null){
             Country selCountry= countryInstance.getCountryByName(choiceValue);
-            // lambda function
+            // Allows simple iteration on divisions list
+            // use to add division name to choice box
             divisions.forEach((division) -> {
                 if(division.getCountryId() == selCountry.getId()){
                     choices.add(division.getDivision());

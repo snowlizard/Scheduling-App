@@ -75,9 +75,8 @@ public class Reports implements Initializable {
         // Set Contact choices
         ObservableList<String> contacts = FXCollections.observableArrayList();
         
-        contactInstance.getContacts().forEach((contacto) -> {
-            contacts.add(contacto.getName());
-        });
+        // Lambda - add each contact name to new contacts list
+        contactInstance.getContacts().forEach((contacto) -> contacts.add(contacto.getName()));
         
         contactBox.setItems(contacts);
     }

@@ -4,8 +4,10 @@
  */
 package c195.schedulingapp.Controllers;
 
+import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
+import c195.schedulingapp.Singletons.Appointments;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,6 +44,7 @@ public class Customers implements Initializable {
     c195.schedulingapp.Singletons.Customers customerInstance = c195.schedulingapp.Singletons.Customers.getInstance();
     ObservableList<Customer> customersList = customerInstance.getCustomers();
     Customer currentCustomer = customerInstance.getCurrentCustomer();
+    Appointments aptsInstance = Appointments.getInstance();
     /**
      * Initializes the controller class.
      */
@@ -103,13 +106,28 @@ public class Customers implements Initializable {
     public void deleteCustomer() {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
-            Alert confirm = new Alert(AlertType.CONFIRMATION,
-                "Are you sure you want to delete this customer?",
-                   ButtonType.YES, ButtonType.NO);
-            confirm.showAndWait();
+            Boolean hasApts = false;
+            ObservableList<Appointment> apts = aptsInstance.getAppointments();
+            for(Appointment apt: apts){
+                if(apt.getCustomerId() == customer.getId()){
+                    hasApts = true;
+                }
+            }
             
-            if(confirm.getResult() == ButtonType.YES){
-                customerInstance.removeCustomer(customer);
+            if(!hasApts){
+                Alert confirm = new Alert(AlertType.CONFIRMATION,
+                    "Are you sure you want to delete this customer?",
+                       ButtonType.YES, ButtonType.NO);
+                confirm.showAndWait();
+
+                if(confirm.getResult() == ButtonType.YES){
+                    customerInstance.removeCustomer(customer);
+                }
+            }else{
+                Alert aptFound = new Alert(AlertType.ERROR,
+                    "Please delete customer appointments before" +
+                     " deleting customer.", ButtonType.CLOSE);
+                aptFound.showAndWait();
             }
         }else{
             Alert dialog = new Alert(AlertType.ERROR, 
