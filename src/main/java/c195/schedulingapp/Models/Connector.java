@@ -100,7 +100,7 @@ public class Connector {
                         set.getString("Create_Date"),
                         set.getString("Created_By"), 
                         set.getString("Last_Update"),
-                        set.getString("Last_Update_By"), 
+                        set.getString("Last_Updated_By"), 
                         set.getInt("Division_ID")));
             }
         }catch(Exception e){
@@ -114,7 +114,7 @@ public class Connector {
      */
     private void initDivisons(){
         divisions.resetDivisions();
-        String query = "SELECT * FROM `First-Level Divisions`";
+        String query = "SELECT * FROM `first_level_divisions`";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -200,7 +200,7 @@ public class Connector {
                                 helper.getZDTFromUTC(startStr),
                                 helper.getZDTFromUTC(endStr),
                                 helper.getZDT(createStr),
-                                set.getString("Create_By"),
+                                set.getString("Created_By"),
                                 helper.getZDT(lastUpStr),
                                 set.getString("Last_Updated_By"),
                                 set.getInt("Customer_ID"),
