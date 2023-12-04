@@ -37,8 +37,8 @@ public class Connector {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connector = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/WGU",
-                    "jgon", "Password@1");
+                    "jdbc:mysql://localhost:3306/client_schedule",
+                    "sqlUser", "Passw0rd!");
         }catch(Exception e){
             System.out.println(e);
         }
