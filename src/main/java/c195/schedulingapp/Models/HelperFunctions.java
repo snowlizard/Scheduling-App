@@ -94,6 +94,22 @@ public class HelperFunctions {
     }
     
     /**
+     * Converts date from local time to UTC
+     * and returns its string value
+     * @param localDT ZonedDateTime local
+     * @return String
+     */
+    public String getUTCfromLocal(ZonedDateTime localDT){
+        return localDT.withZoneSameInstant(utc).format(format);
+    }
+    
+    public String getUTCfromLocalString(String localDT){
+        LocalDateTime tempDT = LocalDateTime.parse(localDT, format);
+        ZonedDateTime zdt = ZonedDateTime.of(tempDT, localZone);
+        return zdt.withZoneSameInstant(utc).format(format);
+    }
+    
+    /**
      * Checks the given date time to ensure they are within operating hours
      * @param dateTime string date time
      * @return true if within operating hours

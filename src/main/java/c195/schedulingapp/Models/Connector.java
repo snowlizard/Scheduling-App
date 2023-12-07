@@ -7,6 +7,7 @@ package c195.schedulingapp.Models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import c195.schedulingapp.Singletons.Appointments;
 import c195.schedulingapp.Singletons.Contacts;
@@ -24,6 +25,7 @@ import javafx.collections.ObservableList;
  */
 public class Connector {
     private Connection connector;
+    private String database = "client_schedule";
     Appointments appointments = Appointments.getInstance();
     Contacts  contacts  = Contacts.getInstance();
     Customers customers = Customers.getInstance();
@@ -37,7 +39,7 @@ public class Connector {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             connector = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/client_schedule",
+                    "jdbc:mysql://localhost:3306/" + database,
                     "sqlUser", "Passw0rd!");
         }catch(Exception e){
             System.out.println(e);
@@ -236,11 +238,11 @@ public class Connector {
         ObservableList<CountryReport> countryReport = FXCollections.observableArrayList();
         
         String query = "select Country, Division, " +
-        "SUM(CASE WHEN Customers.Division_ID = `First-Level Divisions`.Division_ID THEN 1 " +
-        "WHEN `First-Level Divisions`.Country_ID = Countries.Country_ID THEN 1 END) AS  Total " +
+        "SUM(CASE WHEN Customers.Division_ID = `first_level_divisions`.Division_ID THEN 1 " +
+        "WHEN `first_level_divisions`.Country_ID = Countries.Country_ID THEN 1 END) AS  Total " +
         "from Customers " +
-        "LEFT JOIN `First-Level Divisions` ON Customers.Division_ID = `First-Level Divisions`.Division_ID " +
-        "LEFT JOIN Countries ON `First-Level Divisions`.Country_ID = Countries.Country_ID GROUP BY Customers.Division_ID;";
+        "LEFT JOIN `first_level_divisions` ON Customers.Division_ID = `first_level_divisions`.Division_ID " +
+        "LEFT JOIN Countries ON `first_level_divisions`.Country_ID = Countries.Country_ID GROUP BY Customers.Division_ID;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -278,5 +280,110 @@ public class Connector {
         }
         
         return tmReport;
+    }
+    
+    public void insertAppointmentQuery(Appointment apt){
+        String query = "INSERT INTO `" + database + "`.`appointments`\n" +
+                        "(`Appointment_ID`,\n" +
+                        "`Title`,\n" +
+                        "`Description`,\n" +
+                        "`Location`,\n" +
+                        "`Type`,\n" +
+                        "`Start`,\n" +
+                        "`End`,\n" +
+                        "`Create_Date`,\n" +
+                        "`Created_By`,\n" +
+                        "`Last_Update`,\n" +
+                        "`Last_Updated_By`,\n" +
+                        "`Customer_ID`,\n" +
+                        "`User_ID`,\n" +
+                        "`Contact_ID`)\n" +
+                        "VALUES\n" +
+                        "(" + apt.getId() + ",\n" +
+                        apt.getTitle() + ",\n" +
+                        apt.getDescription() + ",\n" +
+                        apt.getLocation() + ",\n" +
+                        apt.getType() + ",\n" +
+                        helper.getUTCfromLocal(apt.getStart()) + ",\n" +
+                        helper.getUTCfromLocal(apt.getEnd()) + ",\n" +
+                        helper.getUTCfromLocal(apt.getCreateDate()) + ",\n" +
+                        apt.getCreatedBy() + ",\n" +
+                        helper.getUTCfromLocal(apt.getLastUpdate()) + ",\n" +
+                        apt.getLastUpdatedBy() + ",\n" +
+                        apt.getCustomerId() + ",\n" +
+                        apt.getUserId() + ",\n" +
+                        apt.getContactId() + ");";
+        
+        try {
+            Statement statement = connector.createStatement();
+            int result = statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void insertCustomer(Customer cust){
+        String query = "INSERT INTO `" + database + "`.`customers`\n" +
+                        "(`Customer_ID`,\n" +
+                        "`Customer_Name`,\n" +
+                        "`Address`,\n" +
+                        "`Postal_Code`,\n" +
+                        "`Phone`,\n" +
+                        "`Create_Date`,\n" +
+                        "`Created_By`,\n" +
+                        "`Last_Update`,\n" +
+                        "`Last_Updated_By`,\n" +
+                        "`Division_ID`)\n" +
+                        "VALUES\n" +
+                        "("+ cust.getId() + ",\n" +
+                        "\"" + cust.getName() + "\"" + ",\n" +
+                        "\"" + cust.getAddress() + "\"" + ",\n" +
+                        "\"" + cust.getPostalCode() + "\"" + ",\n" +
+                        "\"" + cust.getPhone() + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocalString(cust.getCreateDate())+ "\"" + ",\n" +
+                        "\"" + cust.getCreatedBy() + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocalString(cust.getLastUpdate())+ "\"" + ",\n" +
+                        "\"" + cust.getLastUpdatedBy() + "\"" + ",\n" +
+                        cust.getDivisionId() + ");";
+        
+        try {
+            Statement statement = connector.createStatement();
+            int result = statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void updateCustomer(Customer cust){
+        String query = "UPDATE `client_schedule`.`customers`\n" +
+                        "SET\n" +
+                        "Customer_Name = \"" + cust.getName() + "\"" + ",\n" +
+                        "Address = \"" + cust.getAddress() + "\"" + ",\n" +
+                        "Postal_Code = \"" + cust.getPostalCode() + "\"" + ",\n" +
+                        "Phone = \"" + cust.getPhone() + "\"" + ",\n" +
+                        "Create_Date = \"" + helper.getUTCfromLocalString(cust.getCreateDate())+ "\"" + ",\n" +
+                        "Created_By = \"" + cust.getCreatedBy() + "\"" + ",\n" +
+                        "Last_Update = \"" + helper.getUTCfromLocalString(cust.getLastUpdate())+ "\"" + ",\n" +
+                        "Last_Updated_By = \"" + cust.getLastUpdatedBy() + "\"" + ",\n" +
+                        "Division_ID = " + cust.getDivisionId() + "\n" +
+                        "WHERE `Customer_ID` = " + cust.getId() + ";";
+        try{
+            System.out.println(query);
+            Statement statement = connector.createStatement();
+            statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    } 
+ 
+    public void removeCustomer(int customer_id){
+        String query = "DELETE FROM `" + database + "`.`customers`\n" +
+                        "WHERE customer_id = "+ customer_id + ";";
+        try{
+            Statement statement = connector.createStatement();
+            statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 }

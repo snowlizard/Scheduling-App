@@ -7,6 +7,7 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Country;
 import c195.schedulingapp.Models.FirstLevelDivision;
+import c195.schedulingapp.Models.Connector;
 import c195.schedulingapp.Singletons.Customers;
 import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Countries;
@@ -26,12 +27,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  * Form for updating and creating customer records
  * @author Julian
  */
 public class CustomerForm implements Initializable{
+    private Connector connector = new Connector();
+    
     @FXML private TextField id;
     @FXML private TextField name;
     @FXML private TextField address;
@@ -53,6 +59,13 @@ public class CustomerForm implements Initializable{
     private ObservableList<String> estados = FXCollections.observableArrayList();
     int customerId = customerList.size();
     
+    /**
+     * Setup customer form with or without existing customer data
+     * Uses lambda function easily add each Country name to the estados list to set
+     * the countries choicebox
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
@@ -113,6 +126,7 @@ public class CustomerForm implements Initializable{
             customer.setDivisionId(divId);
 
             customerList.set(index, customer);
+            connector.updateCustomer(customer);
         } else {
             Random rand = new Random();
             int newId = rand.nextInt(1000);
@@ -132,6 +146,7 @@ public class CustomerForm implements Initializable{
                  divId);
             
             customerList.add(newCustomer);
+            connector.insertCustomer(newCustomer);
         }
         
         win.close();
