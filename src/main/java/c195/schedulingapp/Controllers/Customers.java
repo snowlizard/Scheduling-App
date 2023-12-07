@@ -7,6 +7,7 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
+import c195.schedulingapp.Models.Connector;
 import c195.schedulingapp.Singletons.Appointments;
 import java.io.IOException;
 import java.net.URL;
@@ -122,6 +123,8 @@ public class Customers implements Initializable {
 
                 if(confirm.getResult() == ButtonType.YES){
                     customerInstance.removeCustomer(customer);
+                    Connector connector = new Connector();
+                    connector.removeCustomer(customer.getId());
                 }
             }else{
                 Alert aptFound = new Alert(AlertType.ERROR,

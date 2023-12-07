@@ -5,6 +5,7 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Appointment;
+import c195.schedulingapp.Models.Connector;
 import c195.schedulingapp.Models.HelperFunctions;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Julian
  */
 public class Appointments implements Initializable {
-
+    private Connector connector = new Connector();
 
     @FXML private TableView<Appointment> appointments;
     @FXML private TableColumn<Appointment, Integer> cId;
@@ -142,6 +143,7 @@ public class Appointments implements Initializable {
             
             if(confirm.getResult() == ButtonType.YES){
                 allApts.remove(apt);
+                connector.removeAppointment(apt.getId());
             }
         }else{
             Alert dialog = new Alert(Alert.AlertType.ERROR, 

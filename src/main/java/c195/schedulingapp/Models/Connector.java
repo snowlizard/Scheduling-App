@@ -300,20 +300,55 @@ public class Connector {
                         "`Contact_ID`)\n" +
                         "VALUES\n" +
                         "(" + apt.getId() + ",\n" +
-                        apt.getTitle() + ",\n" +
-                        apt.getDescription() + ",\n" +
-                        apt.getLocation() + ",\n" +
-                        apt.getType() + ",\n" +
-                        helper.getUTCfromLocal(apt.getStart()) + ",\n" +
-                        helper.getUTCfromLocal(apt.getEnd()) + ",\n" +
-                        helper.getUTCfromLocal(apt.getCreateDate()) + ",\n" +
-                        apt.getCreatedBy() + ",\n" +
-                        helper.getUTCfromLocal(apt.getLastUpdate()) + ",\n" +
-                        apt.getLastUpdatedBy() + ",\n" +
+                        "\"" + apt.getTitle() + "\"" + ",\n" +
+                        "\"" + apt.getDescription() + "\"" + ",\n" +
+                        "\"" + apt.getLocation() + "\"" + ",\n" +
+                        "\"" + apt.getType() + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocal(apt.getStart()) + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocal(apt.getEnd()) + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocal(apt.getCreateDate()) + "\"" + ",\n" +
+                        "\"" + apt.getCreatedBy() + "\"" + ",\n" +
+                        "\"" + helper.getUTCfromLocal(apt.getLastUpdate()) + "\"" + ",\n" +
+                        "\"" + apt.getLastUpdatedBy() + "\"" + ",\n" +
                         apt.getCustomerId() + ",\n" +
                         apt.getUserId() + ",\n" +
                         apt.getContactId() + ");";
         
+        try {
+            Statement statement = connector.createStatement();
+            int result = statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void updateAppointment(Appointment apt){
+        String query = "UPDATE `client_schedule`.`appointments`\n" +
+                        "SET\n" +
+                        "`Title` = \"" + apt.getTitle() + "\",\n" +
+                        "`Description` = \"" + apt.getDescription() + " \",\n" +
+                        "`Location` = \"" + apt.getLocation() + "\",\n" +
+                        "`Type` = \"" + apt.getType() + "\",\n" +
+                        "`Start` = \"" + helper.getUTCfromLocal(apt.getStart())  + "\",\n" +
+                        "`End` = \"" + helper.getUTCfromLocal(apt.getEnd()) + "\",\n" +
+                        "`Created_By` = \"" + apt.getCreatedBy() + "\",\n" +
+                        "`Last_Update` = \"" + helper.getUTCfromLocal(apt.getLastUpdate()) + "\",\n" +
+                        "`Last_Updated_By` = \"" + apt.getLastUpdatedBy() + "\",\n" +
+                        "`Customer_ID` = " + apt.getCustomerId() + ",\n" +
+                        "`User_ID` = " + apt.getUserId() + ",\n" +
+                        "`Contact_ID` = " + apt.getContactId() + "\n" +
+                        "WHERE `Appointment_ID` = " + apt.getId() + ";";
+        try {
+            Statement statement = connector.createStatement();
+            int result = statement.executeUpdate(query);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public void removeAppointment(int appointment_id){
+        String query = "DELETE FROM `client_schedule`.`appointments`\n" +
+                        "WHERE Appointment_ID = " + appointment_id + ";";
         try {
             Statement statement = connector.createStatement();
             int result = statement.executeUpdate(query);
@@ -340,7 +375,6 @@ public class Connector {
                         "\"" + cust.getAddress() + "\"" + ",\n" +
                         "\"" + cust.getPostalCode() + "\"" + ",\n" +
                         "\"" + cust.getPhone() + "\"" + ",\n" +
-                        "\"" + helper.getUTCfromLocalString(cust.getCreateDate())+ "\"" + ",\n" +
                         "\"" + cust.getCreatedBy() + "\"" + ",\n" +
                         "\"" + helper.getUTCfromLocalString(cust.getLastUpdate())+ "\"" + ",\n" +
                         "\"" + cust.getLastUpdatedBy() + "\"" + ",\n" +
