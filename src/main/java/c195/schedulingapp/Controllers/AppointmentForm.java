@@ -229,6 +229,15 @@ public class AppointmentForm implements Initializable {
         } else if(user.getValue() == null){
             this.emptyValueAlert("User must be filled in to submit appointment.");
             valid = false;
+        } else if (location.getText().isEmpty()){
+            this.emptyValueAlert("Location must be filled in to submit appointment.");
+            valid = false;
+        } else if (type.getText().isEmpty()){
+            this.emptyValueAlert("Type must be filled in to submit appointment.");
+            valid = false;
+        } else if(desc.getText().isEmpty()){
+            this.emptyValueAlert("Description must be filled in to submit appointment.");
+            valid = false;
         }
         return valid;
     }

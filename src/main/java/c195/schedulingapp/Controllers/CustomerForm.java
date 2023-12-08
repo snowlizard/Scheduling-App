@@ -37,6 +37,7 @@ import javafx.scene.control.ButtonType;
  */
 public class CustomerForm implements Initializable{
     private Connector connector = new Connector();
+    private String errorMsg = "";
     
     @FXML private TextField id;
     @FXML private TextField name;
@@ -110,46 +111,51 @@ public class CustomerForm implements Initializable{
     public void onSave(ActionEvent event){
         Node source = (Node) event.getSource();
         Stage win = (Stage) source.getScene().getWindow();
-        String now = LocalDateTime.now().format(
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
         
-        if(customer != null){
-            int index = customerList.indexOf(customer);
+        if(this.validateForm()){
+            String now = LocalDateTime.now().format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
+            if(customer != null){
+                int index = customerList.indexOf(customer);
 
-            customer.setName(name.getText());
-            customer.setAddress(address.getText());
-            customer.setPostalCode(postalCode.getText());
-            customer.setPhone(phone.getText());
-            customer.setLastUpdate(now);
-            customer.setLastUpdatedBy(custInstance.getLoggedInUser());
-            customer.setDivisionId(divId);
+                customer.setName(name.getText());
+                customer.setAddress(address.getText());
+                customer.setPostalCode(postalCode.getText());
+                customer.setPhone(phone.getText());
+                customer.setLastUpdate(now);
+                customer.setLastUpdatedBy(custInstance.getLoggedInUser());
+                customer.setDivisionId(divId);
 
-            customerList.set(index, customer);
-            connector.updateCustomer(customer);
-        } else {
-            Random rand = new Random();
-            int newId = rand.nextInt(1000);
-            while(custInstance.getCustomer(newId) != null){
-                newId = rand.nextInt(1000);
+                customerList.set(index, customer);
+                connector.updateCustomer(customer);
+            } else {
+                Random rand = new Random();
+                int newId = rand.nextInt(1000);
+                while(custInstance.getCustomer(newId) != null){
+                    newId = rand.nextInt(1000);
+                }
+
+                Customer newCustomer = new Customer(newId,
+                           name.getText(), 
+                        address.getText(), 
+                     postalCode.getText(),
+                          phone.getText(), 
+                     now, 
+                      custInstance.getLoggedInUser(),
+                     now, 
+                  custInstance.getLoggedInUser(), 
+                     divId);
+
+                customerList.add(newCustomer);
+                connector.insertCustomer(newCustomer);
             }
-            
-            Customer newCustomer = new Customer(newId,
-                       name.getText(), 
-                    address.getText(), 
-                 postalCode.getText(),
-                      phone.getText(), 
-                 now, 
-                  custInstance.getLoggedInUser(),
-                 now, 
-              custInstance.getLoggedInUser(), 
-                 divId);
-            
-            customerList.add(newCustomer);
-            connector.insertCustomer(newCustomer);
+            win.close();
+        } else {
+            Alert invalidForm = new Alert(AlertType.ERROR,
+                errorMsg + " needs to be filled in.", ButtonType.CLOSE);
+            invalidForm.showAndWait();
         }
-        
-        win.close();
     }
     
     /**
@@ -170,5 +176,26 @@ public class CustomerForm implements Initializable{
             });
             divisionId.setItems(choices);
         }
+    }
+    
+    public Boolean validateForm(){
+        errorMsg = "";
+        if(name.getText().isEmpty()){
+            errorMsg += "Name, ";
+        } else if(address.getText().isEmpty()){
+            errorMsg += "Address, ";
+        } else if(postalCode.getText().isEmpty()){
+            errorMsg += "Postal code, ";
+        } else if(phone.getText().isEmpty()){
+            errorMsg += "Phone, ";
+        } else if(divisionId.getValue() == null){
+            errorMsg += "Division, ";
+        } else if(country.getValue() == null){
+            errorMsg += "Country, ";
+        } else {
+            return true;
+        }
+        
+        return false;
     }
 }
