@@ -4,6 +4,7 @@
  */
 package c195.schedulingapp.Controllers;
 
+import c195.schedulingapp.App;
 import c195.schedulingapp.Models.Connector;
 import c195.schedulingapp.Models.HelperFunctions;
 
@@ -28,7 +29,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.text.Text;
-
 /**
  * Login page controller
  * @author Julian
@@ -47,7 +47,7 @@ public class Login implements Initializable {
     
     private Connector connect = new Connector();
     
-    private Properties prop = new Properties();
+    //private Properties prop = new Properties();
     private ZoneId local = ZoneId.systemDefault();
     private String lang;
     
@@ -134,18 +134,17 @@ public class Login implements Initializable {
      * @param propertyFile name of the language properties file
      */
     private void setLocale (String propertyFile){
-        InputStream stream;
-        
         try{
-            stream = getClass().getResourceAsStream(propertyFile);
+            InputStream stream = App.class.getResourceAsStream(propertyFile);
             
+            Properties prop = new Properties();
             prop.load(stream);
             
-            String user   = prop.getProperty("username");
-            String pass   = prop.getProperty("password");
-            String log    = prop.getProperty("login");
-            String zone   = prop.getProperty("timezone");
-            String errorM = prop.getProperty("incorrect");
+            String user   = prop.getProperty("username", "d");
+            String pass   = prop.getProperty("password", "");
+            String log    = prop.getProperty("login", "");
+            String zone   = prop.getProperty("timezone", "");
+            String errorM = prop.getProperty("incorrect", "");
             
             userLabel.setText(user);
             passLabel.setText(pass);
