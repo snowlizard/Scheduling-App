@@ -8,7 +8,7 @@ import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.HelperFunctions;
 import c195.schedulingapp.Models.CountryReport;
 import c195.schedulingapp.Models.TMReport;
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.Singletons.Appointments;
 import c195.schedulingapp.Singletons.Contacts;
 import java.io.IOException;

@@ -7,7 +7,8 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
+import c195.schedulingapp.DBAccess.customerDA;
 import c195.schedulingapp.Singletons.Appointments;
 import java.io.IOException;
 import java.net.URL;
@@ -36,11 +37,8 @@ public class Customers implements Initializable {
     @FXML private TableColumn<Customer, String> address;
     @FXML private TableColumn<Customer, String> postal_code;
     @FXML private TableColumn<Customer, String> phone;
-    @FXML private TableColumn<Customer, String> create_date;
-    @FXML private TableColumn<Customer, String> created_by;
-    @FXML private TableColumn<Customer, String> last_update;
-    @FXML private TableColumn<Customer, String> last_updated_by;
     @FXML private TableColumn<Customer, Integer> division_id;
+    @FXML private TableColumn<Customer, Integer> customer_id;
 
     c195.schedulingapp.Singletons.Customers customerInstance = c195.schedulingapp.Singletons.Customers.getInstance();
     ObservableList<Customer> customersList = customerInstance.getCustomers();
@@ -51,17 +49,13 @@ public class Customers implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        customers.setItems(customersList);
+        customers.setItems(new customerDA().getCustomers());
         
         id.setCellValueFactory(new PropertyValueFactory<> ("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         postal_code.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        create_date.setCellValueFactory(new PropertyValueFactory<>("createDate"));
-        created_by.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        last_update.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
-        last_updated_by.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
         division_id.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
     }    
     

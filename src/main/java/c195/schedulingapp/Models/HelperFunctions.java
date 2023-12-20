@@ -119,9 +119,9 @@ public class HelperFunctions {
         ZonedDateTime localDate = ZonedDateTime.of(tempDT, localZone);
         ZonedDateTime estCheck = localDate.withZoneSameInstant(est);
 
-        if(estCheck.getHour() == 17 && estCheck.getMinute() > 0){
+        if(estCheck.getHour() == 22 && estCheck.getMinute() > 0){
             return false;
-        } else if(estCheck.getHour() < 17 && estCheck.getHour() >= 8){
+        } else if(estCheck.getHour() < 22 && estCheck.getHour() >= 8){
             return true;
         }else{
             return false;

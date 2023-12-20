@@ -15,11 +15,8 @@
                 <TableColumn prefWidth="90.0" fx:id="address" text="Address" />
                 <TableColumn prefWidth="90.0" fx:id="postal_code" text="Postal Code" />
                 <TableColumn prefWidth="90.0" fx:id="phone" text="Phone" />
-                <TableColumn prefWidth="90.0" fx:id="create_date" text="Create Date" />
-                <TableColumn prefWidth="90.0" fx:id="created_by" text="Created By" />
-                <TableColumn prefWidth="90.0" fx:id="last_update" text="Last Update" />
-                <TableColumn prefWidth="90.0" fx:id="last_updated_by" text="Last Updated By" />
                 <TableColumn prefWidth="90.0" fx:id="division_id" text="Division ID" />
+                <TableColumn prefWidth="90.0" fx:id="country_id" text="Country ID" /> 
             </columns>
         </TableView>
         <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />

@@ -2,8 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package c195.schedulingapp.Models;
+package c195.schedulingapp.DBAccess;
 
+import c195.schedulingapp.Models.Appointment;
+import c195.schedulingapp.Models.Contact;
+import c195.schedulingapp.Models.Country;
+import c195.schedulingapp.Models.CountryReport;
+import c195.schedulingapp.Models.Customer;
+import c195.schedulingapp.Models.FirstLevelDivision;
+import c195.schedulingapp.Models.HelperFunctions;
+import c195.schedulingapp.Models.TMReport;
+import c195.schedulingapp.Models.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,8 +33,9 @@ import javafx.collections.ObservableList;
  * @author Julian
  */
 public class Connector {
-    private Connection connector;
-    private String database = "client_schedule";
+    Connection connector;
+    
+    String database = "client_schedule";
     Appointments appointments = Appointments.getInstance();
     Contacts  contacts  = Contacts.getInstance();
     Customers customers = Customers.getInstance();
@@ -45,7 +55,7 @@ public class Connector {
             System.out.println(e);
         }
     }
-    
+
     public void initAll(){
         this.initAppointments();
         this.initContacts();
@@ -56,40 +66,12 @@ public class Connector {
     }
     
     /**
-     * Checks for valid login
-     * @param userName String
-     * @param password String
-     * @return true if valid
-     */
-    public Boolean validLogin(String userName, String password){
-        Boolean found = false;
-        String query = "SELECT * FROM Users WHERE User_Name = '" +
-                userName + "' AND Password = '" + password + "';";
-        
-        try{
-            ResultSet set = this.connector.prepareStatement(query).executeQuery();
-            while(set.next()){
-                if(userName.equals(set.getString("User_Name")) 
-                        && password.equals(set.getString("Password"))){
-                    found = true;
-                    customers.setLoggedInUser(userName);
-                    break;
-                }
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        
-        return found;
-    }
-    
-    /**
      * Queries the SQL data base for customers and populates the data for
      * use in the application
      */
     private void initCustomers(){
         customers.resetCustomers();
-        String query = "SELECT * FROM Customers";
+        String query = "SELECT * FROM customers";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -117,7 +99,7 @@ public class Connector {
     private void initDivisons(){
         divisions.resetDivisions();
         String query = "SELECT * FROM `first_level_divisions`";
-        
+// insert into first_level_divisions(Division_ID,Division,Create_Date,Created_By,Last_Update,Last_Updated_By,Country_ID) 
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
             while(set.next()){
@@ -140,7 +122,7 @@ public class Connector {
      */
     private void initCountries(){
         countries.resetCountries();
-        String query = "SELECT * FROM Countries";
+        String query = "SELECT * FROM countries";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -163,7 +145,7 @@ public class Connector {
      */
     private void initContacts(){
         contacts.resetContacts();
-        String query = "SELECT * FROM Contacts";
+        String query = "SELECT * FROM contacts";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -184,7 +166,7 @@ public class Connector {
      */
     private void initAppointments(){
         appointments.resetAppointments();
-        String query = "SELECT * FROM Appointments";
+        String query = "SELECT * FROM appointments";
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
             while(set.next()){
@@ -220,7 +202,7 @@ public class Connector {
      */
     private void initUsers(){
         users.resetUsers();
-        String query = "SELECT * FROM Users";
+        String query = "SELECT * FROM users";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -238,11 +220,11 @@ public class Connector {
         ObservableList<CountryReport> countryReport = FXCollections.observableArrayList();
         
         String query = "select Country, Division, " +
-        "SUM(CASE WHEN Customers.Division_ID = `first_level_divisions`.Division_ID THEN 1 " +
-        "WHEN `first_level_divisions`.Country_ID = Countries.Country_ID THEN 1 END) AS  Total " +
+        "SUM(CASE WHEN customers.Division_ID = `first_level_divisions`.Division_ID THEN 1 " +
+        "WHEN `first_level_divisions`.Country_ID = countries.Country_ID THEN 1 END) AS  Total " +
         "from Customers " +
         "LEFT JOIN `first_level_divisions` ON Customers.Division_ID = `first_level_divisions`.Division_ID " +
-        "LEFT JOIN Countries ON `first_level_divisions`.Country_ID = Countries.Country_ID GROUP BY Customers.Division_ID;";
+        "LEFT JOIN countries ON `first_level_divisions`.Country_ID = countries.Country_ID GROUP BY customers.Division_ID;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -264,7 +246,7 @@ public class Connector {
     public ObservableList<TMReport> getTMReport(){
         ObservableList<TMReport> tmReport = FXCollections.observableArrayList();
         
-        String query = "SELECT MONTHNAME(Start) AS Month, Type, SUM(CASE WHEN Appointments.Customer_ID = Customers.Customer_ID THEN 1 END) AS Total FROM Appointments LEFT JOIN Customers on Appointments.Customer_ID = Customers.Customer_ID GROUP BY MONTHNAME(Start), Type;";
+        String query = "SELECT MONTHNAME(Start) AS Month, Type, SUM(CASE WHEN appointments.Customer_ID = customers.Customer_ID THEN 1 END) AS Total FROM appointments LEFT JOIN Customers on appointments.Customer_ID = customers.Customer_ID GROUP BY MONTHNAME(Start), Type;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -370,7 +352,7 @@ public class Connector {
                         "`Last_Updated_By`,\n" +
                         "`Division_ID`)\n" +
                         "VALUES\n" +
-                        "("+ cust.getId() + ",\n" +
+                        "( null,\n" +
                         "\"" + cust.getName() + "\"" + ",\n" +
                         "\"" + cust.getAddress() + "\"" + ",\n" +
                         "\"" + cust.getPostalCode() + "\"" + ",\n" +

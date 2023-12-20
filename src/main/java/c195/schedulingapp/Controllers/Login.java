@@ -5,7 +5,8 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.App;
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
+import c195.schedulingapp.DBAccess.userDA;
 import c195.schedulingapp.Models.HelperFunctions;
 
 import java.io.InputStream;
@@ -38,7 +39,6 @@ public class Login implements Initializable {
     @FXML private Text loginError;
     @FXML private Label userLabel;
     @FXML private Label passLabel;
-    @FXML private Text zoneLabel;
     @FXML private TextField username;
     @FXML private PasswordField password;
     @FXML private Button login;
@@ -108,7 +108,8 @@ public class Login implements Initializable {
                 file.createNewFile();
             }
             
-            found = connect.validLogin(uname, pword);
+            //found = connect.validLogin(uname, pword);
+            found = new userDA().validLogin(uname, pword);
             
             // Write to activities file
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -149,7 +150,6 @@ public class Login implements Initializable {
             userLabel.setText(user);
             passLabel.setText(pass);
             login.setText(log);
-            zoneLabel.setText(zone);
             loginError.setText(errorM);
             
         } catch (Exception error){

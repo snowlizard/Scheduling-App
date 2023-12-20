@@ -9,7 +9,7 @@ import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Contact;
 import c195.schedulingapp.Models.User;
 
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
 
 import c195.schedulingapp.Singletons.Contacts;
 import c195.schedulingapp.Singletons.Customers;
@@ -255,12 +255,6 @@ public class AppointmentForm implements Initializable {
             return "Start date and end date not the same";
         }
         
-        String sDoW = sDate.getValue().getDayOfWeek().toString();
-        
-        if(sDoW.equals("SATURDAY") || sDoW.equals("SUNDAY")){
-            return "Weekend selected";
-        }
-        
         String newStart = this.getStartStr();
         String newEnd = this.getEndStr();
         
@@ -285,7 +279,7 @@ public class AppointmentForm implements Initializable {
         Alert dialog = new Alert(AlertType.ERROR, 
             "Invalid start/end date time. Please check to make sure the" +
                     " information provided is within our operating hours " +
-                    "9AM - 5PM Eastern Standard Time.\n" +
+                    "8AM - 10PM Eastern Standard Time.\n" +
                     errorMsg,
             ButtonType.OK);
         dialog.showAndWait();

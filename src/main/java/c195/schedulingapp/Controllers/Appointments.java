@@ -5,7 +5,7 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Appointment;
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.Models.HelperFunctions;
 
 import java.io.IOException;
@@ -77,6 +77,8 @@ public class Appointments implements Initializable {
         all.setToggleGroup(AptFilter);
         month.setToggleGroup(AptFilter);
         week.setToggleGroup(AptFilter);
+        
+        AptFilter.selectToggle(all);
     }
     
     /**

@@ -17,7 +17,6 @@
       <PasswordField fx:id="password" layoutX="94.0" layoutY="227.0" prefHeight="18.0" prefWidth="212.0" />
       <Button fx:id="login" onAction="#login"  layoutX="94.0" layoutY="259.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="212.0" text="Login" />
       <ChoiceBox fx:id="language" onAction="#changeLocale"  layoutX="21.0" layoutY="420.0" prefHeight="24.0" prefWidth="124.0" />
-      <Text fx:id="zoneLabel" layoutX="21.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Zone" wrappingWidth="124.0" />
       <Label fx:id="timeZone" layoutX="21.0" layoutY="361.0" prefHeight="51.0" prefWidth="100.0" text="Pacific Standard Time" wrapText="true" />
    </children>
 </AnchorPane>

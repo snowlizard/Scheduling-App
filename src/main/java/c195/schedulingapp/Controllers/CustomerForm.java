@@ -7,7 +7,8 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Country;
 import c195.schedulingapp.Models.FirstLevelDivision;
-import c195.schedulingapp.Models.Connector;
+import c195.schedulingapp.DBAccess.Connector;
+import c195.schedulingapp.DBAccess.customerDA;
 import c195.schedulingapp.Singletons.Customers;
 import c195.schedulingapp.Singletons.Divisions;
 import c195.schedulingapp.Singletons.Countries;
@@ -117,8 +118,6 @@ public class CustomerForm implements Initializable{
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
             if(customer != null){
-                int index = customerList.indexOf(customer);
-
                 customer.setName(name.getText());
                 customer.setAddress(address.getText());
                 customer.setPostalCode(postalCode.getText());
@@ -127,16 +126,9 @@ public class CustomerForm implements Initializable{
                 customer.setLastUpdatedBy(custInstance.getLoggedInUser());
                 customer.setDivisionId(divId);
 
-                customerList.set(index, customer);
-                connector.updateCustomer(customer);
+                new customerDA().updateCustomer(customer);
             } else {
-                Random rand = new Random();
-                int newId = rand.nextInt(1000);
-                while(custInstance.getCustomer(newId) != null){
-                    newId = rand.nextInt(1000);
-                }
-
-                Customer newCustomer = new Customer(newId,
+                Customer newCustomer = new Customer(1,
                            name.getText(), 
                         address.getText(), 
                      postalCode.getText(),
@@ -146,9 +138,7 @@ public class CustomerForm implements Initializable{
                      now, 
                   custInstance.getLoggedInUser(), 
                      divId);
-
-                customerList.add(newCustomer);
-                connector.insertCustomer(newCustomer);
+                new customerDA().insertCustomer(newCustomer);
             }
             win.close();
         } else {
