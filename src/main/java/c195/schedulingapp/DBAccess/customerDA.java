@@ -16,8 +16,17 @@ import javafx.collections.ObservableList;
  * @author mrjack
  */
 public class customerDA extends Connector{
+    private static Customer currentCustomer;
     
     public customerDA(){}
+    
+    public void setCurrentCustomer(Customer customerName){
+        currentCustomer = customerName;
+    }
+    
+    public Customer getCurrentCustomer(){
+        return currentCustomer;
+    }
     
     public ObservableList getCustomers(){
         ObservableList<Customer> customers = FXCollections.observableArrayList();

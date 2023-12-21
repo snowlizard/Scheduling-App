@@ -9,9 +9,10 @@ import c195.schedulingapp.Models.Country;
 import c195.schedulingapp.Models.FirstLevelDivision;
 import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.DBAccess.customerDA;
+import c195.schedulingapp.DBAccess.countryDA;
+import c195.schedulingapp.DBAccess.divisionDA;
+import c195.schedulingapp.DBAccess.userDA;
 import c195.schedulingapp.Singletons.Customers;
-import c195.schedulingapp.Singletons.Divisions;
-import c195.schedulingapp.Singletons.Countries;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.net.URL;
-import java.util.Random;
 import java.time.format.DateTimeFormatter;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
@@ -48,18 +48,18 @@ public class CustomerForm implements Initializable{
     @FXML private ChoiceBox<String> divisionId;
     @FXML private ChoiceBox<String> country;
     
-    private Customers custInstance = Customers.getInstance();
-    private ObservableList<Customer> customerList = custInstance.getCustomers();
-    private Customer customer = custInstance.getCurrentCustomer();
+    // Database Access
+    private countryDA countryDBA = new countryDA();
+    private customerDA customerDBA= new customerDA();
+    private divisionDA divisionDBA = new divisionDA();
+    private userDA userDBA = new userDA();
     
-    private Divisions divisionList = Divisions.getInstance();
-    private Countries countryInstance = Countries.getInstance();
+    private Customer customer = Customers.getInstance().getCurrentCustomer();
     
-    private ObservableList<Country> countries = countryInstance.getCountries();
-    private ObservableList<FirstLevelDivision> divisions = divisionList.getDivisions();
+    private ObservableList<Country> countries = countryDBA.getCountries();
+    private ObservableList<FirstLevelDivision> divisions = divisionDBA.getDivisions();
     
     private ObservableList<String> estados = FXCollections.observableArrayList();
-    int customerId = customerList.size();
     
     /**
      * Setup customer form with or without existing customer data
@@ -78,8 +78,8 @@ public class CustomerForm implements Initializable{
         
         if(customer != null){
             int division_id = customer.getDivisionId();
-            FirstLevelDivision div = divisionList.getDivisionById(division_id);
-            Country currCountry = countryInstance.getCountryById(div.getCountryId());
+            FirstLevelDivision div = divisionDBA.getById(division_id);
+            Country currCountry = countryDBA.getById(div.getCountryId());
             
             id.setText(Integer.toString(customer.getId()));
             name.setText(customer.getName());
@@ -116,17 +116,17 @@ public class CustomerForm implements Initializable{
         if(this.validateForm()){
             String now = LocalDateTime.now().format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            int divId = divisionList.getDivisionByName(divisionId.getValue()).getId();
+            int divId = divisionDBA.getByName(divisionId.getValue()).getId();
             if(customer != null){
                 customer.setName(name.getText());
                 customer.setAddress(address.getText());
                 customer.setPostalCode(postalCode.getText());
                 customer.setPhone(phone.getText());
                 customer.setLastUpdate(now);
-                customer.setLastUpdatedBy(custInstance.getLoggedInUser());
-                customer.setDivisionId(divId);
+                customer.setLastUpdatedBy(userDBA.getLoggedinUser());
+               // customer.setDivisionId(divId);
 
-                new customerDA().updateCustomer(customer);
+                customerDBA.updateCustomer(customer);
             } else {
                 Customer newCustomer = new Customer(1,
                            name.getText(), 
@@ -134,9 +134,9 @@ public class CustomerForm implements Initializable{
                      postalCode.getText(),
                           phone.getText(), 
                      now, 
-                      custInstance.getLoggedInUser(),
+                      userDBA.getLoggedinUser(),
                      now, 
-                  custInstance.getLoggedInUser(), 
+                  userDBA.getLoggedinUser(), 
                      divId);
                 new customerDA().insertCustomer(newCustomer);
             }
@@ -156,13 +156,13 @@ public class CustomerForm implements Initializable{
         ObservableList<String> choices = FXCollections.observableArrayList();
         
         if(choiceValue != null){
-            Country selCountry= countryInstance.getCountryByName(choiceValue);
+            //Country selCountry= countryInstance.getCountryByName(choiceValue);
             // Allows simple iteration on divisions list
             // use to add division name to choice box
             divisions.forEach((division) -> {
-                if(division.getCountryId() == selCountry.getId()){
-                    choices.add(division.getDivision());
-                }
+                //if(division.getCountryId() == selCountry.getId()){
+                //    choices.add(division.getDivision());
+                //}
             });
             divisionId.setItems(choices);
         }

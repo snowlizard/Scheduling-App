@@ -7,8 +7,8 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Appointment;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
-import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.DBAccess.customerDA;
+import c195.schedulingapp.DBAccess.appointmentDA;
 import c195.schedulingapp.Singletons.Appointments;
 import java.io.IOException;
 import java.net.URL;
@@ -38,18 +38,15 @@ public class Customers implements Initializable {
     @FXML private TableColumn<Customer, String> postal_code;
     @FXML private TableColumn<Customer, String> phone;
     @FXML private TableColumn<Customer, Integer> division_id;
-    @FXML private TableColumn<Customer, Integer> customer_id;
 
-    c195.schedulingapp.Singletons.Customers customerInstance = c195.schedulingapp.Singletons.Customers.getInstance();
-    ObservableList<Customer> customersList = customerInstance.getCustomers();
-    Customer currentCustomer = customerInstance.getCurrentCustomer();
-    Appointments aptsInstance = Appointments.getInstance();
+    appointmentDA aptDBA = new appointmentDA();
+    customerDA custDBA = new customerDA();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        customers.setItems(new customerDA().getCustomers());
+        customers.setItems(custDBA.getCustomers());
         
         id.setCellValueFactory(new PropertyValueFactory<> ("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -76,7 +73,7 @@ public class Customers implements Initializable {
     public void editCustomer() throws IOException {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
-            customerInstance.setCurrentCustomer(customer);
+            custDBA.setCurrentCustomer(customer);
             new HelperFunctions().setModal("/fxml/customerForm");
         }else{
             Alert dialog = new Alert(AlertType.ERROR, 
@@ -91,7 +88,7 @@ public class Customers implements Initializable {
      * @throws IOException 
      */
     public void addCustomer() throws IOException{
-        customerInstance.setCurrentCustomer(null);
+        custDBA.setCurrentCustomer(null);
         new HelperFunctions().setModal("/fxml/customerForm");
     }
     
@@ -102,7 +99,7 @@ public class Customers implements Initializable {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
             Boolean hasApts = false;
-            ObservableList<Appointment> apts = aptsInstance.getAppointments();
+            ObservableList<Appointment> apts = aptDBA.getAppointments();
             for(Appointment apt: apts){
                 if(apt.getCustomerId() == customer.getId()){
                     hasApts = true;
@@ -116,10 +113,7 @@ public class Customers implements Initializable {
                 confirm.showAndWait();
 
                 if(confirm.getResult() == ButtonType.YES){
-                    /**
-                     * 
-                     */
-
+                    custDBA.removeCustomer(customer.getId());
                 }
             }else{
                 Alert aptFound = new Alert(AlertType.ERROR,

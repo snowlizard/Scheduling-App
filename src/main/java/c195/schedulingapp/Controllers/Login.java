@@ -45,7 +45,7 @@ public class Login implements Initializable {
     @FXML private ChoiceBox<String> language;
     @FXML private Label timeZone;
     
-    private Connector connect = new Connector();
+    private userDA userDBA = new userDA();
     
     //private Properties prop = new Properties();
     private ZoneId local = ZoneId.systemDefault();
@@ -107,8 +107,7 @@ public class Login implements Initializable {
                 file.createNewFile();
             }
             
-            //found = connect.validLogin(uname, pword);
-            found = new userDA().validLogin(uname, pword);
+            found = userDBA.validLogin(uname, pword);
             
             // Write to activities file
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -123,6 +122,7 @@ public class Login implements Initializable {
         
         if(found){
             loginError.setVisible(false);
+            userDBA.setLoggedinUser(uname);
             new HelperFunctions().setScene(event, "/fxml/home", "Home");
         } else{
             loginError.setVisible(true);

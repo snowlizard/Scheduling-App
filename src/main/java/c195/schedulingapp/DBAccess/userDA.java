@@ -11,6 +11,17 @@ import java.sql.PreparedStatement;
  * @author mrjack
  */
 public class userDA extends Connector{
+    private static String loggedinUser;
+    
+    public userDA(){}
+    
+    public String getLoggedinUser(){
+        return loggedinUser;
+    }
+    
+    public void setLoggedinUser(String username){
+        loggedinUser = username;
+    }
 
     /**
      * Checks for valid login
