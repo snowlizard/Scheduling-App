@@ -186,7 +186,7 @@ public class AppointmentForm implements Initializable {
                 
                 int index = aptsInstance.getAppointments().indexOf(currentApt);
                 aptsInstance.getAppointments().set(index, currentApt);
-                connector.updateAppointment(currentApt);
+                //connector.updateAppointment(currentApt);
             }else{
                 Random rand = new Random();
                 int newId = rand.nextInt(1000);
@@ -200,7 +200,7 @@ public class AppointmentForm implements Initializable {
                     lastUpdate, updatedBy, customerId, userId,
                     contactId);
                 aptsInstance.addAppointment(newApt);
-                connector.insertAppointmentQuery(newApt);
+                //connector.insertAppointmentQuery(newApt);
             }
             win.close();
         }

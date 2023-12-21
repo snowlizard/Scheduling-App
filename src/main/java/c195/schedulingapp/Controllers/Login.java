@@ -57,7 +57,6 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        connect.initAll();
         languages.add("English");
         languages.add("français");
         language.setItems(languages);

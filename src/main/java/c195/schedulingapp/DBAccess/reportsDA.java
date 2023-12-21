@@ -21,11 +21,11 @@ public class reportsDA extends Connector{
         ObservableList<CountryReport> countryReport = FXCollections.observableArrayList();
         
         String query = "select Country, Division, " +
-        "SUM(CASE WHEN customers.Division_ID = `first_level_divisions`.Division_ID THEN 1 " +
-        "WHEN `first_level_divisions`.Country_ID = countries.Country_ID THEN 1 END) AS  Total " +
-        "from Customers " +
-        "LEFT JOIN `first_level_divisions` ON Customers.Division_ID = `first_level_divisions`.Division_ID " +
-        "LEFT JOIN countries ON `first_level_divisions`.Country_ID = countries.Country_ID GROUP BY customers.Division_ID;";
+        "SUM(CASE WHEN customers.Division_ID = first_level_divisions.Division_ID THEN 1 " +
+        "WHEN first_level_divisions.Country_ID = countries.Country_ID THEN 1 END) AS  Total " +
+        "from customers " +
+        "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID " +
+        "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID GROUP BY customers.Division_ID;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -47,7 +47,7 @@ public class reportsDA extends Connector{
     public ObservableList<TMReport> getTMReport(){
         ObservableList<TMReport> tmReport = FXCollections.observableArrayList();
         
-        String query = "SELECT MONTHNAME(Start) AS Month, Type, SUM(CASE WHEN appointments.Customer_ID = customers.Customer_ID THEN 1 END) AS Total FROM appointments LEFT JOIN Customers on appointments.Customer_ID = customers.Customer_ID GROUP BY MONTHNAME(Start), Type;";
+        String query = "SELECT MONTHNAME(Start) AS Month, Type, SUM(CASE WHEN appointments.Customer_ID = customers.Customer_ID THEN 1 END) AS Total FROM appointments LEFT JOIN customers on appointments.Customer_ID = customers.Customer_ID GROUP BY MONTHNAME(Start), Type;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();

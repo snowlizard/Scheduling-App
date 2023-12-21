@@ -145,7 +145,7 @@ public class Appointments implements Initializable {
             
             if(confirm.getResult() == ButtonType.YES){
                 allApts.remove(apt);
-                connector.removeAppointment(apt.getId());
+                //connector.removeAppointment(apt.getId());
             }
         }else{
             Alert dialog = new Alert(Alert.AlertType.ERROR, 

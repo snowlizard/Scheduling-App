@@ -116,9 +116,10 @@ public class Customers implements Initializable {
                 confirm.showAndWait();
 
                 if(confirm.getResult() == ButtonType.YES){
-                    customerInstance.removeCustomer(customer);
-                    Connector connector = new Connector();
-                    connector.removeCustomer(customer.getId());
+                    /**
+                     * 
+                     */
+
                 }
             }else{
                 Alert aptFound = new Alert(AlertType.ERROR,

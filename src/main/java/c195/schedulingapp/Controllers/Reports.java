@@ -5,12 +5,13 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Appointment;
+import c195.schedulingapp.Models.Contact;
 import c195.schedulingapp.Models.HelperFunctions;
 import c195.schedulingapp.Models.CountryReport;
 import c195.schedulingapp.Models.TMReport;
-import c195.schedulingapp.DBAccess.Connector;
-import c195.schedulingapp.Singletons.Appointments;
-import c195.schedulingapp.Singletons.Contacts;
+import c195.schedulingapp.DBAccess.contactDA;
+import c195.schedulingapp.DBAccess.appointmentDA;
+import c195.schedulingapp.DBAccess.reportsDA;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,9 +32,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class Reports implements Initializable {
     
-    private Connector connector = new Connector();
-    private Contacts contactInstance = Contacts.getInstance();
-    private Appointments aptInstance = Appointments.getInstance();
+    private reportsDA reportDBA = new reportsDA();
+    private ObservableList<Contact> contacts = new contactDA().getContacts();
+    private ObservableList<Appointment> appointments = new appointmentDA().getAppointments();
 
     @FXML private TableView<TMReport> tmTable;
     @FXML private TableColumn<TMReport, String> tmMonth;
@@ -60,34 +61,36 @@ public class Reports implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Set up countries report
-        ccTable.setItems(connector.getCountriesReport());
+        ccTable.setItems(reportDBA.getCountriesReport());
         ccName.setCellValueFactory(new PropertyValueFactory<> ("Country"));
         ccCountry.setCellValueFactory(new PropertyValueFactory<> ("Division"));
         ccTotal.setCellValueFactory(new PropertyValueFactory<> ("countryDivTotal"));
         
         // Set up appointment month type report
-        tmTable.setItems(connector.getTMReport());
+        tmTable.setItems(reportDBA.getTMReport());
         tmMonth.setCellValueFactory(new PropertyValueFactory<> ("Month"));
         tmType.setCellValueFactory(new PropertyValueFactory<> ("Type"));
         tmTotal.setCellValueFactory(new PropertyValueFactory<> ("Total"));
         
         // Contact choicebox
         // Set Contact choices
-        ObservableList<String> contacts = FXCollections.observableArrayList();
+        ObservableList<String> contactos = FXCollections.observableArrayList();
         
         // Lambda - add each contact name to new contacts list
-        contactInstance.getContacts().forEach((contacto) -> contacts.add(contacto.getName()));
+        contacts.forEach((contacto) -> {
+            contactos.add(contacto.getName());
+        });
         
-        contactBox.setItems(contacts);
+        contactBox.setItems(contactos);
     }
     
     /**
      * Sets the appointments table according to the current contact
      */
     public void setAppointmentsReport(){
-        int id = contactInstance.getIdByName(contactBox.getValue());
+        int id = new contactDA().getID(contactBox.getValue());
         
-        contactTable.setItems(aptInstance.getAppointments().filtered((apt) -> apt.getContactId() == id));
+        contactTable.setItems(appointments.filtered((apt) -> apt.getContactId() == id));
         aptId.setCellValueFactory(new PropertyValueFactory<> ("id"));
         aptTitle.setCellValueFactory(new PropertyValueFactory<> ("title"));
         aptDesc.setCellValueFactory(new PropertyValueFactory<> ("description"));
