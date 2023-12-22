@@ -9,7 +9,6 @@ import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.HelperFunctions;
 import c195.schedulingapp.DBAccess.customerDA;
 import c195.schedulingapp.DBAccess.appointmentDA;
-import c195.schedulingapp.Singletons.Appointments;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,7 +37,7 @@ public class Customers implements Initializable {
     @FXML private TableColumn<Customer, String> postal_code;
     @FXML private TableColumn<Customer, String> phone;
     @FXML private TableColumn<Customer, Integer> division_id;
-
+    @FXML private TableColumn<Customer, String> country_id;
     appointmentDA aptDBA = new appointmentDA();
     customerDA custDBA = new customerDA();
     /**
@@ -53,7 +52,8 @@ public class Customers implements Initializable {
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         postal_code.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        division_id.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        division_id.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+        country_id.setCellValueFactory(new PropertyValueFactory<>("country"));
     }    
     
     /**

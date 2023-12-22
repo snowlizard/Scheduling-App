@@ -19,7 +19,7 @@ public class divisionDA extends Connector{
 
     public ObservableList<FirstLevelDivision> getDivisions(){
         ObservableList<FirstLevelDivision> firstDivs = FXCollections.observableArrayList();
-        String query = "SELECT * FROM first_level_divisions";
+        String query = "SELECT * FROM first_level_divisions;";
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
             while(set.next()){
@@ -39,14 +39,13 @@ public class divisionDA extends Connector{
     
     public FirstLevelDivision getById(int id){
         FirstLevelDivision division = null;
-        String query = "SELECT * first_level_divisions"
-                + "WHERE Division_ID = ?;";
+        String query = "select * from first_level_divisions where Division_ID = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setInt(1, id);
             ResultSet set = pStatement.executeQuery();
             if(set.next()){
-                division = new FirstLevelDivision(set.getInt("Division_ID"), 
+                return new FirstLevelDivision(set.getInt("Division_ID"), 
                         set.getString("Division"),
                         set.getString("Create_Date"),
                         set.getString("Created_By"), 
@@ -62,11 +61,11 @@ public class divisionDA extends Connector{
     
     public FirstLevelDivision getByName(String name){
         FirstLevelDivision division = null;
-        String query = "SELECT * first_level_divisions"
-                + "WHERE Division = ?;";
+        String query = "select*from first_level_divisions where Division = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setString(1, name);
+            System.out.println(pStatement);
             ResultSet set = pStatement.executeQuery();
             if(set.next()){
                 division = new FirstLevelDivision(set.getInt("Division_ID"), 

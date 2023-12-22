@@ -54,7 +54,7 @@ public class CustomerForm implements Initializable{
     private divisionDA divisionDBA = new divisionDA();
     private userDA userDBA = new userDA();
     
-    private Customer customer = Customers.getInstance().getCurrentCustomer();
+    private Customer customer = customerDBA.getCurrentCustomer();
     
     private ObservableList<Country> countries = countryDBA.getCountries();
     private ObservableList<FirstLevelDivision> divisions = divisionDBA.getDivisions();
@@ -124,7 +124,7 @@ public class CustomerForm implements Initializable{
                 customer.setPhone(phone.getText());
                 customer.setLastUpdate(now);
                 customer.setLastUpdatedBy(userDBA.getLoggedinUser());
-               // customer.setDivisionId(divId);
+                customer.setDivisionId(divId);
 
                 customerDBA.updateCustomer(customer);
             } else {
@@ -156,13 +156,13 @@ public class CustomerForm implements Initializable{
         ObservableList<String> choices = FXCollections.observableArrayList();
         
         if(choiceValue != null){
-            //Country selCountry= countryInstance.getCountryByName(choiceValue);
+            Country selCountry= countryDBA.getByName(choiceValue);
             // Allows simple iteration on divisions list
             // use to add division name to choice box
             divisions.forEach((division) -> {
-                //if(division.getCountryId() == selCountry.getId()){
-                //    choices.add(division.getDivision());
-                //}
+                if(division.getCountryId() == selCountry.getId()){
+                    choices.add(division.getDivision());
+                }
             });
             divisionId.setItems(choices);
         }

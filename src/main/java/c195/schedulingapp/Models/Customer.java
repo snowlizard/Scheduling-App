@@ -4,6 +4,9 @@
  */
 package c195.schedulingapp.Models;
 
+import c195.schedulingapp.DBAccess.countryDA;
+import c195.schedulingapp.DBAccess.divisionDA;
+
 /**
  * Customer Model
  * @author Julian
@@ -19,6 +22,8 @@ public class Customer {
     private String last_update;
     private String last_updated_by;
     private int division_id;
+    private String division_name;
+    private String country;
     
     public Customer(int id, String name, String address, String postal_code,
             String phone, String create_date, String created_by,
@@ -112,6 +117,14 @@ public class Customer {
      */
     public int getDivisionId(){
         return this.division_id;
+    }
+    
+    public String getDivisionName(){
+        return new divisionDA().getById(division_id).getDivision();
+    }
+    
+    public String getCountry(){
+        return new countryDA().getById(new divisionDA().getById(division_id).getCountryId()).getCountry();
     }
     
     /**

@@ -11,12 +11,12 @@
         <TableView fx:id="customers" layoutX="10.0" layoutY="55.0" prefHeight="470.0" prefWidth="861.0">
             <columns>
                 <TableColumn prefWidth="50.0" fx:id="id" text="ID" />
-                <TableColumn prefWidth="90.0" fx:id="name" text="Name" />
-                <TableColumn prefWidth="90.0" fx:id="address" text="Address" />
-                <TableColumn prefWidth="90.0" fx:id="postal_code" text="Postal Code" />
-                <TableColumn prefWidth="90.0" fx:id="phone" text="Phone" />
-                <TableColumn prefWidth="90.0" fx:id="division_id" text="Division ID" />
-                <TableColumn prefWidth="90.0" fx:id="country_id" text="Country ID" /> 
+                <TableColumn prefWidth="100.0" fx:id="name" text="Name" />
+                <TableColumn prefWidth="200.0" fx:id="address" text="Address" />
+                <TableColumn prefWidth="100.0" fx:id="postal_code" text="Postal Code" />
+                <TableColumn prefWidth="160.0" fx:id="phone" text="Phone" />
+                <TableColumn prefWidth="130.0" fx:id="division_id" text="Division ID" />
+                <TableColumn prefWidth="130.0" fx:id="country_id" text="Country ID" /> 
             </columns>
         </TableView>
         <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />

@@ -19,7 +19,7 @@ public class countryDA extends Connector{
 
     public ObservableList<Country> getCountries(){
         ObservableList<Country> paizes = FXCollections.observableArrayList();
-        String query = "SELECT * FROM countries";
+        String query = "SELECT * FROM countries;";
         
         try{
             ResultSet set = this.connector.prepareStatement(query).executeQuery();
@@ -39,11 +39,31 @@ public class countryDA extends Connector{
     
     public Country getById(int id){
         Country country = null;
-        String query = "SELECT * FROM countries"
-                + "WHERE Country_ID = ?;";
+        String query = "SELECT * FROM countries WHERE Country_ID = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
-            pStatement.setInt(0, id);
+            pStatement.setInt(1, id);
+            ResultSet set = pStatement.executeQuery();
+            while(set.next()){
+                country = new Country(set.getInt("Country_ID"), 
+                        set.getString("Country"),
+                        set.getString("Create_Date"),
+                        set.getString("Created_By"), 
+                        set.getString("Last_Update"),
+                        set.getString("Last_Updated_By"));
+            }
+        }catch(Exception e){
+            System.out.println(e + " Error");
+        }
+        return country;  
+    }
+    
+    public Country getByName(String name){
+        Country country = null;
+        String query = "SELECT * FROM countries WHERE Country = ?;";
+        try{
+            PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setString(1, name);
             ResultSet set = pStatement.executeQuery();
             while(set.next()){
                 country = new Country(set.getInt("Country_ID"), 
