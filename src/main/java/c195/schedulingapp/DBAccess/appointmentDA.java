@@ -14,21 +14,33 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author mrjack
+ * Appointment database access class
+ * @author Julian
  */
 public class appointmentDA extends Connector{
     private static Appointment currentAppointment;
     public appointmentDA(){}
     
+    /**
+     * Sets the current Appointment
+     * @param apt Appointment object
+     */
     public void setCurrent(Appointment apt){
         currentAppointment = apt;
     }
     
+    /**
+     * Gets the current Appointment
+     * @return Appointment object
+     */
     public Appointment getCurrent(){
         return currentAppointment;
     }
     
+    /**
+     * Returns a list of all Appointments
+     * @return ObservableList<Appointment>
+     */
     public ObservableList<Appointment> getAppointments(){
         ObservableList<Appointment> apts = FXCollections.observableArrayList();
         String query = "SELECT * FROM appointments";
@@ -62,6 +74,10 @@ public class appointmentDA extends Connector{
         return apts;
     }
     
+    /**
+     * Add a new Appointment to the database
+     * @param apt Appointment object
+     */
     public void insertAppointment(Appointment apt){
         String query = "INSERT INTO appointments "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -89,6 +105,10 @@ public class appointmentDA extends Connector{
         }
     }
     
+    /**
+     * Update the appointment in the database
+     * @param apt Appointment object
+     */
     public void updateAppointment(Appointment apt){
         String query = "UPDATE appointments "
                 + "SET Title = ?, Description = ?, Location = ?, "
@@ -120,6 +140,10 @@ public class appointmentDA extends Connector{
         }
     }
     
+    /**
+     * Remove the appointment with the given id
+     * @param appointment_id integer appointment id
+     */
     public void removeAppointment(int appointment_id){
         String query = "DELETE FROM appointments " +
                         "WHERE Appointment_ID = ?;";

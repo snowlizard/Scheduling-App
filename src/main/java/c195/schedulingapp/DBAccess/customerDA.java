@@ -12,22 +12,34 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author mrjack
+ * Customer database access class
+ * @author Julian
  */
 public class customerDA extends Connector{
     private static Customer currentCustomer;
     
     public customerDA(){}
     
+    /**
+     * Sets the current customer
+     * @param customerName Customer
+     */
     public void setCurrentCustomer(Customer customerName){
         currentCustomer = customerName;
     }
     
+    /**
+     * Return the current customer
+     * @return Customer
+     */
     public Customer getCurrentCustomer(){
         return currentCustomer;
     }
     
+    /**
+     * Return a list of all customers
+     * @return ObservableList<Customer>
+     */
     public ObservableList<Customer> getCustomers(){
         ObservableList<Customer> custs = FXCollections.observableArrayList();
         String query = "SELECT * FROM customers";
@@ -52,6 +64,10 @@ public class customerDA extends Connector{
         return custs;
     }
 
+    /**
+     * Add new customer to the database
+     * @param cust Customer
+     */
     public void insertCustomer(Customer cust){
         String query = "insert into customers "
                 + "values(?,?,?,?,?,?,?,?,?,?);";
@@ -74,6 +90,11 @@ public class customerDA extends Connector{
         }
     }
     
+    /**
+     * Update an existing customer in
+     * the database
+     * @param cust Customer 
+     */
     public void updateCustomer(Customer cust){
         String query = "UPDATE customers "
                 + "SET Customer_Name = ?, "
@@ -106,6 +127,11 @@ public class customerDA extends Connector{
         }
     } 
  
+    /**
+     * Remove a customer from the
+     * database
+     * @param customer_id int
+     */
     public void removeCustomer(int customer_id){
         String query = "delete from customers where Customer_ID = ?;";
         try{
@@ -117,6 +143,11 @@ public class customerDA extends Connector{
         }
     }
     
+    /**
+     * Get the id of a customer by their name
+     * @param name String
+     * @return int
+     */
     public int getIdByName(String name){
         int id = -1;
         String query = "select Customer_ID from customers where Customer_Name = ?;";
@@ -134,6 +165,11 @@ public class customerDA extends Connector{
         return id;
     }
     
+    /**
+     * Get a customer by their id
+     * @param id int
+     * @return Customer
+     */
     public Customer getCustomer(int id){
         Customer cust = null;
         String query = "select * from customers where Customer_ID = ?;";

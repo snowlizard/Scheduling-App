@@ -11,12 +11,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author mrjack
+ * First level divisions database access class
+ * @author Julian
  */
 public class divisionDA extends Connector{
     public divisionDA(){}
 
+    /**
+     * Returns a list of all divisions
+     * @return ObservableList<FirstLevelDivision>
+     */
     public ObservableList<FirstLevelDivision> getDivisions(){
         ObservableList<FirstLevelDivision> firstDivs = FXCollections.observableArrayList();
         String query = "SELECT * FROM first_level_divisions;";
@@ -37,6 +41,11 @@ public class divisionDA extends Connector{
         return firstDivs;
     }
     
+    /**
+     * Get division by its id
+     * @param id int
+     * @return FirstLevelDivision
+     */
     public FirstLevelDivision getById(int id){
         FirstLevelDivision division = null;
         String query = "select * from first_level_divisions where Division_ID = ?;";
@@ -59,6 +68,11 @@ public class divisionDA extends Connector{
         return division;
     }
     
+    /**
+     * Get a division by its name
+     * @param name String
+     * @return FirstLevelDivision
+     */
     public FirstLevelDivision getByName(String name){
         FirstLevelDivision division = null;
         String query = "select*from first_level_divisions where Division = ?;";

@@ -11,12 +11,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author mrjack
+ * Reports database access class
+ * @author Julian
  */
 public class reportsDA extends Connector{
     public reportsDA(){}
 
+    /**
+     * Returns list of countries report
+     * (customers from the same country)
+     * @return 
+     */
     public ObservableList<CountryReport> getCountriesReport(){
         ObservableList<CountryReport> countryReport = FXCollections.observableArrayList();
         
@@ -44,6 +49,11 @@ public class reportsDA extends Connector{
         return countryReport;
     }
 
+    /**
+     * Returns report (list) appointments grouped
+     * by type and month
+     * @return 
+     */
     public ObservableList<TMReport> getTMReport(){
         ObservableList<TMReport> tmReport = FXCollections.observableArrayList();
         

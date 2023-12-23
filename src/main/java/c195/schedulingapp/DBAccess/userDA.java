@@ -5,25 +5,32 @@
 package c195.schedulingapp.DBAccess;
 
 import c195.schedulingapp.Models.User;
-import c195.schedulingapp.DBAccess.userDA;
 
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**
- *
- * @author mrjack
+ * User database access class
+ * @author Julian
  */
 public class userDA extends Connector{
     private static String loggedinUser;
     
     public userDA(){}
     
+    /**
+     * Gets the logged in user
+     * @return String 
+     */
     public String getLoggedinUser(){
         return loggedinUser;
     }
     
+    /**
+     * Sets the logged in user
+     * @param username String
+     */
     public void setLoggedinUser(String username){
         loggedinUser = username;
     }
@@ -58,6 +65,10 @@ public class userDA extends Connector{
         return found;
     }
     
+    /**
+     * Return list of all users
+     * @return ObservableList<User>
+     */
     public ObservableList<User> getUsers(){
         ObservableList<User> users = FXCollections.observableArrayList();
         String query = "select * from users;";
@@ -76,6 +87,11 @@ public class userDA extends Connector{
         return users;
     }
     
+    /**
+     * Get a users id by their name
+     * @param name String
+     * @return int
+     */
     public int getIdByName(String name){
         int id = -1;
         String query = "select User_ID from users where User_Name = ?;";
@@ -94,6 +110,11 @@ public class userDA extends Connector{
         return id;
     }
     
+    /**
+     * Get a user by their id
+     * @param id int
+     * @return User
+     */
     public User getUser(int id){
         User user = null;
         String query = "select * from users where User_ID = ?;";

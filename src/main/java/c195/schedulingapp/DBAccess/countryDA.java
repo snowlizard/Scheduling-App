@@ -11,12 +11,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author mrjack
+ * Country database access class
+ * @author Julian
  */
 public class countryDA extends Connector{
     public countryDA(){}
 
+    /**
+     * Returns a list of all countries
+     * @return ObservableList<Country>
+     */
     public ObservableList<Country> getCountries(){
         ObservableList<Country> paizes = FXCollections.observableArrayList();
         String query = "SELECT * FROM countries;";
@@ -37,6 +41,12 @@ public class countryDA extends Connector{
         return paizes;
     }
     
+    /**
+     * Returns the country with
+     * the given id
+     * @param id int
+     * @return Country
+     */
     public Country getById(int id){
         Country country = null;
         String query = "SELECT * FROM countries WHERE Country_ID = ?;";
@@ -58,6 +68,11 @@ public class countryDA extends Connector{
         return country;  
     }
     
+    /**
+     * Get a country by its name
+     * @param name String
+     * @return Country
+     */
     public Country getByName(String name){
         Country country = null;
         String query = "SELECT * FROM countries WHERE Country = ?;";
