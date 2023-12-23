@@ -36,8 +36,7 @@ public class contactDA extends Connector{
     
     public int getID(String name){
         int id = -1;
-        String query = "SELECT Contact_ID from contacts"
-                + "WHERE Contact_Name = ?;";
+        String query = "select Contact_ID from contacts where Contact_Name = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setString(1, name);

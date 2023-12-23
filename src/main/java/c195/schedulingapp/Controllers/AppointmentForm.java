@@ -19,7 +19,6 @@ import c195.schedulingapp.Models.HelperFunctions;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.time.ZonedDateTime;
-import java.util.Random;
 import java.time.ZoneId;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,16 +71,19 @@ public class AppointmentForm implements Initializable {
     
     /**
      * Initialize Appointment form
+     * Uses lambda function to iterate easily
+     * between each contact in the contacts list
+     * and populate a new list that contains each
+     * contacts name
      * @param url URL
      * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aptId.setDisable(true);
-        
-        // Set Contact choices
         ObservableList<String> contacts = FXCollections.observableArrayList();
         
+        // Lambda function used to get contact names
         contactDBA.getContacts().forEach((contacto) -> {
             contacts.add(contacto.getName());
         });
@@ -254,6 +256,9 @@ public class AppointmentForm implements Initializable {
         } else if(sHour.getValue().equals(eHour.getValue()) &&
                 sMin.getValue() > eMin.getValue()){
             return "Start minutes after end minutes";
+        } else if(sHour.getValue().equals(eHour.getValue()) &&
+                sMin.getValue().equals(eMin.getValue())){
+            return "Minutes cannot be the same.";
         } else if(!helper.checkInTime(newStart)){
             return "Selected time out of business hours";
         } else if(!helper.checkInTime(newEnd)){

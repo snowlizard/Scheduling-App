@@ -119,8 +119,7 @@ public class customerDA extends Connector{
     
     public int getIdByName(String name){
         int id = -1;
-        String query = "SELECT Customer_ID from customers"
-                + "WHERE Customer_Name = ?;";
+        String query = "select Customer_ID from customers where Customer_Name = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setString(1, name);

@@ -82,7 +82,7 @@ public class appointmentDA extends Connector{
             pStatement.setInt(12, apt.getCustomerId());
             pStatement.setInt(13, apt.getUserId());
             pStatement.setInt(14, apt.getContactId());
-            
+
             pStatement.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -95,7 +95,7 @@ public class appointmentDA extends Connector{
                 + "Type = ?, Start = ?, End = ?, Create_Date = ?, "
                 + "Created_By = ?, Last_Update = ?, Last_Updated_By = ?, "
                 + "Customer_ID = ?, User_ID = ?, Contact_ID = ?"
-                + "WHERE Appointment_ID = ?;";
+                + " WHERE Appointment_ID = ?;";
 
         try {
             PreparedStatement pStatement = connector.prepareStatement(query);
