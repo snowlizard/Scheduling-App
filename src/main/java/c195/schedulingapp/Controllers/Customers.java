@@ -20,7 +20,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -32,7 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class Customers implements Initializable {
     @FXML private TableView<Customer> customers;
-    @FXML private TableColumn<Customer, Integer> id;
+    @FXML private TableColumn<Customer, Number> id;
     @FXML private TableColumn<Customer, String> name;
     @FXML private TableColumn<Customer, String> address;
     @FXML private TableColumn<Customer, String> postal_code;
@@ -69,7 +68,7 @@ public class Customers implements Initializable {
         if(customer != null){
             custDBA.setCurrentCustomer(customer);
             new HelperFunctions().setModal("/fxml/customerForm");
-            customers.setItems(new customerDA().getCustomers());
+            updateCustomerTable();
         }else{
             Alert dialog = new Alert(AlertType.ERROR, 
                 "Select a column to edit a customer.",
@@ -134,7 +133,8 @@ public class Customers implements Initializable {
         phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         division_id.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
         country_id.setCellValueFactory(new PropertyValueFactory<>("country"));
-        
+
         customers.setItems(custDBA.getCustomers());
+        customers.refresh();
     }
 }

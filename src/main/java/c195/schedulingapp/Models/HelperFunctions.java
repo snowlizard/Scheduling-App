@@ -58,7 +58,7 @@ public class HelperFunctions {
         
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
     }
     
     /**

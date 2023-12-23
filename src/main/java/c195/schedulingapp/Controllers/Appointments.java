@@ -142,7 +142,8 @@ public class Appointments implements Initializable {
         Appointment apt = appointments.getSelectionModel().getSelectedItem();
         if(apt != null){
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to delete this appointment?",
+                "Are you sure you want to delete this appointment?\n" +
+                "Appoinment ID: " + apt.getId() + ", Type: " + apt.getType(),
                    ButtonType.YES, ButtonType.NO);
             confirm.showAndWait();
             

@@ -149,6 +149,7 @@ public class appointmentDA extends Connector{
                         "WHERE Appointment_ID = ?;";
         try {
             PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setInt(1, appointment_id);
             pStatement.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
