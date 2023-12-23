@@ -51,4 +51,25 @@ public class contactDA extends Connector{
         
         return id;
     }
+    
+    public Contact getContact(int id){
+        Contact contact = null;
+        String query = "select * from contacts where Contact_ID = ?;";
+        
+        try{
+            PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setInt(1, id);
+            ResultSet set = pStatement.executeQuery();
+            if(set.next()){
+                contact = new Contact(
+                         set.getInt("Contact_ID"),
+                        set.getString("Contact_Name"),
+                       set.getString("Email"));
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return contact;
+    }
 }

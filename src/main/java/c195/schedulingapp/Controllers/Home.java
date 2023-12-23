@@ -4,7 +4,7 @@
  */
 package c195.schedulingapp.Controllers;
 
-import c195.schedulingapp.Singletons.Appointments;
+import c195.schedulingapp.DBAccess.appointmentDA;
 import c195.schedulingapp.Models.HelperFunctions;
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +25,6 @@ import java.time.temporal.ChronoUnit;
  */
 public class Home implements Initializable {
     @FXML private Label appt_msg;
-    private Appointments aptsInstance = Appointments.getInstance();
     
     /**
      * Upon opening the home page look for appointments within the next 15 minutes
@@ -37,7 +36,7 @@ public class Home implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
         // Look for any appointment within the next 15 minutes
-        aptsInstance.getAppointments().forEach((appointment) -> {
+        new appointmentDA().getAppointments().forEach((appointment) -> {
             if(appointment.getStart().until(now, ChronoUnit.MINUTES) <= 15){
                 String nextApt = "Next Appointment: " + appointment.getId() +
                         " " + appointment.getStart().format(DateTimeFormatter.ISO_DATE);

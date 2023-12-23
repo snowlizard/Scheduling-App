@@ -20,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -45,15 +46,7 @@ public class Customers implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        customers.setItems(custDBA.getCustomers());
-        
-        id.setCellValueFactory(new PropertyValueFactory<> ("id"));
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        address.setCellValueFactory(new PropertyValueFactory<>("address"));
-        postal_code.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        division_id.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
-        country_id.setCellValueFactory(new PropertyValueFactory<>("country"));
+        updateCustomerTable();
     }    
     
     /**
@@ -70,11 +63,13 @@ public class Customers implements Initializable {
      * and redirects to the customer form
      * @throws IOException 
      */
-    public void editCustomer() throws IOException {
+    @FXML
+    private void editCustomer() throws IOException {
         Customer customer = customers.getSelectionModel().getSelectedItem();
         if(customer != null){
             custDBA.setCurrentCustomer(customer);
             new HelperFunctions().setModal("/fxml/customerForm");
+            customers.setItems(new customerDA().getCustomers());
         }else{
             Alert dialog = new Alert(AlertType.ERROR, 
                 "Select a column to edit a customer.",
@@ -90,6 +85,7 @@ public class Customers implements Initializable {
     public void addCustomer() throws IOException{
         custDBA.setCurrentCustomer(null);
         new HelperFunctions().setModal("/fxml/customerForm");
+        updateCustomerTable();
     }
     
     /**
@@ -114,6 +110,7 @@ public class Customers implements Initializable {
 
                 if(confirm.getResult() == ButtonType.YES){
                     custDBA.removeCustomer(customer.getId());
+                    updateCustomerTable();
                 }
             }else{
                 Alert aptFound = new Alert(AlertType.ERROR,
@@ -127,5 +124,17 @@ public class Customers implements Initializable {
                 ButtonType.OK);
             dialog.showAndWait();
         }
+    }
+    
+    private void updateCustomerTable(){
+        id.setCellValueFactory(new PropertyValueFactory<> ("id"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postal_code.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        division_id.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+        country_id.setCellValueFactory(new PropertyValueFactory<>("country"));
+        
+        customers.setItems(custDBA.getCustomers());
     }
 }

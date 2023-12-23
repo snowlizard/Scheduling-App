@@ -7,12 +7,10 @@ package c195.schedulingapp.Controllers;
 import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Country;
 import c195.schedulingapp.Models.FirstLevelDivision;
-import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.DBAccess.customerDA;
 import c195.schedulingapp.DBAccess.countryDA;
 import c195.schedulingapp.DBAccess.divisionDA;
 import c195.schedulingapp.DBAccess.userDA;
-import c195.schedulingapp.Singletons.Customers;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +35,6 @@ import javafx.scene.control.ButtonType;
  * @author Julian
  */
 public class CustomerForm implements Initializable{
-    private Connector connector = new Connector();
     private String errorMsg = "";
     
     @FXML private TextField id;

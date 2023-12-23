@@ -5,7 +5,7 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.Models.Appointment;
-import c195.schedulingapp.DBAccess.Connector;
+import c195.schedulingapp.DBAccess.appointmentDA;
 import c195.schedulingapp.Models.HelperFunctions;
 
 import java.io.IOException;
@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
@@ -30,7 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Julian
  */
 public class Appointments implements Initializable {
-    private Connector connector = new Connector();
 
     @FXML private TableView<Appointment> appointments;
     @FXML private TableColumn<Appointment, Integer> cId;
@@ -51,16 +49,23 @@ public class Appointments implements Initializable {
     @FXML private Button modify;
     @FXML private Button delete;
     
-    c195.schedulingapp.Singletons.Appointments aptsInstance = c195.schedulingapp.Singletons.Appointments.getInstance();
-    ObservableList<Appointment> allApts = aptsInstance.getAppointments();
+    appointmentDA appointmentDBA = new appointmentDA();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Set tablecolumn items
-        appointments.setItems(allApts);
+        updateTable();
         
+        // add to toggle group
+        all.setToggleGroup(AptFilter);
+        month.setToggleGroup(AptFilter);
+        week.setToggleGroup(AptFilter);
+        
+        AptFilter.selectToggle(all);
+    }
+    
+    private void updateTable(){
         // populate column values
         cId.setCellValueFactory(new PropertyValueFactory<> ("id"));
         cTitle.setCellValueFactory(new PropertyValueFactory<> ("title"));
@@ -72,13 +77,9 @@ public class Appointments implements Initializable {
         cCustId.setCellValueFactory(new PropertyValueFactory<> ("customerId"));
         cUserId.setCellValueFactory(new PropertyValueFactory<> ("userId"));
         cContactId.setCellValueFactory(new PropertyValueFactory<> ("contactId"));
-        
-        // add to toggle group
-        all.setToggleGroup(AptFilter);
-        month.setToggleGroup(AptFilter);
-        week.setToggleGroup(AptFilter);
-        
-        AptFilter.selectToggle(all);
+
+        // Set tablecolumn items
+        appointments.setItems(appointmentDBA.getAppointments());
     }
     
     /**
@@ -99,8 +100,9 @@ public class Appointments implements Initializable {
         Appointment apt = appointments.getSelectionModel().getSelectedItem();
         
         if(apt != null){
-            aptsInstance.setCurrentAppointment(apt);
+            appointmentDBA.setCurrent(apt);
             new HelperFunctions().setModal("/fxml/appointmentForm");
+            updateTable();
         }
     }
     
@@ -110,8 +112,9 @@ public class Appointments implements Initializable {
      */
     @FXML
     private void newAppointment() throws IOException {
-        aptsInstance.setCurrentAppointment(null);
+        appointmentDBA.setCurrent(null);
         new HelperFunctions().setModal("/fxml/appointmentForm");
+        updateTable();
     }
     
     /**
@@ -123,11 +126,11 @@ public class Appointments implements Initializable {
         String toggleValue = toggle.getText();
         
         if(toggleValue.equals("All")){
-            appointments.setItems(allApts);
+            appointments.setItems(appointmentDBA.getAppointments());
         } else if (toggleValue.equals("Month")){
-            appointments.setItems(aptsInstance.getAppointmentsMonth());
+            appointments.setItems(appointmentDBA.getAppointmentsMonth());
         } else if (toggleValue.equals("Week")){
-            appointments.setItems(aptsInstance.getAppointmentsWeek());
+            appointments.setItems(appointmentDBA.getAppointmentsWeek());
         }
     }
     
@@ -144,8 +147,8 @@ public class Appointments implements Initializable {
             confirm.showAndWait();
             
             if(confirm.getResult() == ButtonType.YES){
-                allApts.remove(apt);
-                //connector.removeAppointment(apt.getId());
+                appointmentDBA.removeAppointment(apt.getId());
+                updateTable();
             }
         }else{
             Alert dialog = new Alert(Alert.AlertType.ERROR, 

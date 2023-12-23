@@ -65,7 +65,6 @@ public class divisionDA extends Connector{
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setString(1, name);
-            System.out.println(pStatement);
             ResultSet set = pStatement.executeQuery();
             if(set.next()){
                 division = new FirstLevelDivision(set.getInt("Division_ID"), 

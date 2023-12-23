@@ -9,11 +9,10 @@ import c195.schedulingapp.Models.Customer;
 import c195.schedulingapp.Models.Contact;
 import c195.schedulingapp.Models.User;
 
-import c195.schedulingapp.DBAccess.Connector;
-
-import c195.schedulingapp.Singletons.Contacts;
-import c195.schedulingapp.Singletons.Customers;
-import c195.schedulingapp.Singletons.Users;
+import c195.schedulingapp.DBAccess.appointmentDA;
+import c195.schedulingapp.DBAccess.customerDA;
+import c195.schedulingapp.DBAccess.contactDA;
+import c195.schedulingapp.DBAccess.userDA;
 
 import c195.schedulingapp.Models.HelperFunctions;
 
@@ -45,7 +44,6 @@ import javafx.collections.FXCollections;
  * @author Julian
  */
 public class AppointmentForm implements Initializable {
-    private Connector connector = new Connector();
     
     @FXML private TextField aptId;
     @FXML private TextField title;
@@ -62,11 +60,12 @@ public class AppointmentForm implements Initializable {
     @FXML private Spinner<Integer> eHour;
     @FXML private Spinner<Integer> eMin;
     
-    c195.schedulingapp.Singletons.Appointments aptsInstance = c195.schedulingapp.Singletons.Appointments.getInstance();
-    Contacts contactInstance = Contacts.getInstance();
-    Customers customerInstance = Customers.getInstance();
-    Users userInstance = Users.getInstance();
-    Appointment currentApt = aptsInstance.getCurrentAppointment();
+    appointmentDA appointmentDBA = new appointmentDA();
+    customerDA customerDBA = new customerDA();
+    contactDA contactDBA = new contactDA();
+    userDA userDBA = new userDA();
+    
+    Appointment currentApt = appointmentDBA.getCurrent();
     
     HelperFunctions helper = new HelperFunctions();
     private ZoneId localZone = ZoneId.systemDefault();
@@ -83,7 +82,7 @@ public class AppointmentForm implements Initializable {
         // Set Contact choices
         ObservableList<String> contacts = FXCollections.observableArrayList();
         
-        contactInstance.getContacts().forEach((contacto) -> {
+        contactDBA.getContacts().forEach((contacto) -> {
             contacts.add(contacto.getName());
         });
         contact.setItems(contacts);
@@ -91,14 +90,14 @@ public class AppointmentForm implements Initializable {
         // Set Customer choices
         ObservableList<String> customers = FXCollections.observableArrayList();
         
-        customerInstance.getCustomers().forEach((cust) -> {
+        customerDBA.getCustomers().forEach((cust) -> {
             customers.add(cust.getName());
         });
         customer.setItems(customers);
         
         // Set User choices
         ObservableList<String> users = FXCollections.observableArrayList();
-        userInstance.getUsers().forEach((usario) -> {
+        userDBA.getUsers().forEach((usario) -> {
             users.add(usario.getUserName());
         });
         user.setItems(users);
@@ -111,9 +110,9 @@ public class AppointmentForm implements Initializable {
         
         // Appointment form was loaded with pre-existing appointment
         if(currentApt != null){
-            Customer cust = customerInstance.getCustomer(currentApt.getCustomerId());
-            Contact cont = contactInstance.getContact(currentApt.getContactId());
-            User usr = userInstance.getUser(currentApt.getUserId());
+            Customer cust = customerDBA.getCustomer(currentApt.getCustomerId());
+            Contact cont = contactDBA.getContact(currentApt.getContactId());
+            User usr = userDBA.getUser(currentApt.getUserId());
             
             aptId.setText(Integer.toString(currentApt.getId()));
             title.setText(currentApt.getTitle());
@@ -164,12 +163,12 @@ public class AppointmentForm implements Initializable {
             ZonedDateTime newStartTime = helper.getZDT(this.getStartStr());
             ZonedDateTime newEndTime = helper.getZDT(this.getEndStr());
             ZonedDateTime createdDate = ZonedDateTime.now(localZone);
-            String createdBy = customerInstance.getLoggedInUser();
-            String updatedBy = customerInstance.getLoggedInUser();
+            String createdBy = userDBA.getLoggedinUser();
+            String updatedBy = userDBA.getLoggedinUser();
             ZonedDateTime lastUpdate = ZonedDateTime.now(localZone);
-            int customerId = customerInstance.getIdByName(customer.getValue());
-            int contactId = contactInstance.getIdByName(contact.getValue());
-            int userId = userInstance.getIdByName(user.getValue());
+            int customerId = customerDBA.getIdByName(customer.getValue());
+            int contactId = contactDBA.getID(contact.getValue());
+            int userId = userDBA.getIdByName(user.getValue());
             
             if(currentApt != null){
                 currentApt.setTitle(title.getText());
@@ -184,23 +183,15 @@ public class AppointmentForm implements Initializable {
                 currentApt.setUserId(userId);
                 currentApt.setContactId(contactId);
                 
-                int index = aptsInstance.getAppointments().indexOf(currentApt);
-                aptsInstance.getAppointments().set(index, currentApt);
-                //connector.updateAppointment(currentApt);
+                appointmentDBA.updateAppointment(currentApt);
             }else{
-                Random rand = new Random();
-                int newId = rand.nextInt(1000);
-                while(aptsInstance.getAptById(newId) != null){
-                    newId = rand.nextInt(1000);
-                }
-                
-                Appointment newApt = new Appointment(newId, title.getText(),
+                Appointment newApt = new Appointment(1, title.getText(),
                     desc.getText(), location.getText(), type.getText(),
                     newStartTime, newEndTime, createdDate, createdBy,
                     lastUpdate, updatedBy, customerId, userId,
                     contactId);
-                aptsInstance.addAppointment(newApt);
-                //connector.insertAppointmentQuery(newApt);
+                
+                appointmentDBA.insertAppointment(newApt);
             }
             win.close();
         }

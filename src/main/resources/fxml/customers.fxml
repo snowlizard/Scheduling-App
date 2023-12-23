@@ -15,8 +15,8 @@
                 <TableColumn prefWidth="200.0" fx:id="address" text="Address" />
                 <TableColumn prefWidth="100.0" fx:id="postal_code" text="Postal Code" />
                 <TableColumn prefWidth="160.0" fx:id="phone" text="Phone" />
-                <TableColumn prefWidth="130.0" fx:id="division_id" text="Division ID" />
-                <TableColumn prefWidth="130.0" fx:id="country_id" text="Country ID" /> 
+                <TableColumn prefWidth="130.0" fx:id="division_id" text="Division" />
+                <TableColumn prefWidth="130.0" fx:id="country_id" text="Country" /> 
             </columns>
         </TableView>
         <Button onAction="#previousScene"  fx:id="back" layoutX="10.0" layoutY="25.0" mnemonicParsing="false" text="Back" />

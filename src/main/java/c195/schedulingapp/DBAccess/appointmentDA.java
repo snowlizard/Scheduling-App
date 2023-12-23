@@ -7,6 +7,9 @@ package c195.schedulingapp.DBAccess;
 import c195.schedulingapp.Models.Appointment;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,7 +18,16 @@ import javafx.collections.ObservableList;
  * @author mrjack
  */
 public class appointmentDA extends Connector{
+    private static Appointment currentAppointment;
     public appointmentDA(){}
+    
+    public void setCurrent(Appointment apt){
+        currentAppointment = apt;
+    }
+    
+    public Appointment getCurrent(){
+        return currentAppointment;
+    }
     
     public ObservableList<Appointment> getAppointments(){
         ObservableList<Appointment> apts = FXCollections.observableArrayList();
@@ -117,5 +129,68 @@ public class appointmentDA extends Connector{
         }catch(Exception e){
             System.out.println(e);
         }
+    }
+
+    /**
+     * Get appointments starting in the current month
+     * @return List of appointments
+     */
+    public ObservableList<Appointment> getAppointmentsMonth(){
+        ObservableList<Appointment> appointments = this.getAppointments();
+        
+        LocalDateTime today = LocalDateTime.now();
+        ObservableList<Appointment> temp = FXCollections.observableArrayList();
+        
+        appointments.forEach((apt) -> {
+            if(apt.getStart().getMonth() == today.getMonth()){
+                temp.add(apt);
+            }
+        });
+        
+        return temp;
+    }
+    
+    /**
+     * Get appointments starting in the current week
+     * @return List of appointments
+     */
+    public ObservableList<Appointment> getAppointmentsWeek(){
+        Locale locale = Locale.getDefault();
+        Calendar calendar = Calendar.getInstance(locale);
+        LocalDateTime today = LocalDateTime.now();
+        ObservableList<Appointment> appointments = this.getAppointments();
+        ObservableList<Appointment> temp = FXCollections.observableArrayList();
+        
+        calendar.set(today.getYear(), today.getMonthValue(), today.getDayOfMonth());
+        
+        int currentWeek = calendar.get(calendar.WEEK_OF_MONTH);
+        
+        appointments.forEach((apt) -> {
+            Calendar c2 = Calendar.getInstance(locale);
+            c2.set(apt.getStart().getYear(), apt.getStart().getMonthValue(),
+                    apt.getStart().getDayOfMonth());
+            int startWeek = c2.get(c2.WEEK_OF_MONTH);
+            if(currentWeek == startWeek){
+                temp.add(apt);
+            }
+        });
+        
+        return temp;
+    }
+    
+    /**
+     * Get an appointment by its ID
+     * @param aptId Integer
+     * @return Appointment if found
+     */
+    public Appointment getAptById(int aptId){
+        ObservableList<Appointment> appointments = this.getAppointments();
+        Appointment foundApt = null;
+        for(Appointment apt: appointments){
+            if(apt.getId() == aptId){
+                foundApt = apt;
+            }
+        }
+        return foundApt;
     }
 }

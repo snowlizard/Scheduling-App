@@ -28,14 +28,14 @@ public class customerDA extends Connector{
         return currentCustomer;
     }
     
-    public ObservableList getCustomers(){
-        ObservableList<Customer> customers = FXCollections.observableArrayList();
+    public ObservableList<Customer> getCustomers(){
+        ObservableList<Customer> custs = FXCollections.observableArrayList();
         String query = "SELECT * FROM customers";
 
         try{
             ResultSet set = connector.prepareStatement(query).executeQuery();
             while(set.next()){
-                customers.add(new Customer(set.getInt("Customer_ID"), 
+                custs.add(new Customer(set.getInt("Customer_ID"), 
                         set.getString("Customer_name"),
                         set.getString("Address"), 
                         set.getString("Postal_Code"),
@@ -49,7 +49,7 @@ public class customerDA extends Connector{
             }catch(Exception e){
                 System.out.println(e + " Error");
             }
-        return customers;
+        return custs;
     }
 
     public void insertCustomer(Customer cust){
@@ -107,14 +107,58 @@ public class customerDA extends Connector{
     } 
  
     public void removeCustomer(int customer_id){
-        String query = "DELETE FROM customers"
-                + "WHERE Customer_ID = ?;";
+        String query = "delete from customers where Customer_ID = ?;";
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
             pStatement.setInt(1, customer_id);
-            pStatement.executeUpdate(query);
+            pStatement.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
         }
+    }
+    
+    public int getIdByName(String name){
+        int id = -1;
+        String query = "SELECT Customer_ID from customers"
+                + "WHERE Customer_Name = ?;";
+        try{
+            PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setString(1, name);
+            ResultSet set = pStatement.executeQuery();
+            if(set.next()){
+                id = set.getInt("Customer_ID");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return id;
+    }
+    
+    public Customer getCustomer(int id){
+        Customer cust = null;
+        String query = "select * from customers where Customer_ID = ?;";
+        
+        try{
+            PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setInt(1, id);
+            ResultSet set = pStatement.executeQuery();
+            if(set.next()){
+                cust = new Customer(set.getInt("Customer_ID"), 
+                        set.getString("Customer_name"),
+                        set.getString("Address"), 
+                        set.getString("Postal_Code"),
+                        set.getString("Phone"), 
+                        set.getString("Create_Date"),
+                        set.getString("Created_By"), 
+                        set.getString("Last_Update"),
+                        set.getString("Last_Updated_By"), 
+                        set.getInt("Division_ID"));
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return cust;
     }
 }
