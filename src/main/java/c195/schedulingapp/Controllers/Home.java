@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -37,9 +38,11 @@ public class Home implements Initializable {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
         // Look for any appointment within the next 15 minutes
         new appointmentDA().getAppointments().forEach((appointment) -> {
-            if(appointment.getStart().until(now, ChronoUnit.MINUTES) <= 15){
-                String nextApt = "Next Appointment: " + appointment.getId() +
-                        " " + appointment.getStart().format(DateTimeFormatter.ISO_DATE);
+            long timeUntil = now.until(appointment.getStart(), ChronoUnit.MINUTES);
+            if(timeUntil <= 15 && timeUntil >= 0){
+                String nextApt = "Next Appointment ID: " + appointment.getId() +
+                        "\nDate Time: " + appointment.getStart()
+                                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
                 appt_msg.setText(nextApt);
             }
         });

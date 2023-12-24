@@ -5,7 +5,6 @@
 package c195.schedulingapp.Controllers;
 
 import c195.schedulingapp.App;
-import c195.schedulingapp.DBAccess.Connector;
 import c195.schedulingapp.DBAccess.userDA;
 import c195.schedulingapp.Models.HelperFunctions;
 
