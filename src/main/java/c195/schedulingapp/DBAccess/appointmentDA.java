@@ -222,9 +222,16 @@ public class appointmentDA extends Connector{
     
     public Boolean checkConflict(ZonedDateTime startTime, ZonedDateTime endTime, int id){
         Boolean noConflict = true;
+        /**
         String query = "select Appointment_ID from appointments "
                 + "where (? between Start and End or ? between start and end "
                 + "or ? < start and ? > end) and (Appointment_ID != ?)";
+        **/
+        
+        String query = "select Start from appointments "
+                + "WHERE (? BETWEEN start AND end OR ? BETWEEN start AND end OR ? < start AND ? > end)"
+                + " and (Appointment_ID != ?)";
+        
         
         try{
             PreparedStatement pStatement = connector.prepareStatement(query);
