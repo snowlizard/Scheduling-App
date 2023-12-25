@@ -103,6 +103,11 @@ public class Appointments implements Initializable {
             appointmentDBA.setCurrent(apt);
             new HelperFunctions().setModal("/fxml/appointmentForm");
             updateTable();
+        }else{
+            Alert dialog = new Alert(Alert.AlertType.ERROR, 
+                "Select a column to edit an appointment.",
+                ButtonType.OK);
+            dialog.showAndWait();
         }
     }
     
