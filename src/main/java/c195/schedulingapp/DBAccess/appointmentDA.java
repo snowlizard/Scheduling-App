@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Locale;
+import java.time.ZonedDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -217,5 +218,32 @@ public class appointmentDA extends Connector{
             }
         }
         return foundApt;
+    }
+    
+    public Boolean checkConflict(ZonedDateTime startTime, ZonedDateTime endTime, int id){
+        Boolean noConflict = true;
+        String query = "select Appointment_ID from appointments "
+                + "where (? between Start and End or ? between start and end "
+                + "or ? < start and ? > end) and (Appointment_ID != ?)";
+        
+        try{
+            PreparedStatement pStatement = connector.prepareStatement(query);
+            pStatement.setString(1, helper.getUTCfromLocal(startTime));
+            pStatement.setString(2, helper.getUTCfromLocal(endTime));
+            pStatement.setString(3, helper.getUTCfromLocal(startTime));
+            pStatement.setString(4, helper.getUTCfromLocal(endTime));
+            pStatement.setInt(5, id);
+            
+            ResultSet set = pStatement.executeQuery();
+            
+            if(set.next()){
+                noConflict = false;
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        
+        return noConflict;
     }
 }

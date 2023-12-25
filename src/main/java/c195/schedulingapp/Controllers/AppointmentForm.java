@@ -161,9 +161,13 @@ public class AppointmentForm implements Initializable {
         Stage win = (Stage) source.getScene().getWindow();
         
         Boolean validForm = this.validateForm();
+        
         if(validForm){
             ZonedDateTime newStartTime = helper.getZDT(this.getStartStr());
             ZonedDateTime newEndTime = helper.getZDT(this.getEndStr());
+            
+            
+            
             ZonedDateTime createdDate = ZonedDateTime.now(localZone);
             String createdBy = userDBA.getLoggedinUser();
             String updatedBy = userDBA.getLoggedinUser();
@@ -173,29 +177,34 @@ public class AppointmentForm implements Initializable {
             int userId = userDBA.getIdByName(user.getValue());
             
             if(currentApt != null){
-                currentApt.setTitle(title.getText());
-                currentApt.setDescription(desc.getText());
-                currentApt.setLocation(location.getText());
-                currentApt.setType(type.getText());
-                currentApt.setStart(newStartTime);
-                currentApt.setEnd(newEndTime);
-                currentApt.setLastUpdate(lastUpdate);
-                currentApt.setLastUpdatedBy(updatedBy);
-                currentApt.setCustomerId(customerId);
-                currentApt.setUserId(userId);
-                currentApt.setContactId(contactId);
-                
-                appointmentDBA.updateAppointment(currentApt);
+                if(this.checkForConflicts(newEndTime, newEndTime, currentApt.getId())){
+                    currentApt.setTitle(title.getText());
+                    currentApt.setDescription(desc.getText());
+                    currentApt.setLocation(location.getText());
+                    currentApt.setType(type.getText());
+                    currentApt.setStart(newStartTime);
+                    currentApt.setEnd(newEndTime);
+                    currentApt.setLastUpdate(lastUpdate);
+                    currentApt.setLastUpdatedBy(updatedBy);
+                    currentApt.setCustomerId(customerId);
+                    currentApt.setUserId(userId);
+                    currentApt.setContactId(contactId);
+
+                    appointmentDBA.updateAppointment(currentApt);
+                    win.close();
+                }
             }else{
-                Appointment newApt = new Appointment(1, title.getText(),
-                    desc.getText(), location.getText(), type.getText(),
-                    newStartTime, newEndTime, createdDate, createdBy,
-                    lastUpdate, updatedBy, customerId, userId,
-                    contactId);
-                
-                appointmentDBA.insertAppointment(newApt);
+                if(this.checkForConflicts(newEndTime, newEndTime, -1)){
+                    Appointment newApt = new Appointment(1, title.getText(),
+                        desc.getText(), location.getText(), type.getText(),
+                        newStartTime, newEndTime, createdDate, createdBy,
+                        lastUpdate, updatedBy, customerId, userId,
+                        contactId);
+
+                    appointmentDBA.insertAppointment(newApt);
+                    win.close();
+                }
             }
-            win.close();
         }
     }
     
@@ -319,5 +328,15 @@ public class AppointmentForm implements Initializable {
         String newEnd = eDate.getValue().toString() + " " + newEHour +
                 ":" + newEMin + ":00";
         return newEnd;
+    }
+    
+    private Boolean checkForConflicts(ZonedDateTime stime, ZonedDateTime etime, int aptId){
+        Boolean noConflicts = appointmentDBA.checkConflict(stime, etime, aptId);
+
+        if(!noConflicts){
+            this.emptyValueAlert("Another appointment is already established for that time.");
+        }
+        
+        return noConflicts;
     }
 }
