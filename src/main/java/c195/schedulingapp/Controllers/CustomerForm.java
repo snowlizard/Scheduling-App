@@ -165,6 +165,10 @@ public class CustomerForm implements Initializable{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Boolean validateForm(){
         errorMsg = "";
         if(name.getText().isEmpty()){

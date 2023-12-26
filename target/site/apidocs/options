@@ -1,0 +1,30 @@
+--class-path
+'/home/mrjack/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13.jar:/home/mrjack/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13.jar:/home/mrjack/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13.jar:/home/mrjack/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13.jar:/home/mrjack/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/home/mrjack/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar'
+--module-path
+'/home/mrjack/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13-linux.jar:/home/mrjack/Documents/WGU/C195/SchedulingApp/target/classes:/home/mrjack/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13-linux.jar:/home/mrjack/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13-linux.jar:/home/mrjack/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13-linux.jar'
+--patch-module
+c195.schedulingapp='/home/mrjack/Documents/WGU/C195/SchedulingApp/src/main/java'
+-encoding
+'UTF-8'
+-protected
+-source
+'11'
+--module-source-path
+'/home/mrjack/Documents/WGU/C195/SchedulingApp/target/site/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/mrjack/Documents/WGU/C195/SchedulingApp/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'SchedulingApp 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/mrjack/Documents/WGU/C195/SchedulingApp/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'SchedulingApp 1.0-SNAPSHOT API'

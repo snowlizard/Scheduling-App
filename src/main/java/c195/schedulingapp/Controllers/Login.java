@@ -53,6 +53,8 @@ public class Login implements Initializable {
     private static ObservableList<String> languages = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

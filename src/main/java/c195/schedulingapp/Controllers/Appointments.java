@@ -52,6 +52,8 @@ public class Appointments implements Initializable {
     appointmentDA appointmentDBA = new appointmentDA();
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

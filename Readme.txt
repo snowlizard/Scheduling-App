@@ -1,8 +1,9 @@
 Scheduling App
 ID: 005433855 Email: jgon811@wgu.edu 12/02/23  
-Version 1  
-Apache NetBeans IDE 18  
-Java SE 21.0.1  
+Version 1.1.2
+Apache NetBeans IDE 12.6
+Java SE 17.0.1
+JavaFX 17.0.1
 mysql-connector-java-8.0.33  
 by Julian Gonzalez
 
