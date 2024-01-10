@@ -111,6 +111,7 @@ public class Appointments implements Initializable {
                 ButtonType.OK);
             dialog.showAndWait();
         }
+        AptFilter.selectToggle(all);
     }
     
     /**
@@ -122,6 +123,7 @@ public class Appointments implements Initializable {
         appointmentDBA.setCurrent(null);
         new HelperFunctions().setModal("/fxml/appointmentForm");
         updateTable();
+        AptFilter.selectToggle(all);
     }
     
     /**

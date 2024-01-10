@@ -168,7 +168,8 @@ public class appointmentDA extends Connector{
         ObservableList<Appointment> temp = FXCollections.observableArrayList();
         
         appointments.forEach((apt) -> {
-            if(apt.getStart().getMonth() == today.getMonth()){
+            if(apt.getStart().getMonth() == today.getMonth() 
+                    && apt.getStart().getYear() == today.getYear()){
                 temp.add(apt);
             }
         });
@@ -196,7 +197,8 @@ public class appointmentDA extends Connector{
             c2.set(apt.getStart().getYear(), apt.getStart().getMonthValue(),
                     apt.getStart().getDayOfMonth());
             int startWeek = c2.get(c2.WEEK_OF_MONTH);
-            if(currentWeek == startWeek){
+            if(currentWeek == startWeek &&
+                    apt.getStart().getYear() == today.getYear()){
                 temp.add(apt);
             }
         });
